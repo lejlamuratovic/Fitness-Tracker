@@ -1,0 +1,6 @@
+configuration:
+  swagger:
+    app: 'Fitness Tracker'
+    description: 'A simple fitness tracker built with Spring Boot'
+    developer: 'Lejla Muratović'
+    email: 'lejla.muratovic@stu.ibu.edu.ba'
