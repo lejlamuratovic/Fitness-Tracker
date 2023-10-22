@@ -1,17 +1,20 @@
-package ba.edu.ibu.fitnesstracker.core.model;
+package ba.edu.ibu.fitnesstracker.rest.dto;
 
+import ba.edu.ibu.fitnesstracker.core.model.Exercise;
 import ba.edu.ibu.fitnesstracker.core.model.enums.ExerciseGroup;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
-public class Exercise {
-
-    @Id
+public class ExerciseDTO {
     private String id;
     private String name;
     private ExerciseGroup muscleGroup;
     private String description;
+
+    public ExerciseDTO(Exercise exercise) {
+        this.id = exercise.getId();
+        this.name = exercise.getName();
+        this.muscleGroup = exercise.getMuscleGroup();
+        this.description = exercise.getDescription();
+    }
 
     public String getId() {
         return id;

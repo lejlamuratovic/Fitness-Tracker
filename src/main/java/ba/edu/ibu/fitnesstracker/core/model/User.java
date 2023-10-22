@@ -1,23 +1,28 @@
 package ba.edu.ibu.fitnesstracker.core.model;
 
+import ba.edu.ibu.fitnesstracker.core.model.enums.UserType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
+
+@Document
 public class User {
-    private int id;
+
+    @Id
+    private String id;
+    private UserType userType;
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
+    private Date creationDate;
 
-    public User(int id, String firstName, String lastName, String email) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,6 +48,30 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 
