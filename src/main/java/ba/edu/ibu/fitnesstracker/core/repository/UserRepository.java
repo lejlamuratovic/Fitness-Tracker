@@ -1,28 +1,16 @@
 package ba.edu.ibu.fitnesstracker.core.repository;
 
 import ba.edu.ibu.fitnesstracker.core.model.User;
+import org.springframework.data.mongodb.repository.Aggregation;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public class UserRepository {
-
-    private final List<User> users;
-
-    public UserRepository() {
-        this.users = Arrays.asList(
-                new User(1, "Lejla", "Muratović", "lejla.muratovic@stu.ibu.edu.ba"),
-                new User(2, "Lejla2", "Muratović2", "lejla.muratovic2@stu.ibu.edu.ba")
-        );
-    }
-
-    public List<User> findAll() {
-        return users;
-    }
-
-    public User findById(int id) {
-        return users.stream().filter(user -> user.getId() == id).findFirst().orElse(null);
-    }
+public interface UserRepository extends MongoRepository<User, String> {
 }
+

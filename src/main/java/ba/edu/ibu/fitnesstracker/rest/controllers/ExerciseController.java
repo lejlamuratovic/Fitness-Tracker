@@ -1,30 +1,47 @@
 package ba.edu.ibu.fitnesstracker.rest.controllers;
 
-import ba.edu.ibu.fitnesstracker.core.model.Exercise;
 import ba.edu.ibu.fitnesstracker.core.service.ExerciseService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ba.edu.ibu.fitnesstracker.rest.dto.ExerciseDTO;
+import ba.edu.ibu.fitnesstracker.rest.dto.ExerciseRequestDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/exercises")
+@RequestMapping("api/exercise")
 public class ExerciseController {
+
     private final ExerciseService exerciseService;
 
     public ExerciseController(ExerciseService exerciseService) {
         this.exerciseService = exerciseService;
     }
 
-    @GetMapping
-    public List<Exercise> findAll() {
-        return exerciseService.findAll();
+    @RequestMapping(method = RequestMethod.GET, path = "/")
+    public ResponseEntity<List<ExerciseDTO>> getExercises() {
+        return ResponseEntity.ok(exerciseService.getExercises());
     }
 
-    @GetMapping("/{id}")
-    public Exercise findById(@PathVariable int id) {
-        return exerciseService.findById(id);
+    @RequestMapping(method = RequestMethod.POST, path = "/")
+    public ResponseEntity<ExerciseDTO> register(@RequestBody ExerciseRequestDTO Exercise) {
+        return ResponseEntity.ok(exerciseService.addExercise(Exercise));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    public ResponseEntity<ExerciseDTO> getExerciseById(@PathVariable String id) {
+        return ResponseEntity.ok(exerciseService.getExerciseById(id));
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+    public ResponseEntity<ExerciseDTO> updateExercise(@PathVariable String id, @RequestBody ExerciseRequestDTO Exercise) {
+        return ResponseEntity.ok(exerciseService.updateExercise(id, Exercise));
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+    public ResponseEntity<Void> deleteExercise(@PathVariable String id) {
+        exerciseService.deleteExercise(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
