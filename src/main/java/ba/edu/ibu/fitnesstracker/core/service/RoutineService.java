@@ -67,4 +67,13 @@ public class RoutineService {
         routine.ifPresent(routineRepository::delete);
     }
 
+    public WorkoutLogDTO markRoutineAsDone(String routineId) {
+        RoutineDTO routine = getRoutineById(routineId);
+
+        WorkoutLogRequestDTO logRequest = new WorkoutLogRequestDTO();
+        logRequest.setExercises(routine.getExercises());
+        logRequest.setUserId(routine.getUserId());
+
+        return workoutLogService.addWorkoutLog(logRequest);
+    }
 }

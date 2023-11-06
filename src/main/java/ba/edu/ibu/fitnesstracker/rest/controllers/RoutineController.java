@@ -54,4 +54,10 @@ public class RoutineController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // to transfer array of exercises from routine to workout log
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @RequestMapping(method = RequestMethod.POST, path = "/{id}/complete")
+    public ResponseEntity<WorkoutLogDTO> markRoutineAsDone(@PathVariable String id) {
+        return ResponseEntity.ok(routineService.markRoutineAsDone(id));
+    }
 }
