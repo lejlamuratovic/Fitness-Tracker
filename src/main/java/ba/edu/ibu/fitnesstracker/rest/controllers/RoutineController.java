@@ -62,6 +62,7 @@ public class RoutineController {
         return ResponseEntity.ok(routineService.markRoutineAsDone(id));
     }
 
+    // to append a certain exercise to a given routine
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/exercises")
     public ResponseEntity<RoutineDTO> addExerciseToRoutine(@PathVariable String id, @RequestBody Routine.ExerciseDetail exerciseDetail) {

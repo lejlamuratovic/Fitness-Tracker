@@ -2,6 +2,7 @@ package ba.edu.ibu.fitnesstracker.core.service;
 
 import ba.edu.ibu.fitnesstracker.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.fitnesstracker.core.model.Exercise;
+import ba.edu.ibu.fitnesstracker.core.model.enums.ExerciseGroup;
 import ba.edu.ibu.fitnesstracker.core.repository.ExerciseRepository;
 import ba.edu.ibu.fitnesstracker.rest.dto.ExerciseDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.ExerciseRequestDTO;
@@ -61,5 +62,14 @@ public class ExerciseService {
     public void deleteExercise(String id) {
         Optional<Exercise> exercise = exerciseRepository.findById(id);
         exercise.ifPresent(exerciseRepository::delete);
+    }
+
+    public List<ExerciseDTO> findByMuscleGroup(ExerciseGroup group) {
+        List<Exercise> exercises = exerciseRepository.findExercisesByMuscleGroup(group);
+
+        return exercises
+                .stream()
+                .map(ExerciseDTO::new)
+                .collect(toList());
     }
 }

@@ -1,5 +1,6 @@
 package ba.edu.ibu.fitnesstracker.rest.controllers;
 
+import ba.edu.ibu.fitnesstracker.core.model.enums.ExerciseGroup;
 import ba.edu.ibu.fitnesstracker.core.service.ExerciseService;
 import ba.edu.ibu.fitnesstracker.rest.dto.ExerciseDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.ExerciseRequestDTO;
@@ -50,5 +51,12 @@ public class ExerciseController {
     public ResponseEntity<Void> deleteExercise(@PathVariable String id) {
         exerciseService.deleteExercise(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // to search for exercises by muscle group
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MEMBER')")
+    @RequestMapping(method = RequestMethod.GET, path = "/muscleGroup")
+    public ResponseEntity<List<ExerciseDTO>> findByMuscleGroup(@RequestParam ExerciseGroup muscleGroup) {
+        return ResponseEntity.ok(exerciseService.findByMuscleGroup(muscleGroup));
     }
 }
