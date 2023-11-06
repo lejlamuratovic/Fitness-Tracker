@@ -3,6 +3,7 @@ package ba.edu.ibu.fitnesstracker.rest.controllers;
 import ba.edu.ibu.fitnesstracker.core.service.ExerciseService;
 import ba.edu.ibu.fitnesstracker.rest.dto.ExerciseDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.ExerciseRequestDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/exercise")
+@SecurityRequirement(name = "JWT Security")
 public class ExerciseController {
 
     private final ExerciseService exerciseService;

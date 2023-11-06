@@ -4,6 +4,7 @@ import ba.edu.ibu.fitnesstracker.core.service.RoutineService;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineRequestDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/routines")
+@SecurityRequirement(name = "JWT Security")
 public class RoutineController {
 
     private final RoutineService routineService;
