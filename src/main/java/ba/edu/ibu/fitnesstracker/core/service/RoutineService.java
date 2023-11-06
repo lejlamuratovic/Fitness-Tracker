@@ -76,4 +76,18 @@ public class RoutineService {
 
         return workoutLogService.addWorkoutLog(logRequest);
     }
+
+    public RoutineDTO addExerciseToRoutine(String routineId, Routine.ExerciseDetail exerciseDetail) {
+        Optional<Routine> routineOptional = routineRepository.findById(routineId);
+        if (routineOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Routine with the given ID does not exist.");
+        }
+
+        Routine routine = routineOptional.get();
+        List<Routine.ExerciseDetail> currentExercises = routine.getExercises();
+        currentExercises.add(exerciseDetail); // append the new exercise
+        routine.setExercises(currentExercises); // set the updated list
+        Routine updatedRoutine = routineRepository.save(routine); // save the updated routine
+        return new RoutineDTO(updatedRoutine);
+    }
 }

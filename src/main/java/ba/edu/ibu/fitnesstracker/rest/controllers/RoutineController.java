@@ -1,5 +1,6 @@
 package ba.edu.ibu.fitnesstracker.rest.controllers;
 
+import ba.edu.ibu.fitnesstracker.core.model.Routine;
 import ba.edu.ibu.fitnesstracker.core.service.RoutineService;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineRequestDTO;
@@ -59,5 +60,11 @@ public class RoutineController {
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/complete")
     public ResponseEntity<WorkoutLogDTO> markRoutineAsDone(@PathVariable String id) {
         return ResponseEntity.ok(routineService.markRoutineAsDone(id));
+    }
+
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @RequestMapping(method = RequestMethod.POST, path = "/{id}/exercises")
+    public ResponseEntity<RoutineDTO> addExerciseToRoutine(@PathVariable String id, @RequestBody Routine.ExerciseDetail exerciseDetail) {
+        return ResponseEntity.ok(routineService.addExerciseToRoutine(id, exerciseDetail));
     }
 }
