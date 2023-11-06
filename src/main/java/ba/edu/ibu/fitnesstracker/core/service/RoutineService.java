@@ -5,6 +5,8 @@ import ba.edu.ibu.fitnesstracker.core.model.Routine;
 import ba.edu.ibu.fitnesstracker.core.repository.RoutineRepository;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineRequestDTO;
+import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogDTO;
+import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogRequestDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +18,11 @@ import static java.util.stream.Collectors.toList;
 public class RoutineService {
 
     private final RoutineRepository routineRepository;
+    private final WorkoutLogService workoutLogService;
 
-    public RoutineService(RoutineRepository routineRepository) {
+    public RoutineService(RoutineRepository routineRepository, WorkoutLogService workoutLogService) {
         this.routineRepository = routineRepository;
+        this.workoutLogService = workoutLogService;
     }
 
     public List<RoutineDTO> getRoutines() {

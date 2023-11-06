@@ -20,7 +20,6 @@ public class WorkoutLogRequestDTO {
         WorkoutLog workoutLog = new WorkoutLog();
         workoutLog.setExercises(exercises);
         workoutLog.setUserId(userId);
-        workoutLog.setDateCompleted(new Date());
         return workoutLog;
     }
 

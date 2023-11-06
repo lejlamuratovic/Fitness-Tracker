@@ -10,3 +10,7 @@ spring:
       mongodb:
         uri: mongodb+srv://new-user:Wfr9otMo6UqxJAxT@cluster0.fxeeeps.mongodb.net/?retryWrites=true&w=majority
         database: fitness_tracker
+
+security:
+  jwt:
+    secret: 'hLETvNpNU1s59jZ3G7hAJAErdzSvmggP1iFDtX'

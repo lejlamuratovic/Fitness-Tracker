@@ -3,6 +3,7 @@ package ba.edu.ibu.fitnesstracker.rest.controllers;
 import ba.edu.ibu.fitnesstracker.core.service.RoutineService;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineRequestDTO;
+import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,4 +45,5 @@ public class RoutineController {
         routineService.deleteRoutine(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
