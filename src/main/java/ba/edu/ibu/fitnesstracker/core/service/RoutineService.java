@@ -90,4 +90,12 @@ public class RoutineService {
         Routine updatedRoutine = routineRepository.save(routine); // save the updated routine
         return new RoutineDTO(updatedRoutine);
     }
+
+    public List<RoutineDTO> getRoutinesByUserId(String userId) {
+        List<Routine> routines = routineRepository.findRoutinesByUserId(userId);
+        return routines.
+                stream().
+                map(RoutineDTO::new).
+                collect(toList());
+    }
 }
