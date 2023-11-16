@@ -1,6 +1,7 @@
 package ba.edu.ibu.fitnesstracker.core.service;
 
 import ba.edu.ibu.fitnesstracker.core.api.mailsender.MailSender;
+import ba.edu.ibu.fitnesstracker.core.model.WorkoutLog;
 import ba.edu.ibu.fitnesstracker.core.repository.UserRepository;
 import ba.edu.ibu.fitnesstracker.rest.dto.UserDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.UserRequestDTO;
@@ -13,6 +14,7 @@ import ba.edu.ibu.fitnesstracker.core.model.User;
 import ba.edu.ibu.fitnesstracker.core.exceptions.repository.ResourceNotFoundException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
