@@ -1,8 +1,10 @@
 package ba.edu.ibu.fitnesstracker.core.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.UUID;
 
 import java.util.Date;
 import java.util.List;
@@ -80,10 +82,17 @@ public class Routine {
     } */
 
     public static class ExerciseDetail {
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+        private String detailId; // uniquely identify the exercise detail
         private String exerciseId;
         private double weight;
         private int sets;
         private int reps;
+
+        // ??
+        public ExerciseDetail() {
+            this.detailId = UUID.randomUUID().toString(); // generate a random unique identifier
+        }
 
         public String getExerciseId() {
             return exerciseId;
@@ -115,6 +124,14 @@ public class Routine {
 
         public void setReps(int reps) {
             this.reps = reps;
+        }
+
+        public String getDetailId() {
+            return detailId;
+        }
+
+        public void setDetailId(String detailId) {
+            this.detailId = detailId;
         }
     }
 }
