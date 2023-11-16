@@ -9,6 +9,7 @@ import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogRequestDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,12 +68,13 @@ public class RoutineService {
         routine.ifPresent(routineRepository::delete);
     }
 
-    public WorkoutLogDTO markRoutineAsDone(String routineId) {
+    public WorkoutLogDTO markRoutineAsDone(String routineId, Date dateCompleted) {
         RoutineDTO routine = getRoutineById(routineId);
 
         WorkoutLogRequestDTO logRequest = new WorkoutLogRequestDTO();
         logRequest.setExercises(routine.getExercises());
         logRequest.setUserId(routine.getUserId());
+        logRequest.setDateCompleted(dateCompleted);
 
         return workoutLogService.addWorkoutLog(logRequest);
     }

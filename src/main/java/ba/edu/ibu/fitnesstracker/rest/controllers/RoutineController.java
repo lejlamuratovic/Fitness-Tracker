@@ -5,12 +5,14 @@ import ba.edu.ibu.fitnesstracker.core.service.RoutineService;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineRequestDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -58,8 +60,8 @@ public class RoutineController {
     // to transfer array of exercises from routine to workout log
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/complete")
-    public ResponseEntity<WorkoutLogDTO> markRoutineAsDone(@PathVariable String id) {
-        return ResponseEntity.ok(routineService.markRoutineAsDone(id));
+    public ResponseEntity<WorkoutLogDTO> markRoutineAsDone(@PathVariable String id, @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX") @RequestBody Date dateCompleted) {
+        return ResponseEntity.ok(routineService.markRoutineAsDone(id, dateCompleted));
     }
 
     // to append a certain exercise to a given routine
