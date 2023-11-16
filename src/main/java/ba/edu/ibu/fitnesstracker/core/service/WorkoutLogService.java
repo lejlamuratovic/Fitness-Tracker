@@ -1,7 +1,9 @@
 package ba.edu.ibu.fitnesstracker.core.service;
 
 import ba.edu.ibu.fitnesstracker.core.exceptions.repository.ResourceNotFoundException;
+import ba.edu.ibu.fitnesstracker.core.model.Routine;
 import ba.edu.ibu.fitnesstracker.core.repository.WorkoutLogRepository;
+import ba.edu.ibu.fitnesstracker.rest.dto.RoutineDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogRequestDTO;
 import org.springframework.stereotype.Service;
@@ -61,6 +63,14 @@ public class WorkoutLogService {
     public void deleteWorkoutLog(String id) {
         Optional<WorkoutLog> workoutLog = workoutLogRepository.findById(id);
         workoutLog.ifPresent(workoutLogRepository::delete);
+    }
+
+    public List<WorkoutLogDTO> getWorkoutLogsByUserId(String userId) {
+        List<WorkoutLog> workoutLogs = workoutLogRepository.findWorkoutLogsByUserId(userId);
+        return workoutLogs.
+                stream().
+                map(WorkoutLogDTO::new).
+                collect(toList());
     }
 }
 

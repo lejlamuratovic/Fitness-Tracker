@@ -71,7 +71,7 @@ public class RoutineController {
         return ResponseEntity.ok(routineService.addExerciseToRoutine(id, exerciseDetail));
     }
 
-    // to get a list of exercises per user
+    // to get a list of routines per user
     @PreAuthorize("hasAuthority('MEMBER')")
     @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}")
     public ResponseEntity<List<RoutineDTO>> getRoutinesByUserId(@PathVariable String userId) {

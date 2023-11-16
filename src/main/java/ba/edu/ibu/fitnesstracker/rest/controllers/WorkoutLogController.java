@@ -1,6 +1,7 @@
 package ba.edu.ibu.fitnesstracker.rest.controllers;
 
 import ba.edu.ibu.fitnesstracker.core.service.WorkoutLogService;
+import ba.edu.ibu.fitnesstracker.rest.dto.RoutineDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogRequestDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -51,5 +52,12 @@ public class WorkoutLogController {
     public ResponseEntity<Void> deleteWorkoutLog(@PathVariable String id) {
         workoutLogService.deleteWorkoutLog(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // to get a list of workout logs per user
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}")
+    public ResponseEntity<List<WorkoutLogDTO>> getWorkoutLogsByUserId(@PathVariable String userId) {
+        return ResponseEntity.ok(workoutLogService.getWorkoutLogsByUserId(userId));
     }
 }
