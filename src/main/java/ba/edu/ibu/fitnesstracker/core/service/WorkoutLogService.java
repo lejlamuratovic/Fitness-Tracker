@@ -96,4 +96,12 @@ public class WorkoutLogService {
 
         return totalWeight;
     }
+
+    public List<WorkoutLogDTO> getWorkoutLogsByDateRange(String userId, Date startDate, Date endDate) {
+        List<WorkoutLog> workoutLogs = workoutLogRepository.findWorkoutLogsByUserIdAndDateRange(userId, startDate, endDate);
+        return workoutLogs
+                .stream()
+                .map(WorkoutLogDTO::new)
+                .collect(toList());
+    }
 }

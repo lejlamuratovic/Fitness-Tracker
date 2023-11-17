@@ -4,12 +4,14 @@ import ba.edu.ibu.fitnesstracker.core.service.WorkoutLogService;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogRequestDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -83,5 +85,16 @@ public class WorkoutLogController {
     public ResponseEntity<List<Map<String, Object>>> getUserWeightStats(@PathVariable String userId) {
         List<Map<String, Object>> weightStats = workoutLogService.calculateUserWeightStats(userId);
         return ResponseEntity.ok(weightStats);
+    }
+
+    // to find a list of workout logs within a date range
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}/dateRange")
+    public ResponseEntity<List<WorkoutLogDTO>> getWorkoutLogsByDateRange(
+            @PathVariable String userId,
+            @RequestParam @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX") Date startDate,
+            @RequestParam @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX") Date endDate) {
+        List<WorkoutLogDTO> workoutLogs = workoutLogService.getWorkoutLogsByDateRange(userId, startDate, endDate);
+        return ResponseEntity.ok(workoutLogs);
     }
 }
