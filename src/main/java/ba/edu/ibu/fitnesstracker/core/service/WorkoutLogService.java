@@ -65,10 +65,7 @@ public class WorkoutLogService {
 
     public List<WorkoutLogDTO> getWorkoutLogsByUserId(String userId) {
         List<WorkoutLog> workoutLogs = workoutLogRepository.findWorkoutLogsByUserId(userId);
-        return workoutLogs.
-                stream().
-                map(WorkoutLogDTO::new).
-                collect(toList());
+        return workoutLogs.stream().map(WorkoutLogDTO::new).collect(toList());
     }
 
     // helper methods to extract weight lifted
@@ -100,4 +97,3 @@ public class WorkoutLogService {
         return totalWeight;
     }
 }
-

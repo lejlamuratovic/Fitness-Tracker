@@ -44,7 +44,8 @@ public class WorkoutLogController {
 
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-    public ResponseEntity<WorkoutLogDTO> updateWorkoutLog(@PathVariable String id, @RequestBody WorkoutLogRequestDTO WorkoutLog) {
+    public ResponseEntity<WorkoutLogDTO> updateWorkoutLog(@PathVariable String id,
+            @RequestBody WorkoutLogRequestDTO WorkoutLog) {
         return ResponseEntity.ok(workoutLogService.updateWorkoutLog(id, WorkoutLog));
     }
 
@@ -63,17 +64,19 @@ public class WorkoutLogController {
     }
 
     // to support the graph showing total weight lifted over time
-    /* [
-    {
-        "dateCompleted": "2023-11-16T16:22:36.374Z",
-            "totalWeight": 2400.0
-    },
-    {
-        "dateCompleted": "2023-11-15T14:10:22.123Z",
-            "totalWeight": 1800.0
-    },
-            ... more
-    ] */
+    /*
+     * [
+     * {
+     * "dateCompleted": "2023-11-16T16:22:36.374Z",
+     * "totalWeight": 2400.0
+     * },
+     * {
+     * "dateCompleted": "2023-11-15T14:10:22.123Z",
+     * "totalWeight": 1800.0
+     * },
+     * ... more
+     * ]
+     */
 
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}/stats/weight")

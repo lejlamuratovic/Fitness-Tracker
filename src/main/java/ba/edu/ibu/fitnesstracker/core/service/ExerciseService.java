@@ -72,4 +72,15 @@ public class ExerciseService {
                 .map(ExerciseDTO::new)
                 .collect(toList());
     }
+
+    public String findExerciseNameById(String exerciseId) {
+        Optional<Exercise> exerciseOptional = exerciseRepository.findById(exerciseId);
+
+        if (exerciseOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Exercise with the given ID does not exist.");
+        }
+
+        ExerciseDTO exerciseDto = new ExerciseDTO(exerciseOptional.get());
+        return exerciseDto.getName();
+    }
 }

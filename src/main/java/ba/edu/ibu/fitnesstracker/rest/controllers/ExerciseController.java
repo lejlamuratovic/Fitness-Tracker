@@ -59,4 +59,12 @@ public class ExerciseController {
     public ResponseEntity<List<ExerciseDTO>> findByMuscleGroup(@RequestParam ExerciseGroup muscleGroup) {
         return ResponseEntity.ok(exerciseService.findByMuscleGroup(muscleGroup));
     }
+
+    // to search for exercise name - helper for later
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MEMBER')")
+    @RequestMapping(method = RequestMethod.GET, path = "/{exerciseId}/exerciseName")
+    public ResponseEntity<String> findExerciseNameById(@PathVariable String exerciseId) {
+        return ResponseEntity.ok(exerciseService.findExerciseNameById(exerciseId));
+    }
+
 }
