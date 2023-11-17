@@ -77,4 +77,11 @@ public class RoutineController {
     public ResponseEntity<List<RoutineDTO>> getRoutinesByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(routineService.getRoutinesByUserId(userId));
     }
+
+    // to update specific exercise detail inside a routine
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @RequestMapping(method = RequestMethod.PUT, path = "/{routineId}/exercises/{exerciseDetailId}")
+    public ResponseEntity<RoutineDTO> updateExerciseInRoutine(@PathVariable String routineId, @PathVariable String exerciseDetailId,  @RequestBody Routine.ExerciseDetail updatedExerciseDetail) {
+        return ResponseEntity.ok(routineService.updateExerciseInRoutine(routineId, exerciseDetailId, updatedExerciseDetail));
+    }
 }

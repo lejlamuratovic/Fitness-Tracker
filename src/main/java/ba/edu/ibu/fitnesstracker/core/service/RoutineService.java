@@ -100,4 +100,37 @@ public class RoutineService {
                 map(RoutineDTO::new).
                 collect(toList());
     }
+
+    public RoutineDTO updateExerciseInRoutine(String routineId, String exerciseDetailId, Routine.ExerciseDetail updatedExerciseDetail) {
+        Optional<Routine> routineOptional = routineRepository.findById(routineId);
+
+        if (routineOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Routine with the given ID does not exist.");
+        }
+
+        Routine routine = routineOptional.get();
+        List<Routine.ExerciseDetail> currentExercises = routine.getExercises();
+
+        // find the index of the exercise detail with the given ID
+        int indexOfExerciseDetail = -1;
+        for (int i = 0; i < currentExercises.size(); i++) {
+            if (currentExercises.get(i).getDetailId().equals(exerciseDetailId)) {
+                indexOfExerciseDetail = i;
+                break;
+            }
+        }
+
+        if (indexOfExerciseDetail == -1) {
+            throw new ResourceNotFoundException("Exercise detail with the given ID not found in the routine.");
+        }
+
+        // update the founded exercise detail
+        currentExercises.set(indexOfExerciseDetail, updatedExerciseDetail);
+
+        routine.setExercises(currentExercises);
+        Routine updatedRoutine = routineRepository.save(routine);
+
+        return new RoutineDTO(updatedRoutine);
+    }
+
 }
