@@ -84,4 +84,11 @@ public class RoutineController {
     public ResponseEntity<RoutineDTO> updateExerciseInRoutine(@PathVariable String routineId, @PathVariable String exerciseDetailId,  @RequestBody Routine.ExerciseDetail updatedExerciseDetail) {
         return ResponseEntity.ok(routineService.updateExerciseInRoutine(routineId, exerciseDetailId, updatedExerciseDetail));
     }
+
+    // to delete a specific exercise detail inside a routine
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{routineId}/exercises/{exerciseDetailId}")
+    public ResponseEntity<RoutineDTO> deleteExerciseInRoutine(@PathVariable String routineId, @PathVariable String exerciseDetailId) {
+        return ResponseEntity.ok(routineService.deleteExerciseInRoutine(routineId, exerciseDetailId));
+    }
 }

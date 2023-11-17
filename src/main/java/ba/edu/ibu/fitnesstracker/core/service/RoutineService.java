@@ -112,7 +112,43 @@ public class RoutineService {
         List<Routine.ExerciseDetail> currentExercises = routine.getExercises();
 
         // find the index of the exercise detail with the given ID
+        int indexOfExerciseDetail = findIndexOfExerciseDetails(exerciseDetailId, currentExercises);
+
+        // update the founded exercise detail
+        currentExercises.set(indexOfExerciseDetail, updatedExerciseDetail);
+
+        routine.setExercises(currentExercises);
+        Routine updatedRoutine = routineRepository.save(routine);
+
+        return new RoutineDTO(updatedRoutine);
+    }
+
+    public RoutineDTO deleteExerciseInRoutine(String routineId, String exerciseDetailId) {
+        Optional<Routine> routineOptional = routineRepository.findById(routineId);
+
+        if (routineOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Routine with the given ID does not exist.");
+        }
+
+        Routine routine = routineOptional.get();
+        List<Routine.ExerciseDetail> currentExercises = routine.getExercises();
+
+        // find the index of the exercise detail with the given ID
+        int indexOfExerciseDetail = findIndexOfExerciseDetails(exerciseDetailId, currentExercises);
+
+        // update the founded exercise detail
+        currentExercises.remove(indexOfExerciseDetail);
+
+        routine.setExercises(currentExercises);
+        Routine updatedRoutine = routineRepository.save(routine);
+
+        return new RoutineDTO(updatedRoutine);
+    }
+
+    // helper method to find the index of the exercise detail with the given ID
+    private int findIndexOfExerciseDetails(String exerciseDetailId, List<Routine.ExerciseDetail> currentExercises) {
         int indexOfExerciseDetail = -1;
+
         for (int i = 0; i < currentExercises.size(); i++) {
             if (currentExercises.get(i).getDetailId().equals(exerciseDetailId)) {
                 indexOfExerciseDetail = i;
@@ -124,13 +160,6 @@ public class RoutineService {
             throw new ResourceNotFoundException("Exercise detail with the given ID not found in the routine.");
         }
 
-        // update the founded exercise detail
-        currentExercises.set(indexOfExerciseDetail, updatedExerciseDetail);
-
-        routine.setExercises(currentExercises);
-        Routine updatedRoutine = routineRepository.save(routine);
-
-        return new RoutineDTO(updatedRoutine);
+        return indexOfExerciseDetail;
     }
-
 }
