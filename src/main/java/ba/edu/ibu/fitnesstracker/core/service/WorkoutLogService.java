@@ -69,8 +69,15 @@ public class WorkoutLogService {
     }
 
     // helper methods to extract weight lifted
-    public List<Map<String, Object>> calculateUserWeightStats(String userId) {
-        List<WorkoutLogDTO> workoutLogs = getWorkoutLogsByUserId(userId);
+    public List<Map<String, Object>> calculateUserWeightStats(String userId, Date startDate, Date endDate) {
+        List<WorkoutLogDTO> workoutLogs;
+
+        // use getWorkoutLogsByDateRange only if startDate and endDate are provided, else get all workout logs
+        if (startDate != null && endDate != null) {
+            workoutLogs = getWorkoutLogsByDateRange(userId, startDate, endDate);
+        } else {
+            workoutLogs = getWorkoutLogsByUserId(userId);
+        }
 
         List<Map<String, Object>> weightStats = new ArrayList<>();
 
@@ -87,11 +94,12 @@ public class WorkoutLogService {
         return weightStats;
     }
 
+
     private double calculateTotalWeightForWorkoutLog(WorkoutLogDTO workoutLog) {
         double totalWeight = 0.0;
 
         for (Routine.ExerciseDetail exerciseDetail : workoutLog.getExercises()) {
-            totalWeight += exerciseDetail.getWeight() * exerciseDetail.getSets() * exerciseDetail.getReps();
+            totalWeight += exerciseDetail.getWeight();
         }
 
         return totalWeight;

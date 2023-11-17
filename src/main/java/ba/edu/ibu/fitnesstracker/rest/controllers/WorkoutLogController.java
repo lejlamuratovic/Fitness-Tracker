@@ -6,6 +6,7 @@ import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogRequestDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -80,10 +81,12 @@ public class WorkoutLogController {
      * ]
      */
 
+    // to support the graph showing total weight lifted overall
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}/stats/weight")
     public ResponseEntity<List<Map<String, Object>>> getUserWeightStats(@PathVariable String userId) {
-        List<Map<String, Object>> weightStats = workoutLogService.calculateUserWeightStats(userId);
+        // null is being sent instead of date because there is no date specified
+        List<Map<String, Object>> weightStats = workoutLogService.calculateUserWeightStats(userId, null, null);
         return ResponseEntity.ok(weightStats);
     }
 
@@ -92,9 +95,20 @@ public class WorkoutLogController {
     @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}/dateRange")
     public ResponseEntity<List<WorkoutLogDTO>> getWorkoutLogsByDateRange(
             @PathVariable String userId,
-            @RequestParam @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX") Date startDate,
-            @RequestParam @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX") Date endDate) {
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX") Date startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX") Date endDate) {
         List<WorkoutLogDTO> workoutLogs = workoutLogService.getWorkoutLogsByDateRange(userId, startDate, endDate);
         return ResponseEntity.ok(workoutLogs);
+    }
+
+    // to support the graph showing total weight lifted within a date range
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}/stats/weight/dateRange")
+    public ResponseEntity<List<Map<String, Object>>> getUserWeightStatsWithinDateRange(
+            @PathVariable String userId,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX") Date startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX") Date endDate) {
+        List<Map<String, Object>> weightStats = workoutLogService.calculateUserWeightStats(userId, startDate, endDate);
+        return ResponseEntity.ok(weightStats);
     }
 }
