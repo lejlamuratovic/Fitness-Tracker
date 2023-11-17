@@ -162,4 +162,15 @@ public class RoutineService {
 
         return indexOfExerciseDetail;
     }
+
+    public List<Routine.ExerciseDetail> getExercisesInRoutine(String routineId) {
+        Optional<Routine> routineOptional = routineRepository.findById(routineId);
+
+        if (routineOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Routine with the given ID does not exist.");
+        }
+
+        Routine routine = routineOptional.get();
+        return routine.getExercises();
+    }
 }

@@ -91,4 +91,11 @@ public class RoutineController {
     public ResponseEntity<RoutineDTO> deleteExerciseInRoutine(@PathVariable String routineId, @PathVariable String exerciseDetailId) {
         return ResponseEntity.ok(routineService.deleteExerciseInRoutine(routineId, exerciseDetailId));
     }
+
+    // to list all exercises per routine
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @RequestMapping(method = RequestMethod.GET, path = "/{routineId}/exercises")
+    public ResponseEntity<List<Routine.ExerciseDetail>> getExercisesInRoutine(@PathVariable String routineId) {
+        return ResponseEntity.ok(routineService.getExercisesInRoutine(routineId));
+    }
 }
