@@ -32,5 +32,4 @@ public class ExerciseRepositoryTest {
         Optional<Exercise> exercise = exerciseRepository.findById("653537c3c284210ab5b9e620");
         assertNotNull(exercise.orElse(null));
     }
-
 }

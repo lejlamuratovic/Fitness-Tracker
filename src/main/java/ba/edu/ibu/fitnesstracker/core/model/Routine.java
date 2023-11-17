@@ -19,6 +19,16 @@ public class Routine {
     private String userId;
     private Date creationDate;
 
+    public Routine() { }
+
+    public Routine(String id, String name, List<ExerciseDetail> exercises, String userId, Date creationDate) {
+        this.id = id;
+        this.name = name;
+        this.exercises = exercises;
+        this.userId = userId;
+        this.creationDate = creationDate;
+    }
+
     public String getId() {
         return id;
     }
@@ -92,6 +102,14 @@ public class Routine {
         // ??
         public ExerciseDetail() {
             this.detailId = UUID.randomUUID().toString(); // generate a random unique identifier
+        }
+
+        public ExerciseDetail(String detailId, String exerciseId, double weight, int sets, int reps) {
+            this.detailId = detailId;
+            this.exerciseId = exerciseId;
+            this.weight = weight;
+            this.sets = sets;
+            this.reps = reps;
         }
 
         public String getExerciseId() {
