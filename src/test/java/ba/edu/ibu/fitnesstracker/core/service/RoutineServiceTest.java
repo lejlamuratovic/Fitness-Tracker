@@ -2,7 +2,6 @@ package ba.edu.ibu.fitnesstracker.core.service;
 
 import ba.edu.ibu.fitnesstracker.core.model.Routine;
 import ba.edu.ibu.fitnesstracker.core.repository.RoutineRepository;
-import ba.edu.ibu.fitnesstracker.core.repository.RoutineRepositoryTests;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.RoutineRequestDTO;
 import org.junit.jupiter.api.Test;
