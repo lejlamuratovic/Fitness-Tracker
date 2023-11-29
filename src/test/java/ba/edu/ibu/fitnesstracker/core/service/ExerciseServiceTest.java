@@ -44,7 +44,7 @@ public class ExerciseServiceTest {
     }
 
     @Test
-    public void shouldReturnBookById() {
+    public void shouldReturnExerciseById() {
         Exercise exercise = new Exercise();
         exercise.setId("someId");
         exercise.setName("Bicep curl");

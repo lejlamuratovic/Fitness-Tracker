@@ -40,7 +40,7 @@ public class RoutineRepositoryTest {
 
     @Order(2)
     @Test
-    public void shouldDeleteExercise() {
+    public void shouldDeleteRoutine() {
         String routineIdToDelete = "someId";
         routineRepository.deleteById(routineIdToDelete);
 

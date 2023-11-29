@@ -27,7 +27,7 @@ public class UserTest {
     }
 
     @Test
-    void shouldCompareTwoExercises() {
+    void shouldCompareTwoUsers() {
         User user1 = new User(
                 "idExample",
                 UserType.MEMBER,
@@ -54,7 +54,7 @@ public class UserTest {
     }
 
     @Test
-    void shouldCrateNewExerciseWithAssetJ() {
+    void shouldCrateNewUserWithAssetJ() {
         User user = new User(
                 "idExample",
                 UserType.MEMBER,

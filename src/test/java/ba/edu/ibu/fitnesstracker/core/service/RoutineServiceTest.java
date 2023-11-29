@@ -28,7 +28,7 @@ public class RoutineServiceTest {
     RoutineService routineService;
 
     @Test
-    public void shouldReturnExerciseWhenCreated() {
+    public void shouldReturnRoutinesWhenCreated() {
         Routine routine = new Routine();
         routine.setId("someId");
         routine.setName("Day 4");
