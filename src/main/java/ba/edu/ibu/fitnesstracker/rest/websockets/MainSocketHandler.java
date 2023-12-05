@@ -1,5 +1,6 @@
 package ba.edu.ibu.fitnesstracker.rest.websockets;
 
+import ba.edu.ibu.fitnesstracker.core.exceptions.GeneralException;
 import ba.edu.ibu.fitnesstracker.core.model.User;
 import ba.edu.ibu.fitnesstracker.core.service.JwtService;
 import ba.edu.ibu.fitnesstracker.core.service.UserService;
@@ -54,6 +55,31 @@ public class MainSocketHandler implements WebSocketHandler {
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
         String messageReceived = (String) message.getPayload();
         System.out.println("Message received: " + messageReceived);
+    }
+
+    public void broadcastMessage(String message) throws IOException {
+        sessions.forEach((key, session) -> {
+            try {
+                if (session.isOpen()) {
+                    session.sendMessage(new TextMessage(message));
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    public void sendMessage(String userId, String message) {
+        WebSocketSession session = sessions.get(userId);
+        if (session == null) {
+            return;
+        }
+
+        try {
+            session.sendMessage(new TextMessage(message));
+        } catch (IOException e) {
+            throw new GeneralException(e);
+        }
     }
 
     private User getUser(WebSocketSession session) throws IOException {
