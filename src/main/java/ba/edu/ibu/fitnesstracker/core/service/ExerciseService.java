@@ -1,5 +1,6 @@
 package ba.edu.ibu.fitnesstracker.core.service;
 
+import ba.edu.ibu.fitnesstracker.core.exceptions.repository.NotificationException;
 import ba.edu.ibu.fitnesstracker.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.fitnesstracker.core.model.Exercise;
 import ba.edu.ibu.fitnesstracker.core.model.enums.ExerciseGroup;
@@ -17,9 +18,11 @@ import static java.util.stream.Collectors.toList;
 public class ExerciseService {
 
     private final ExerciseRepository exerciseRepository;
+    private final NotificationService notificationService;
 
-    public ExerciseService(ExerciseRepository exerciseRepository) {
+    public ExerciseService(ExerciseRepository exerciseRepository, NotificationService notificationService) {
         this.exerciseRepository = exerciseRepository;
+        this.notificationService = notificationService;
     }
 
     public List<ExerciseDTO> getExercises() {
@@ -43,6 +46,13 @@ public class ExerciseService {
 
     public ExerciseDTO addExercise(ExerciseRequestDTO payload) {
         Exercise exercise = exerciseRepository.save(payload.toEntity());
+
+        try {
+            notificationService.broadcastMessage("New exercise added: " + exercise.getName());
+        } catch (Exception e) {
+            throw new NotificationException("Failed to broadcast message for new exercise", e);
+        }
+
         return new ExerciseDTO(exercise);
     }
 
