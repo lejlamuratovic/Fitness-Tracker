@@ -1,7 +1,7 @@
 export type Exercise = {
-    id: String, 
-    name: String,
-    muscleGroup: String,
-    description: String,
-    imageUrl: String
+    id: string, 
+    name: string,
+    muscleGroup: string,
+    description: string,
+    imageUrl: string
 }
