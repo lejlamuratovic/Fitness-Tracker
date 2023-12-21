@@ -14,3 +14,9 @@ spring:
 security:
   jwt:
     secret: 'y28p1VqHUQSJeLt39cDmgDcvNnCFef1c1Sm8crf3ZwBLmCXGSl'
+
+amazonProperties:
+  endpointUrl: https://s3.eu-central-1.amazonaws.com
+  accessKey: AKIAZ3JTHI3XUYSVAPNE
+  secretKey: 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
+  bucketName: fitness-tracker-bucket
