@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
@@ -9,21 +9,27 @@ import { Card, Container, Paper, Typography } from '@mui/material';
 const WorkoutWeightGraph = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
+  const [data, setData] = useState<{ date: string; totalWeight: number }[]>([]);
 
-  // filter the data based on the selected date range
-  const filteredData = workoutLogsList.filter(log => {
-    if (!startDate || !endDate) return true; // if no date range selected, show all data
-    const logDate = new Date(log.date);
-    return startDate <= logDate && logDate <= endDate; // check if not null and compare dates
-  });
+  useEffect(() => {
+    const sortedLogs = [...workoutLogsList].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  const data = filteredData.map(log => {
-    const totalWeight = log.exercises.reduce((acc, curr) => acc + curr.weight, 0);
-    return { date: log.date, totalWeight };
-  });
+    const relevantLogs = sortedLogs.filter(log => {
+      if (!startDate || !endDate) return true;
+      const logDate = new Date(log.date);
+      return logDate >= startDate && logDate <= endDate;
+    }).slice(0, 5);
+
+    const chartData = relevantLogs.map(log => {
+      const totalWeight = log.exercises.reduce((acc, curr) => acc + curr.weight, 0);
+      return { date: log.date, totalWeight };
+    });
+
+    setData(chartData);
+  }, [startDate, endDate]);
 
   return (
-    <Paper elevation={3} sx={{ padding: 2}}>
+    <Paper elevation={3} sx={{ padding: 2 }}>
       <Typography variant='h5' sx={{ marginBottom: 2 }}>Total Weight Lifted</Typography>
       <BarChart
         width={600}
@@ -38,14 +44,14 @@ const WorkoutWeightGraph = () => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="totalWeight" fill="#1769aa" />
+        <Bar dataKey="totalWeight" fill="#1769aa" barSize={35} />
       </BarChart>
 
-      <Container sx={{padding: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
+      <Container sx={{ padding: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
         <TextField
           label="Start Date"
           type="date"
-          onChange={(e) => setStartDate(new Date(e.target.value))}
+          onChange={(e) => setStartDate(e.target.value ? new Date(e.target.value) : null)}
           InputLabelProps={{
             shrink: true
           }}
@@ -54,7 +60,7 @@ const WorkoutWeightGraph = () => {
         <TextField
           label="End Date"
           type="date"
-          onChange={(e) => setEndDate(new Date(e.target.value))}
+          onChange={(e) => setEndDate(e.target.value ? new Date(e.target.value) : null)}
           InputLabelProps={{
             shrink: true
           }}
