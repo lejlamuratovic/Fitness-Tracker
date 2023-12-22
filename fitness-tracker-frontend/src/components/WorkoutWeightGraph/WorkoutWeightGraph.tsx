@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-} from 'recharts';
+import { useState, useEffect } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { workoutLogsList } from '../../constants';
 import TextField from '@mui/material/TextField';
-import { Card, Container, Paper, Typography } from '@mui/material';
+import { Container, Paper, Typography } from '@mui/material';
 
 const WorkoutWeightGraph = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);

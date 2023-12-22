@@ -11,7 +11,7 @@ type Props = {
 const UserInfo = ({ user }: Props) => {
   return (
     <Container maxWidth="sm" sx={{ backgroundColor: 'primary' }}>
-      <UserAvatar firstName={user.firstName} lastName={user.lastName} size="80px" fontSize="30px" />
+      <UserAvatar firstName={user.firstName} lastName={user.lastName} size="80px" fontSize="30px" sx={{ margin: '15px auto' }} />
       <Typography variant="h5">
         {user.firstName} {user.lastName}
         </Typography>
