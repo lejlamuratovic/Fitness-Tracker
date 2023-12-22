@@ -1,4 +1,3 @@
-import React from 'react';
 import { User } from '../../utils/types';
 import Avatar from '@mui/material/Avatar';
 import Container from '@mui/material/Container';
@@ -21,8 +20,12 @@ const UserInfo = ({ user }: Props) => {
   return (
     <Container maxWidth="sm" sx={{ backgroundColor: 'primary' }}>
       <Avatar {...avatarProps} sx={{ margin: '15px auto', width: '80px', height: '80px', fontSize: '30px' }}/>
-      <Typography variant="h5">{user.firstName} {user.lastName}</Typography>
-      <Typography variant="body2"> {user.email} </Typography>
+      <Typography variant="h5">
+        {user.firstName} {user.lastName}
+        </Typography>
+      <Typography variant="body2"> 
+        {user.email} 
+      </Typography>
       <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }}>
         Edit personal information
       </Button>

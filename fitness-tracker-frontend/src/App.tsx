@@ -1,15 +1,13 @@
 import './App.css'
-import UserInfo from './components/UserInfo'
-import { user } from './constants'
+import WorkoutList from './components/WorkoutList'
+import { user, workoutLogsList } from './constants'
 
 function App() {
-
   return (
     <>
-      <UserInfo user={user}/>
+      <WorkoutList workoutLogsList={workoutLogsList} />
     </>
   )
-  
 }
 
 export default App

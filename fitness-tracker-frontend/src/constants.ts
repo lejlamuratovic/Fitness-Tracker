@@ -1,4 +1,4 @@
-import { Exercise, ExerciseDetail, Routine, User } from "./utils/types";
+import { Exercise, ExerciseDetail, Routine, User, WorkoutLog } from "./utils/types";
 
 export const exerciseList: Exercise[] = [
     {
@@ -229,9 +229,96 @@ export const routineList: Routine[] = [
 ]
 
 export const user: User = {
-    id: "user_123",
-    firstName: "John",
-    lastName: "Doe",
-    email: 'johndoe@gmail.com',
-    password: 'password'
+  id: "user_123",
+  firstName: "John",
+  lastName: "Doe",
+  email: 'johndoe@gmail.com',
+  password: 'password'
 }
+
+export const workoutLogsList: WorkoutLog[] = [
+  {
+    id: "workoutlog_123",
+    date: "2023.1.2", 
+    exercises: [
+      {
+        "id": "exercise_654",
+        "exerciseName": "Military Press",
+        "weight": 105,
+        "sets": 4,
+        "reps": 8
+      },
+      {
+        "id": "exercise_321",
+        "exerciseName": "Lateral Raises",
+        "weight": 15,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "exercise_876",
+        "exerciseName": "Shrugs",
+        "weight": 60,
+        "sets": 3,
+        "reps": 12
+      }
+    ],
+    userId: "userid_123"
+  }, 
+  {
+    id: "workoutlog_123",
+    date: "2023.10.10", 
+    exercises: [
+      {
+        "id": "exercise_654",
+        "exerciseName": "Military Press",
+        "weight": 105,
+        "sets": 4,
+        "reps": 8
+      },
+      {
+        "id": "exercise_321",
+        "exerciseName": "Lateral Raises",
+        "weight": 15,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "exercise_876",
+        "exerciseName": "Shrugs",
+        "weight": 60,
+        "sets": 3,
+        "reps": 12
+      }
+    ],
+    userId: "userid_123"
+  },
+  {
+    id: "workoutlog_123",
+    date: "2023.11.22", 
+    exercises: [
+      {
+        "id": "exercise_654",
+        "exerciseName": "Military Press",
+        "weight": 105,
+        "sets": 4,
+        "reps": 8
+      },
+      {
+        "id": "exercise_321",
+        "exerciseName": "Lateral Raises",
+        "weight": 15,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "exercise_876",
+        "exerciseName": "Shrugs",
+        "weight": 60,
+        "sets": 3,
+        "reps": 12
+      }
+    ],
+    userId: "userid_123"
+  }
+]

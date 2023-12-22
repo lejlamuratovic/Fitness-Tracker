@@ -27,3 +27,10 @@ export type User = {
     email: string,
     password: string
 }
+
+export type WorkoutLog = {
+    id: string, 
+    date: string, 
+    exercises: ExerciseDetail[],
+    userId: string
+}
