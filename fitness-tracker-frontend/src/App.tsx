@@ -1,12 +1,12 @@
 import './App.css'
-import ExerciseList from './components/ExerciseList'
-import RoutineList from './components/RoutineList/RoutineList'
+import UserInfo from './components/UserInfo'
+import { user } from './constants'
 
 function App() {
 
   return (
     <>
-      <RoutineList />
+      <UserInfo user={user}/>
     </>
   )
   

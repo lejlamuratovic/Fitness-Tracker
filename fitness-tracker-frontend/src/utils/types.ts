@@ -19,3 +19,11 @@ export type Routine = {
     name: string, 
     exercises: ExerciseDetail[]
 }
+
+export type User = {
+    id: string, 
+    firstName: string, 
+    lastName: string,
+    email: string,
+    password: string
+}

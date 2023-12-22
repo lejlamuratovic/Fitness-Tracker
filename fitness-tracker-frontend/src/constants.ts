@@ -1,4 +1,4 @@
-import { Exercise, ExerciseDetail, Routine } from "./utils/types";
+import { Exercise, ExerciseDetail, Routine, User } from "./utils/types";
 
 export const exerciseList: Exercise[] = [
     {
@@ -227,3 +227,11 @@ export const routineList: Routine[] = [
         ]
       }
 ]
+
+export const user: User = {
+    id: "user_123",
+    firstName: "John",
+    lastName: "Doe",
+    email: 'johndoe@gmail.com',
+    password: 'password'
+}
