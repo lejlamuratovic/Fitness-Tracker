@@ -244,21 +244,21 @@ export const workoutLogsList: WorkoutLog[] = [
       {
         "id": "exercise_654",
         "exerciseName": "Military Press",
-        "weight": 105,
+        "weight": 90,
         "sets": 4,
         "reps": 8
       },
       {
         "id": "exercise_321",
         "exerciseName": "Lateral Raises",
-        "weight": 15,
+        "weight": 5,
         "sets": 3,
         "reps": 12
       },
       {
         "id": "exercise_876",
         "exerciseName": "Shrugs",
-        "weight": 60,
+        "weight": 45,
         "sets": 3,
         "reps": 12
       }
@@ -272,7 +272,7 @@ export const workoutLogsList: WorkoutLog[] = [
       {
         "id": "exercise_654",
         "exerciseName": "Military Press",
-        "weight": 105,
+        "weight": 45,
         "sets": 4,
         "reps": 8
       },
@@ -315,6 +315,146 @@ export const workoutLogsList: WorkoutLog[] = [
         "id": "exercise_876",
         "exerciseName": "Shrugs",
         "weight": 60,
+        "sets": 3,
+        "reps": 12
+      }
+    ],
+    userId: "userid_123"
+  },
+  {
+    id: "workoutlog_123",
+    date: "2023.11.22", 
+    exercises: [
+      {
+        "id": "exercise_654",
+        "exerciseName": "Military Press",
+        "weight": 135,
+        "sets": 4,
+        "reps": 8
+      },
+      {
+        "id": "exercise_321",
+        "exerciseName": "Lateral Raises",
+        "weight": 20,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "exercise_876",
+        "exerciseName": "Shrugs",
+        "weight": 85,
+        "sets": 3,
+        "reps": 12
+      }
+    ],
+    userId: "userid_123"
+  },
+  {
+    id: "workoutlog_123",
+    date: "2023.11.22", 
+    exercises: [
+      {
+        "id": "exercise_654",
+        "exerciseName": "Military Press",
+        "weight": 105,
+        "sets": 4,
+        "reps": 8
+      },
+      {
+        "id": "exercise_321",
+        "exerciseName": "Lateral Raises",
+        "weight": 15,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "exercise_876",
+        "exerciseName": "Shrugs",
+        "weight": 60,
+        "sets": 3,
+        "reps": 12
+      }
+    ],
+    userId: "userid_123"
+  },
+  {
+    id: "workoutlog_123",
+    date: "2023.11.22", 
+    exercises: [
+      {
+        "id": "exercise_654",
+        "exerciseName": "Military Press",
+        "weight": 135,
+        "sets": 4,
+        "reps": 8
+      },
+      {
+        "id": "exercise_321",
+        "exerciseName": "Lateral Raises",
+        "weight": 20,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "exercise_876",
+        "exerciseName": "Shrugs",
+        "weight": 85,
+        "sets": 3,
+        "reps": 12
+      }
+    ],
+    userId: "userid_123"
+  },
+  {
+    id: "workoutlog_123",
+    date: "2023.11.22", 
+    exercises: [
+      {
+        "id": "exercise_654",
+        "exerciseName": "Military Press",
+        "weight": 105,
+        "sets": 4,
+        "reps": 8
+      },
+      {
+        "id": "exercise_321",
+        "exerciseName": "Lateral Raises",
+        "weight": 15,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "exercise_876",
+        "exerciseName": "Shrugs",
+        "weight": 60,
+        "sets": 3,
+        "reps": 12
+      }
+    ],
+    userId: "userid_123"
+  },
+  {
+    id: "workoutlog_123",
+    date: "2023.11.22", 
+    exercises: [
+      {
+        "id": "exercise_654",
+        "exerciseName": "Military Press",
+        "weight": 135,
+        "sets": 4,
+        "reps": 8
+      },
+      {
+        "id": "exercise_321",
+        "exerciseName": "Lateral Raises",
+        "weight": 20,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "exercise_876",
+        "exerciseName": "Shrugs",
+        "weight": 85,
         "sets": 3,
         "reps": 12
       }

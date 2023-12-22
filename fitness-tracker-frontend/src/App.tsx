@@ -1,11 +1,10 @@
 import './App.css'
-import WorkoutList from './components/WorkoutList'
-import { user, workoutLogsList } from './constants'
+import WorkoutWeightGraph from './components/WorkoutWeightGraph'
 
 function App() {
   return (
     <>
-      <WorkoutList workoutLogsList={workoutLogsList} />
+      <WorkoutWeightGraph />
     </>
   )
 }
