@@ -1,7 +1,8 @@
-import Avatar from '@mui/material/Avatar';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { Card, Divider } from '@mui/material';
+import UserAvatar from '../UserAvatar';
+import { WorkoutLog, User } from '../../utils/types';
 
 type Props = {
     user: User;
@@ -9,14 +10,6 @@ type Props = {
 }
 
 const WorkoutCard = ({ user, workoutLog }: Props) => {
-    const stringAvatar = (name: string) => {
-        return {
-            children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-        };
-    };
-
-    const avatarProps = stringAvatar(`${user.firstName} ${user.lastName}`);
-
     const getDayOfWeek = (dateString: string) => {
         const options: Intl.DateTimeFormatOptions = { weekday: 'long' };
         const [year, month, day] = dateString.split('.').map(Number);
@@ -27,7 +20,7 @@ const WorkoutCard = ({ user, workoutLog }: Props) => {
     return (
         <Card sx={{ margin:'5px', padding: 2, maxWidth: "sm"}}>
             <Container sx={{ display: 'flex', alignItems: 'center' }}>
-                <Avatar {...avatarProps} sx={{ width: 34, height: 34, fontSize: 20 }} />
+            <UserAvatar firstName={user.firstName} lastName={user.lastName} />
                 <Container sx={{ textAlign: 'left' }}>
                     <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
                         {user.firstName}
