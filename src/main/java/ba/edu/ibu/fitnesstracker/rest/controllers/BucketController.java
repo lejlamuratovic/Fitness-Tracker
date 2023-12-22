@@ -1,6 +1,6 @@
 package ba.edu.ibu.fitnesstracker.rest.controllers;
 
-import ba.edu.ibu.fitnesstracker.core.external.AmazonClient;
+import ba.edu.ibu.fitnesstracker.api.impl.external.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

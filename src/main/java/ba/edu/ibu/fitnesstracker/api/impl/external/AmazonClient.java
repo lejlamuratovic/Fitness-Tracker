@@ -1,4 +1,4 @@
-package ba.edu.ibu.fitnesstracker.core.external;
+package ba.edu.ibu.fitnesstracker.api.impl.external;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;

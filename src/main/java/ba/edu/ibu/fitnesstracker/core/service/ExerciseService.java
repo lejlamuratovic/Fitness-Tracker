@@ -1,8 +1,7 @@
 package ba.edu.ibu.fitnesstracker.core.service;
 
-import ba.edu.ibu.fitnesstracker.core.exceptions.repository.NotificationException;
 import ba.edu.ibu.fitnesstracker.core.exceptions.repository.ResourceNotFoundException;
-import ba.edu.ibu.fitnesstracker.core.external.AmazonClient;
+import ba.edu.ibu.fitnesstracker.api.impl.external.AmazonClient;
 import ba.edu.ibu.fitnesstracker.core.model.Exercise;
 import ba.edu.ibu.fitnesstracker.core.model.enums.ExerciseGroup;
 import ba.edu.ibu.fitnesstracker.core.repository.ExerciseRepository;
