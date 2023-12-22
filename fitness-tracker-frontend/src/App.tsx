@@ -1,5 +1,6 @@
 import './App.css'
 import ExerciseList from './components/ExerciseList'
+import LoginForm from './components/LoginForm'
 import RoutineList from './components/RoutineList'
 import UserInfo from './components/UserInfo'
 import WorkoutList from './components/WorkoutList'
@@ -14,6 +15,7 @@ function App() {
       {/* <UserInfo user={user}/> */}
       {/* <WorkoutList workoutLogsList={workoutLogsList} /> */}
       {/* <RoutineList /> */}
+      <LoginForm />
     </>
   )
 }
