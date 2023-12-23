@@ -1,149 +1,79 @@
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import React, { useState } from 'react';
+import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Badge, Box, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Badge from '@mui/material/Badge';
-import '../../App.css';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import CustomMenu from '../CustomMenu';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
-type Props = {}
+const NavBar = () => {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const isMenuOpen = Boolean(anchorEl);
 
-const NavBar = (props: Props) => {
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const handleMenuOpen = (event: any) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-    // dummy pages and settings array
-    const pages = ['Home', 'Exercises', 'Routines'];
-    const settings = ['Profile', 'Logout'];
-  
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorElNav(event.currentTarget);
+    const handleMenuClose = () => {
+        setAnchorEl(null);
     };
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorElUser(event.currentTarget);
-    };
-  
-    const handleCloseNavMenu = () => {
-      setAnchorElNav(null);
-    };
-  
-    const handleCloseUserMenu = () => {
-      setAnchorElUser(null);
-    };
-    
+
     return (
-        <AppBar position="static" sx={{ width: '100%', maxWidth: '100%', position: 'absolute', top: 0, left: 0, padding: '5px 40px' }}>
-            <Box sx={{ width: '100%' }}>
-                <Toolbar disableGutters sx={{ width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-                    <FitnessCenterIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, fontSize: '50px'}} />
-                    <Typography
-                        variant="h4"
-                        noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
-                        sx={{
-                        mr: 2,
-                        display: { xs: 'none', md: 'flex' },
-                        fontFamily: 'monospace',
-                        fontWeight: 700,
-                        letterSpacing: '.2rem',
-                        color: 'inherit',
-                        textDecoration: 'none',
-                        }}
-                    >
-                        FITNESS TRACKER
+        <AppBar position="static" sx={{ width: '100%', position: 'absolute', left: 0, top: 0, backgroundColor: '#263238', padding: 2 }}>
+            <Toolbar sx={{ display: 'flex', alignItems: 'center', maxWidth: '100%' }}>
+                {/* Icon and Logo */}
+                <Box sx= {{ display: 'flex' }}>
+                    <FitnessCenterIcon sx={{ display: { xs: 'none', sm: 'block' }, fontSize: '45px', mr: 1 }} />
+                    <Typography variant="h4" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, mr: 1 }}>
+                        Fitness Tracker
                     </Typography>
-        
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleOpenNavMenu}
-                        color="inherit"
-                        >
-                        <MenuIcon />
-                        </IconButton>
-                        <CustomMenu
-                            anchorEl={anchorElNav}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            menuItems={pages}
-                        />
-                    </Box>
-                    <FitnessCenterIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, fontSize: '35px' }} />
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
-                        sx={{
-                        mr: 2,
-                        display: { xs: 'flex', md: 'none' },
-                        flexGrow: 1,
-                        fontFamily: 'monospace',
-                        fontWeight: 700,
-                        letterSpacing: '.3rem',
-                        color: 'inherit',
-                        textDecoration: 'none',
-                        }}
-                    >
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', marginLeft: '10px' } }}>
-                        {pages.map((page) => (
-                        <Button
-                            key={page}
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block', fontSize: '20px', pl: 2 }}
-                        >
-                            {page}
-                        </Button>
-                        ))}
-                    </Box>
-        
-                    <Box sx={{ flexGrow: 0 }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                            sx={{pr: '30px'}}
-                            >
-                            <Badge badgeContent={5} color="error" sx={{
-                                '& .MuiBadge-badge': {
-                                fontSize: '18px',
-                                height: '25px',
-                                minWidth: 'px',
-                                borderRadius: '15px',
-                                },
-                            }}>
-                                <NotificationsIcon sx={{fontSize:'40px'}}/>
-                            </Badge>
-                        </IconButton>
-                        <Tooltip title="Open settings">
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            <Avatar alt="Remy Sharp" />
-                        </IconButton>
-                        </Tooltip>
-                        <CustomMenu
-                            anchorEl={anchorElUser}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                            menuItems={settings}
-                        />
-                    </Box>
-                </Toolbar>
-            </Box>
+                </Box>
+                {/* Menu for smaller screens */}
+                <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    sx={{ display: { xs: 'block', sm: 'none' }, mr: 1 }}
+                    onClick={handleMenuOpen}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    keepMounted
+                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    open={isMenuOpen}
+                    onClose={handleMenuClose}
+                >
+                    <MenuItem onClick={handleMenuClose}>Home</MenuItem>
+                    <MenuItem onClick={handleMenuClose}>Exercises</MenuItem>
+                    <MenuItem onClick={handleMenuClose}>Routines</MenuItem>
+                </Menu>
+                {/* Buttons for larger screens */}
+                <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex'}, paddingLeft: '15px'}}>
+                    <Button color="inherit" sx={{fontSize: '20px'}}>Home</Button>
+                    <Button color="inherit" sx={{fontSize: '20px'}}>Exercises</Button>
+                    <Button color="inherit" sx={{fontSize: '20px'}}>Routines</Button>
+                </Box>
+                {/* Notification and User Avatar */}
+                <IconButton color="inherit">
+                    <Badge variant="dot" color="error">
+                        <NotificationsIcon sx={{fontSize:'35px'}}/>
+                    </Badge>
+                </IconButton>
+                <IconButton
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-haspopup="true"
+                    color="inherit"
+                >
+                    <AccountCircle  sx={{fontSize:'35px'}}/>
+                </IconButton>
+            </Toolbar>
         </AppBar>
-      );
-}
+    );
+};
 
 export default NavBar;
