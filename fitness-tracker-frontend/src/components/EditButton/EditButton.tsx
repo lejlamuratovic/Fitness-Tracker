@@ -1,6 +1,6 @@
 import { IconButton, SxProps } from "@mui/material";
 import { MouseEvent } from "react";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 type Props = {}
 
@@ -11,10 +11,10 @@ type AddButtonProps = {
   sx?: SxProps;
 };
 
-const AddButton = ({ color = "success", size, handleClick, sx }: AddButtonProps) => {
+const AddButton = ({ color = "primary", size, handleClick, sx }: AddButtonProps) => {
   return (
     <IconButton aria-label="add" size={size} onClick={handleClick}>
-      <AddCircleOutlineIcon color={color} sx={{ ...sx }} />
+      <EditOutlinedIcon color={color} sx={{ ...sx }} />
     </IconButton>
   )
 }
