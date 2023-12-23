@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { workoutLogsList } from '../../constants';
 import TextField from '@mui/material/TextField';
-import { Container, Paper, Typography } from '@mui/material';
+import { Box, Container, Paper, Typography } from '@mui/material';
 
 const WorkoutWeightGraph = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -27,7 +27,7 @@ const WorkoutWeightGraph = () => {
   }, [startDate, endDate]);
 
   return (
-    <Paper elevation={3} sx={{ padding: 2 }}>
+    <Box sx={{ padding: 2 }}>
       <Typography variant='h5' sx={{ marginBottom: 2 }}>Total Weight Lifted</Typography>
       <BarChart
         width={600}
@@ -65,7 +65,7 @@ const WorkoutWeightGraph = () => {
           variant='filled'
         />
       </Container>
-    </Paper>
+    </Box>
   );
 };
 
