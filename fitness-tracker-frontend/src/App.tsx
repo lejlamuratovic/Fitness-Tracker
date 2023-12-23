@@ -1,5 +1,6 @@
 import './App.css'
 import AddButton from './components/AddButton'
+import DeleteButton from './components/DeleteButton'
 import ExerciseList from './components/ExerciseList'
 import ExerciseModal from './components/ExerciseModal'
 import LoginForm from './components/LoginForm'
@@ -30,7 +31,8 @@ function App() {
       {/* <RegisterForm /> */}
       {/* <MuscleGroupChart /> */}
       {/* <AddButton handleClick={handleButtonClick} sx={{fontSize: "80px"}}/> */}
-      <ExerciseModal />
+      {/* <ExerciseModal /> */}
+      <DeleteButton handleClick={handleButtonClick} />
     </>
   )
 }
