@@ -1,10 +1,15 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
 }
 
-.datePickerIcon {
-  color: #333;
+* { 
+  margin: 0;
+  padding: 0;
+}
+
+/* additional style to make the AppBar takes full width */
+.MuiAppBar-root {
+  width: 100%;
 }

@@ -5,6 +5,7 @@ import ExerciseList from './components/ExerciseList'
 import ExerciseModal from './components/ExerciseModal'
 import LoginForm from './components/LoginForm'
 import MuscleGroupChart from './components/MuscleGroupChart'
+import NavBar from './components/NavBar/NavBar'
 import RoutineList from './components/RoutineList'
 import SignUpForm from './components/SignUpForm'
 import RegisterForm from './components/SignUpForm/SignUpForm'
@@ -32,7 +33,8 @@ function App() {
       {/* <MuscleGroupChart /> */}
       {/* <AddButton handleClick={handleButtonClick} sx={{fontSize: "80px"}}/> */}
       {/* <ExerciseModal /> */}
-      <DeleteButton handleClick={handleButtonClick} />
+      {/* <DeleteButton handleClick={handleButtonClick} /> */}
+      <NavBar />
     </>
   )
 }
