@@ -8,14 +8,14 @@ import { Grid, Paper, IconButton, InputAdornment } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const RegisterForm = () => {
+const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleMouseDownPassword = (event) => {
+    const handleMouseDownPassword = (event: any) => {
         event.preventDefault();
     };
 
@@ -88,7 +88,7 @@ const RegisterForm = () => {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={{ mt: 3, mb: 2, backgroundColor: '#72A1BF' }}
                     >
                         Sign Up
                     </Button>
@@ -105,4 +105,4 @@ const RegisterForm = () => {
     );
 }
 
-export default RegisterForm;
+export default Register;

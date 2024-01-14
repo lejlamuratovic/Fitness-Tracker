@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { Grid, Paper } from '@mui/material';
 
-const LoginForm = () => {
+const Login = () => {
     return (
         <Paper elevation={3} sx={{ maxWidth: "360px", padding: 3, mx: "auto" }}>
             <Box
@@ -43,7 +43,7 @@ const LoginForm = () => {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={{ mt: 3, mb: 2, backgroundColor: '#72A1BF' }}
                     >
                         Sign In
                     </Button>
@@ -65,4 +65,4 @@ const LoginForm = () => {
     );
 }
 
-export default LoginForm;
+export default Login;
