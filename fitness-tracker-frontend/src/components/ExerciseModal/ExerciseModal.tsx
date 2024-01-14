@@ -21,10 +21,10 @@ const modalStyle = {
     width: 400,
     bgcolor: 'background.paper',
     boxShadow: 24,
-    p: 4,
+    p: 4
 };
 
-function ExerciseModal() {
+const ExerciseModal = () => {
     const [open, setOpen] = useState(false);
     const [exerciseData, setExerciseData] = useState({
         name: '',
@@ -55,14 +55,14 @@ function ExerciseModal() {
 
   return (
   <Container maxWidth="xs">
-    <AddButton handleClick={handleOpen}></AddButton>
+    <AddButton handleClick={handleOpen} sx={{ fontSize: '55px' }}></AddButton>
     <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="exercise-modal-title"
     >
     <Box sx={modalStyle} component="form" onSubmit={handleSubmit}>
-        <Typography variant="h5" color="primary" textAlign="center"> Add new exercise </Typography>
+        <Typography variant="h5" color="text.secondary" textAlign="center"> Add new exercise </Typography>
         <TextField
         name="name"
         label="Exercise Name"
@@ -98,7 +98,7 @@ function ExerciseModal() {
             id="exerciseDescription"
             multiline
         />
-        <Button component="label" style={{ marginTop: '10px' }} variant="outlined" startIcon={<CloudUploadIcon />}>
+        <Button component="label" style={{ marginTop: '10px', color: '#72A1BF' }} variant="outlined" startIcon={<CloudUploadIcon />}>
         Upload file
         <input
             type="file"
@@ -114,7 +114,7 @@ function ExerciseModal() {
         />
         </Button>
 
-        <Button type="submit" style={{ marginTop: '30px' }} fullWidth variant="contained">
+        <Button type="submit" size="large" style={{ marginTop: '30px', backgroundColor: '#72A1BF' }} fullWidth variant="contained">
             Submit
         </Button>
     </Box>
