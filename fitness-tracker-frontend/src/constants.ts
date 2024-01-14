@@ -168,40 +168,356 @@ export const exerciseDetailList: ExerciseDetail[] = [
 ];
 
 export const routineList: Routine[] = [
-    {
-        id: "routine_1",
-        name: "Upper Body Workout",
-        exercises: [
-            {
-                id: "routine_ex_1",
-                exerciseName: "Bicep Curl",
-                weight: 20,
-                sets: 4,
-                reps: 10
-            },
-            {
-                id: "routine_ex_2",
-                exerciseName: "Tricep Dip",
-                weight: 0,
-                sets: 3,
-                reps: 12
-            },
-            {
-              id: "routine_ex_3",
-              exerciseName: "Bicep Curl",
-              weight: 20,
-              sets: 4,
-              reps: 10
-          },
-          {
-              id: "routine_ex_4",
-              exerciseName: "Lat Pulldown",
-              weight: 0,
-              sets: 3,
-              reps: 12
-          }, 
-        ]
-    },
+  {
+    "id": "routine_1",
+    "name": "Upper Body Workout",
+    "date": "2024-01-14",
+    "exercises": [
+      {
+        "id": "routine_ex_1",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_2",
+        "exerciseName": "Tricep Dip",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "routine_ex_3",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_4",
+        "exerciseName": "Lat Pulldown",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "id": "routine_1",
+    "name": "Upper Body Workout",
+    "date": "2024-01-14",
+    "exercises": [
+      {
+        "id": "routine_ex_1",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_2",
+        "exerciseName": "Tricep Dip",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "routine_ex_3",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_4",
+        "exerciseName": "Lat Pulldown",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "id": "routine_1",
+    "name": "Upper Body Workout",
+    "date": "2024-01-14",
+    "exercises": [
+      {
+        "id": "routine_ex_1",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_2",
+        "exerciseName": "Tricep Dip",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "routine_ex_3",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_4",
+        "exerciseName": "Lat Pulldown",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "id": "routine_1",
+    "name": "Upper Body Workout",
+    "date": "2024-01-14",
+    "exercises": [
+      {
+        "id": "routine_ex_1",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_2",
+        "exerciseName": "Tricep Dip",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "routine_ex_3",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_4",
+        "exerciseName": "Lat Pulldown",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "id": "routine_1",
+    "name": "Upper Body Workout",
+    "date": "2024-01-14",
+    "exercises": [
+      {
+        "id": "routine_ex_1",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_2",
+        "exerciseName": "Tricep Dip",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "routine_ex_3",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_4",
+        "exerciseName": "Lat Pulldown",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "id": "routine_1",
+    "name": "Upper Body Workout",
+    "date": "2024-01-14",
+    "exercises": [
+      {
+        "id": "routine_ex_1",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_2",
+        "exerciseName": "Tricep Dip",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "routine_ex_3",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_4",
+        "exerciseName": "Lat Pulldown",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "id": "routine_1",
+    "name": "A Upper Body Workout",
+    "date": "2024-01-14",
+    "exercises": [
+      {
+        "id": "routine_ex_1",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_2",
+        "exerciseName": "Tricep Dip",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "routine_ex_3",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_4",
+        "exerciseName": "Lat Pulldown",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "id": "routine_1",
+    "name": "B Upper Body Workout",
+    "date": "2024-01-14",
+    "exercises": [
+      {
+        "id": "routine_ex_1",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_2",
+        "exerciseName": "Tricep Dip",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "routine_ex_3",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_4",
+        "exerciseName": "Lat Pulldown",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "id": "routine_1",
+    "name": "C Upper Body Workout",
+    "date": "2024-01-14",
+    "exercises": [
+      {
+        "id": "routine_ex_1",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_2",
+        "exerciseName": "Tricep Dip",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "routine_ex_3",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_4",
+        "exerciseName": "Lat Pulldown",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "id": "routine_1",
+    "name": "Upper Body Workout",
+    "date": "2024-01-14",
+    "exercises": [
+      {
+        "id": "routine_ex_1",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_2",
+        "exerciseName": "Tricep Dip",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      },
+      {
+        "id": "routine_ex_3",
+        "exerciseName": "Bicep Curl",
+        "weight": 20,
+        "sets": 4,
+        "reps": 10
+      },
+      {
+        "id": "routine_ex_4",
+        "exerciseName": "Lat Pulldown",
+        "weight": 0,
+        "sets": 3,
+        "reps": 12
+      }
+    ]
+  },
 ];
 
 export const user: User = {

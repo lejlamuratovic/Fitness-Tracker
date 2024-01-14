@@ -2,6 +2,7 @@ import './App.css'
 import NavBar from './components/NavBar/NavBar'
 import UserPage from './pages/UserPage'
 import ExercisePage from './pages/ExercisePage'
+import RoutinePage from './pages/RoutinePage'
 
 function App() {
 
@@ -20,10 +21,11 @@ function App() {
       <EditButton handleClick={handleButtonClick} /> */}
       <NavBar />
       {/* <ExercisePage /> */}
-      <UserPage />
+      {/* <UserPage /> */}
       {/* <WorkoutList workoutLogsList={workoutLogsList} /> */}
       {/* <Login /> */}
       {/* <Register /> */}
+      <RoutinePage />
     </>
   )
 }

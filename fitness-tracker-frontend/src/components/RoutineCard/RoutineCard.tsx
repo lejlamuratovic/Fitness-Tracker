@@ -29,8 +29,8 @@ const RoutineCard = ({ routine }: Props) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="medium" variant="contained" sx={{ margin: 'auto', width: '120px' }}>
-              Open
+            <Button size="medium" variant="contained" sx={{ margin: 'auto', backgroundColor: '#72A1BF' }}>
+              Open Details
             </Button>
           </CardActions>
         </Card>
