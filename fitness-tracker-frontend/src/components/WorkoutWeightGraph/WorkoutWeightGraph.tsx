@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'rec
 import { workoutLogsList } from '../../constants';
 import TextField from '@mui/material/TextField';
 import { Box, Container, Paper, Typography } from '@mui/material';
+import { ResponsiveContainer } from 'recharts';
 
 const WorkoutWeightGraph = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -26,9 +27,11 @@ const WorkoutWeightGraph = () => {
     setData(chartData);
   }, [startDate, endDate]);
 
+
   return (
     <Box sx={{ padding: 2 }}>
-      <Typography variant='h5' sx={{ marginBottom: 2 }}>Total Weight Lifted</Typography>
+      <Typography variant='h5' color='text.secondary' sx={{ marginBottom: 2 }}>Total Weight Lifted</Typography>
+      <ResponsiveContainer width="100%" height="100%" aspect={8.0/6.0}>
       <BarChart
         width={600}
         height={300}
@@ -44,8 +47,9 @@ const WorkoutWeightGraph = () => {
         <Legend />
         <Bar dataKey="totalWeight" fill="#1769aa" barSize={35} />
       </BarChart>
+      </ResponsiveContainer>
 
-      <Container sx={{ padding: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+      <Container sx={{ padding: 2, display: 'flex', justifyContent: 'space-between' }}>
         <TextField
           label="Start Date"
           type="date"
@@ -63,6 +67,7 @@ const WorkoutWeightGraph = () => {
             shrink: true
           }}
           variant='filled'
+          sx = {{ mr: 2 }}
         />
       </Container>
     </Box>

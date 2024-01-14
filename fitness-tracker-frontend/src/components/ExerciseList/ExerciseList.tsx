@@ -89,7 +89,7 @@ const ExerciseList = () => {
 
         {/* pagination */}
         {pageCount > 1 && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', m: 3 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Pagination count={pageCount} page={currentPage} onChange={handlePageChange} />
           </Box>
         )}

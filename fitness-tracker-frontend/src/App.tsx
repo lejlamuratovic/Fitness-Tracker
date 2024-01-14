@@ -1,23 +1,7 @@
 import './App.css'
-import AddButton from './components/AddButton'
-import DeleteButton from './components/DeleteButton'
-import EditButton from './components/EditButton'
-import ExerciseList from './components/ExerciseList'
-import ExerciseModal from './components/ExerciseModal'
-import LoginForm from './components/LoginForm'
-import MuscleGroupChart from './components/MuscleGroupChart'
 import NavBar from './components/NavBar/NavBar'
-import RoutineList from './components/RoutineList'
-import SignUpForm from './components/SignUpForm'
-import RegisterForm from './components/SignUpForm/SignUpForm'
-import UserInfo from './components/UserInfo'
-import WorkoutList from './components/WorkoutList'
-import WorkoutWeightGraph from './components/WorkoutWeightGraph'
-import { routineList, user, workoutLogsList } from './constants'
-import ExercisePage from './pages/ExercisePage'
-import Login from './pages/Login'
-import Register from './pages/Register'
 import UserPage from './pages/UserPage'
+import ExercisePage from './pages/ExercisePage'
 
 function App() {
 
@@ -34,11 +18,12 @@ function App() {
       {/* <DeleteButton handleClick={handleButtonClick} />
       <NavBar />
       <EditButton handleClick={handleButtonClick} /> */}
-      {/* <NavBar /> */}
+      <NavBar />
       {/* <ExercisePage /> */}
-      {/* <UserPage /> */}
+      <UserPage />
+      {/* <WorkoutList workoutLogsList={workoutLogsList} /> */}
       {/* <Login /> */}
-      <Register />
+      {/* <Register /> */}
     </>
   )
 }

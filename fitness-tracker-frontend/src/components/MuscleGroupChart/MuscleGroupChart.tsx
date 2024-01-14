@@ -42,8 +42,8 @@ const MuscleGroupChart = () => {
 
   return (
     <Box sx={{ p: 2, mb: 2}}>
-      <Typography variant='h5' sx={{ mb: 1 }}>Muscle Group Distribution</Typography>
-      <ResponsiveContainer width="100%" height={400}>
+      <Typography variant='h5' color='text.secondary' sx={{ mb: 1 }}>Muscle Group Distribution</Typography>
+      <ResponsiveContainer width="100%" height="100%" aspect={12.0/16.0}>
         <PieChart>
           <Pie
             data={data}
