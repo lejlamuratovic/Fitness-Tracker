@@ -15,13 +15,9 @@ import WorkoutList from './components/WorkoutList'
 import WorkoutWeightGraph from './components/WorkoutWeightGraph'
 import { routineList, user, workoutLogsList } from './constants'
 import ExercisePage from './pages/ExercisePage'
+import UserPage from './pages/UserPage'
 
 function App() {
-
-  // dummy click handler for testing buttons
-  const handleButtonClick = () => {
-    console.log('Button clicked!');
-  };
 
   return (
     <>
@@ -39,7 +35,8 @@ function App() {
       <NavBar />
       <EditButton handleClick={handleButtonClick} /> */}
       <NavBar />
-      <ExercisePage />
+      {/* <ExercisePage /> */}
+      <UserPage />
     </>
   )
 }

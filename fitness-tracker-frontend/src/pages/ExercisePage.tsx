@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import AddButton from '../components/AddButton'
 import ExerciseList from '../components/ExerciseList'
 import { Box, Container } from '@mui/material'
@@ -11,7 +10,7 @@ const handleOpenModal = () => {
 const ExercisePage = () => {
     return (
         <>
-            <Container sx={{ pt: 12 }} >
+            <Container sx={{ mt: 12 }} >
                 <ExerciseList />
             </Container>
             <Box sx={{ height: '100px', width: '100px', position: 'fixed', right: 15, bottom: 5 }}>
