@@ -20,12 +20,12 @@ function App() {
       <NavBar />
       <EditButton handleClick={handleButtonClick} /> */}
       <NavBar />
-      {/* <ExercisePage /> */}
+      <ExercisePage />
       {/* <UserPage /> */}
       {/* <WorkoutList workoutLogsList={workoutLogsList} /> */}
       {/* <Login /> */}
       {/* <Register /> */}
-      <RoutinePage />
+      {/* <RoutinePage /> */}
     </>
   )
 }

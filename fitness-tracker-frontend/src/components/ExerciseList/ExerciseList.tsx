@@ -41,6 +41,7 @@ const ExerciseList = () => {
   return (
     <>
       <Box sx={{ width: '100%', position: 'relative' }}>
+
         <Container sx={{ p: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
 
           {/* muscle group filter */}
@@ -90,7 +91,12 @@ const ExerciseList = () => {
         {/* pagination */}
         {pageCount > 1 && (
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Pagination count={pageCount} page={currentPage} onChange={handlePageChange} />
+            <Pagination 
+              count={pageCount} 
+              page={currentPage} 
+              onChange={handlePageChange} 
+              style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}
+              />
           </Box>
         )}
       </Box>
