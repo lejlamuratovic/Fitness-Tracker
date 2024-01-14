@@ -14,15 +14,21 @@ type Props = {
 
 const ExerciseCard = ({ exercise }: Props) => {
     return (
-        <Card sx={{ maxWidth: 250 }}>
+        <Card sx={{ maxWidth: 250, minWidth: 250, display: 'block', margin: 'auto', mt: 3 }}>
           <CardMedia
-            sx={{ margin: 'auto', height: 180, width: 190, p: 2, borderBottom: 1, borderColor: 'text.secondary' }}
+            sx={{ margin: 'auto', height: 160, width: 180, p: 2, mt: 1 }}
             image={ exercise.imageUrl }
             title={ exercise.name }
           />
           <CardContent>
-            <Typography gutterBottom variant="body1" component="div">
+            <Typography gutterBottom variant='subtitle1' component="div" color="text.secondary" sx={{ fontWeight: 'bold', fontSize: '18px' }}>
               { exercise.name }
+            </Typography>
+            <Typography 
+                variant="body2" 
+                color="text.primary" 
+                >
+            { exercise.muscleGroup }
             </Typography>
             <Typography 
                 variant="body2" 

@@ -18,16 +18,20 @@ const NavBar = () => {
     };
 
     return (
-        <AppBar position="static" sx={{ width: '100%', position: 'absolute', left: 0, top: 0, backgroundColor: '#263238', padding: 2 }}>
+        <AppBar position="static" sx={{ width: '100%', position: 'absolute', left: 0, top: 0, backgroundColor: "#72A1BF", pl: 1, pr: 1 }}>
             <Toolbar sx={{ display: 'flex', alignItems: 'center', maxWidth: '100%' }}>
+
                 {/* Icon and Logo */}
+                
                 <Box sx= {{ display: 'flex' }}>
-                    <FitnessCenterIcon sx={{ display: { xs: 'none', sm: 'block' }, fontSize: '45px', mr: 1 }} />
-                    <Typography variant="h4" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, mr: 1 }}>
+                    <FitnessCenterIcon sx={{ display: { xs: 'none', sm: 'block' }, fontSize: '40px', mr: 1 }} />
+                    <Typography variant="h4" sx={{ display: { xs: 'none', sm: 'block' }, mr: 1 }}>
                         Fitness Tracker
                     </Typography>
                 </Box>
+
                 {/* Menu for smaller screens */}
+
                 <IconButton
                     size="large"
                     edge="start"
@@ -51,13 +55,17 @@ const NavBar = () => {
                     <MenuItem onClick={handleMenuClose}>Exercises</MenuItem>
                     <MenuItem onClick={handleMenuClose}>Routines</MenuItem>
                 </Menu>
+
                 {/* Buttons for larger screens */}
-                <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex'}, paddingLeft: '15px'}}>
-                    <Button color="inherit" sx={{fontSize: '20px'}}>Home</Button>
-                    <Button color="inherit" sx={{fontSize: '20px'}}>Exercises</Button>
-                    <Button color="inherit" sx={{fontSize: '20px'}}>Routines</Button>
+
+                <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex'}, paddingLeft: '20px'}}>
+                    <Button color="inherit" sx={{fontSize: '16px'}}>Home</Button>
+                    <Button color="inherit" sx={{fontSize: '16px'}}>Exercises</Button>
+                    <Button color="inherit" sx={{fontSize: '16px'}}>Routines</Button>
                 </Box>
+
                 {/* Notification and User Avatar */}
+
                 <IconButton color="inherit">
                     <Badge variant="dot" color="error">
                         <NotificationsIcon sx={{fontSize:'35px'}}/>
@@ -69,7 +77,7 @@ const NavBar = () => {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle  sx={{fontSize:'35px'}}/>
+                    <AccountCircle sx={{fontSize:'35px'}}/>
                 </IconButton>
             </Toolbar>
         </AppBar>

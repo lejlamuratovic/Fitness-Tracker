@@ -14,6 +14,7 @@ import UserInfo from './components/UserInfo'
 import WorkoutList from './components/WorkoutList'
 import WorkoutWeightGraph from './components/WorkoutWeightGraph'
 import { routineList, user, workoutLogsList } from './constants'
+import ExercisePage from './pages/ExercisePage'
 
 function App() {
 
@@ -32,11 +33,13 @@ function App() {
       {/* <LoginForm /> */}
       {/* <RegisterForm /> */}
       {/* <MuscleGroupChart /> */}
-      <AddButton handleClick={handleButtonClick} />
+      {/* <AddButton handleClick={handleButtonClick} /> */}
       {/* <ExerciseModal /> */}
-      <DeleteButton handleClick={handleButtonClick} />
+      {/* <DeleteButton handleClick={handleButtonClick} />
       <NavBar />
-      <EditButton handleClick={handleButtonClick} />
+      <EditButton handleClick={handleButtonClick} /> */}
+      <NavBar />
+      <ExercisePage />
     </>
   )
 }

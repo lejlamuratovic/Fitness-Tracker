@@ -6,36 +6,141 @@ export const exerciseList: Exercise[] = [
         name: "Lat Pulldown",
         muscleGroup: "LATS",
         description: "A compound exercise targeting the latissimus dorsi.",
-        imageUrl: "https://s3.eu-central-1.amazonaws.com/fitness-tracker-bucket/lat_pulldown.png"
+        imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
     },
     {
         id: "ex_bicep_curl_1",
         name: "Bicep Curl",
         muscleGroup: "BICEPS",
         description: "A standard bicep curl using dumbbells.",
-        imageUrl: "https://s3.eu-central-1.amazonaws.com/fitness-tracker-bucket/bicep_curl.png"
+        imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
     },
     {
         id: "ex_tricep_dip_1",
         name: "Tricep Dip",
         muscleGroup: "TRICEPS",
         description: "Tricep dips on parallel bars or a bench.",
-        imageUrl: "https://s3.eu-central-1.amazonaws.com/fitness-tracker-bucket/tricep_dip.png"
+        imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
     },
     {
       id: "ex_lat_pulldown_1",
       name: "Lat Pulldown",
       muscleGroup: "LATS",
       description: "Tricep dips on parallel bars or a bench.",
-      imageUrl: "https://s3.eu-central-1.amazonaws.com/fitness-tracker-bucket/tricep_dip.png"
+      imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
     },
     {
       id: "ex_leg_press_1",
       name: "Leg Press",
       muscleGroup: "LEGS",
       description: "Tricep dips on parallel bars or a bench.",
-      imageUrl: "https://s3.eu-central-1.amazonaws.com/fitness-tracker-bucket/tricep_dip.png"
+      imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
     },
+    {
+        id: "ex_lat_pulldown_2",
+        name: "Lat Pulldown",
+        muscleGroup: "LATS",
+        description: "A compound exercise targeting the latissimus dorsi.",
+        imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+    },
+    {
+        id: "ex_bicep_curl_2",
+        name: "Bicep Curl",
+        muscleGroup: "BICEPS",
+        description: "A standard bicep curl using dumbbells.",
+        imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+    },
+    {
+        id: "ex_tricep_dip_2",
+        name: "Tricep Dip",
+        muscleGroup: "TRICEPS",
+        description: "Tricep dips on parallel bars or a bench.",
+        imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+    },
+    {
+      id: "ex_lat_pulldown_2",
+      name: "Lat Pulldown",
+      muscleGroup: "LATS",
+      description: "Tricep dips on parallel bars or a bench.",
+      imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+    },
+    {
+      id: "ex_leg_press_2",
+      name: "Leg Press",
+      muscleGroup: "LEGS",
+      description: "Tricep dips on parallel bars or a bench.",
+      imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+    },
+    {
+      id: "ex_lat_pulldown_2",
+      name: "Lat Pulldown",
+      muscleGroup: "LATS",
+      description: "A compound exercise targeting the latissimus dorsi.",
+      imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+  },
+  {
+      id: "ex_bicep_curl_2",
+      name: "Bicep Curl",
+      muscleGroup: "BICEPS",
+      description: "A standard bicep curl using dumbbells.",
+      imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+  },
+  {
+      id: "ex_tricep_dip_2",
+      name: "Tricep Dip",
+      muscleGroup: "TRICEPS",
+      description: "Tricep dips on parallel bars or a bench.",
+      imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+  },
+  {
+    id: "ex_lat_pulldown_2",
+    name: "Lat Pulldown",
+    muscleGroup: "LATS",
+    description: "Tricep dips on parallel bars or a bench.",
+    imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+  },
+  {
+    id: "ex_leg_press_2",
+    name: "Leg Press",
+    muscleGroup: "LEGS",
+    description: "Tricep dips on parallel bars or a bench.",
+    imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+  },
+  {
+    id: "ex_lat_pulldown_2",
+    name: "Lat Pulldown",
+    muscleGroup: "LATS",
+    description: "A compound exercise targeting the latissimus dorsi.",
+    imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+},
+{
+    id: "ex_bicep_curl_2",
+    name: "Bicep Curl",
+    muscleGroup: "BICEPS",
+    description: "A standard bicep curl using dumbbells.",
+    imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+},
+{
+    id: "ex_tricep_dip_2",
+    name: "Tricep Dip",
+    muscleGroup: "TRICEPS",
+    description: "Tricep dips on parallel bars or a bench.",
+    imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+},
+{
+  id: "ex_lat_pulldown_2",
+  name: "Lat Pulldown",
+  muscleGroup: "LATS",
+  description: "Tricep dips on parallel bars or a bench.",
+  imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+},
+{
+  id: "ex_leg_press_2",
+  name: "Leg Press",
+  muscleGroup: "LEGS",
+  description: "Tricep dips on parallel bars or a bench.",
+  imageUrl: "https://fitness-tracker-bucket.s3.eu-central-1.amazonaws.com/1703192283963-062f66e4986e4035892db9ae59999df2IfulbDgKAtYMjRG5-0.png"
+},
 ];
 
 export const exerciseDetailList: ExerciseDetail[] = [
