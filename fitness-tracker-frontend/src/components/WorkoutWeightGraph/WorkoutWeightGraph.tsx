@@ -57,7 +57,7 @@ const WorkoutWeightGraph = () => {
           InputLabelProps={{
             shrink: true
           }}
-          variant='filled'
+          variant='outlined'
         />
         <TextField
           label="End Date"
@@ -66,8 +66,7 @@ const WorkoutWeightGraph = () => {
           InputLabelProps={{
             shrink: true
           }}
-          variant='filled'
-          sx = {{ mr: 2 }}
+          variant='outlined'
         />
       </Container>
     </Box>

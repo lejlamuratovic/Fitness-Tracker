@@ -1,6 +1,7 @@
 import './App.css'
 import NavBar from './components/NavBar/NavBar'
-import RoutineDetails from './pages/RoutineDetails'
+import ExplorePage from './pages/ExplorePage'
+import UserPage from './pages/UserPage'
 
 function App() {
 
@@ -19,14 +20,15 @@ function App() {
       <EditButton handleClick={handleButtonClick} /> */}
       <NavBar />
       {/* <ExercisePage /> */}
-      {/* <UserPage /> */}
+      <UserPage />
       {/* <WorkoutList workoutLogsList={workoutLogsList} /> */}
       {/* <Login /> */}
       {/* <Register /> */}
       {/* <RoutinePage /> */}
       {/* <ExerciseDetailCard />	 */}
       {/* <ExerciseDetailList /> */}
-      <RoutineDetails />
+      {/* <RoutineDetails /> */}
+      {/* <ExplorePage /> */}
     </>
   )
 }

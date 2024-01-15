@@ -155,7 +155,7 @@ const RoutineDetails = () => {
 
         {/* dialog for completing routine */}
         <Dialog open={openDialog} onClose={handleCloseDialog}>
-          <DialogTitle sx={{mb: 2, minWidth: '300px'}}>Complete Routine</DialogTitle>
+          <DialogTitle sx={{mb: 1, minWidth: '300px'}}>Complete Routine</DialogTitle>
           <DialogContent>
             <TextField
               label="Completion Date"
@@ -163,6 +163,7 @@ const RoutineDetails = () => {
               value={selectedDate}
               onChange={handleDateChange}
               InputLabelProps={{ shrink: true }}
+              margin="dense"
               fullWidth
             />
           </DialogContent>

@@ -47,25 +47,25 @@ const EditInfoModal= ({ open, handleClose, user, setUser }: EditInfoModalProps) 
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
-        <Typography variant="h6" component="h2" color='text.secondary'>
+        <Typography variant="h6" component="h2" color='text.secondary' sx={{ mb: 2 }}>
           Edit Personal Information
         </Typography>
         <TextField
-          margin="normal"
+          margin="dense"
           fullWidth
           label="First Name"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
         <TextField
-          margin="normal"
+          margin="dense"
           fullWidth
           label="Last Name"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
         <TextField
-          margin="normal"
+          margin="dense"
           fullWidth
           label="Old Password"
           type="password"
@@ -73,7 +73,7 @@ const EditInfoModal= ({ open, handleClose, user, setUser }: EditInfoModalProps) 
           onChange={(e) => setOldPassword(e.target.value)}
         />
         <TextField
-          margin="normal"
+          margin="dense"
           fullWidth
           label="New Password"
           type={showNewPassword ? 'text' : 'password'}
@@ -95,8 +95,9 @@ const EditInfoModal= ({ open, handleClose, user, setUser }: EditInfoModalProps) 
         />
         <Button
           variant="contained"
-          sx={{ float: 'right', mt: 2, backgroundColor: '#72A1BF' }}
+          sx={{ float: 'right', mt: 2 }}
           onClick={handleSave}
+          color="success"
         >
           Save Changes
         </Button>
