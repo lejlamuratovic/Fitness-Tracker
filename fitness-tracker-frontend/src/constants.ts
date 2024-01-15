@@ -1090,3 +1090,7 @@ export const workoutLogsList: WorkoutLog[] = [
   userId: "userid_123"
 },
 ];
+
+export const userId = "65a5a16205c44614c7e49b51";
+
+export const BASE_URL = 'http://localhost:8080/api'
