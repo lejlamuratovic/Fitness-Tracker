@@ -1,8 +1,6 @@
 import './App.css'
-import ExerciseDetailCard from './components/ExerciseDetailCard'
-import ExerciseDetailList from './components/ExerciseDetailList'
 import NavBar from './components/NavBar/NavBar'
-import ExercisePage from './pages/ExercisePage'
+import RoutineDetails from './pages/RoutineDetails'
 
 function App() {
 
@@ -27,7 +25,8 @@ function App() {
       {/* <Register /> */}
       {/* <RoutinePage /> */}
       {/* <ExerciseDetailCard />	 */}
-      <ExerciseDetailList />
+      {/* <ExerciseDetailList /> */}
+      <RoutineDetails />
     </>
   )
 }
