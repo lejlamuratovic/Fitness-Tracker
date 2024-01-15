@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping(path = "/api/notifications")
-@SecurityRequirement(name = "JWT Security")
+//@SecurityRequirement(name = "JWT Security")
 public class NotificationController {
     private final NotificationService notificationService;
 
@@ -25,7 +25,7 @@ public class NotificationController {
     }
 
     @RequestMapping(path = "/broadcast", method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> sendBroadcastMessage(@RequestBody MessageDTO message) throws IOException {
         System.out.println("Message: " + message.getMessage());
         notificationService.broadcastMessage(message.getMessage());
@@ -34,7 +34,7 @@ public class NotificationController {
 
 
     @RequestMapping(path = "/send-to/{userId}", method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> sendChatMessage(@PathVariable String userId, @RequestBody MessageDTO message) throws IOException {
         System.out.println("Message: " + message.getMessage());
         notificationService.sendMessage(userId, message.getMessage());

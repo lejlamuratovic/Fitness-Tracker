@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/workoutlogs")
-@SecurityRequirement(name = "JWT Security")
+//@SecurityRequirement(name = "JWT Security")
 public class WorkoutLogController {
 
     private final WorkoutLogService workoutLogService;
@@ -27,25 +27,25 @@ public class WorkoutLogController {
         this.workoutLogService = workoutLogService;
     }
 
-    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public ResponseEntity<List<WorkoutLogDTO>> getWorkoutLogs() {
         return ResponseEntity.ok(workoutLogService.getWorkoutLogs());
     }
 
-    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.POST, path = "/")
     public ResponseEntity<WorkoutLogDTO> register(@RequestBody WorkoutLogRequestDTO WorkoutLog) {
         return ResponseEntity.ok(workoutLogService.addWorkoutLog(WorkoutLog));
     }
 
-    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public ResponseEntity<WorkoutLogDTO> getWorkoutLogById(@PathVariable String id) {
         return ResponseEntity.ok(workoutLogService.getWorkoutLogById(id));
     }
 
-    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
     public ResponseEntity<WorkoutLogDTO> updateWorkoutLog(@PathVariable String id,
             @RequestBody WorkoutLogRequestDTO WorkoutLog) {
@@ -60,7 +60,8 @@ public class WorkoutLogController {
     }
 
     // to get a list of workout logs per user
-    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+
+    //@PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}")
     public ResponseEntity<List<WorkoutLogDTO>> getWorkoutLogsByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(workoutLogService.getWorkoutLogsByUserId(userId));
@@ -82,7 +83,7 @@ public class WorkoutLogController {
      */
 
     // to support the graph showing total weight lifted overall
-    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}/stats/weight")
     public ResponseEntity<List<Map<String, Object>>> getUserWeightStats(@PathVariable String userId) {
         // null is being sent instead of date because there is no date specified
@@ -91,7 +92,7 @@ public class WorkoutLogController {
     }
 
     // to find a list of workout logs within a date range
-    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}/dateRange")
     public ResponseEntity<List<WorkoutLogDTO>> getWorkoutLogsByDateRange(
             @PathVariable String userId,
@@ -102,7 +103,7 @@ public class WorkoutLogController {
     }
 
     // to support the graph showing total weight lifted within a date range
-    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}/stats/weight/dateRange")
     public ResponseEntity<List<Map<String, Object>>> getUserWeightStatsWithinDateRange(
             @PathVariable String userId,

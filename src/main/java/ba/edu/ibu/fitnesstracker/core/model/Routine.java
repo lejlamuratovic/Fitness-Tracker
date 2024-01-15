@@ -95,6 +95,7 @@ public class Routine {
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         private String detailId; // uniquely identify the exercise detail
         private String exerciseId;
+        private String exerciseName;
         private double weight;
         private int sets;
         private int reps;
@@ -150,6 +151,14 @@ public class Routine {
 
         public void setDetailId(String detailId) {
             this.detailId = detailId;
+        }
+
+        public String getExerciseName() {
+            return exerciseName;
+        }
+
+        public void setExerciseName(String exerciseName) {
+            this.exerciseName = exerciseName;
         }
     }
 }
