@@ -1,34 +1,24 @@
 import './App.css'
 import NavBar from './components/NavBar/NavBar'
-import ExplorePage from './pages/ExplorePage'
-import UserPage from './pages/UserPage'
+import { Routes, Route } from 'react-router-dom'
+import { HomePage, LoginPage, RegisterPage, RoutineDetails, RoutinePage, UserPage, ExplorePage, ExercisePage, NotFoundPage } from './pages'
 
 function App() {
 
   return (
     <>
-      {/* <WorkoutWeightGraph /> */}
-      {/* <ExerciseList /> */}
-      {/* <UserInfo user={user}/> */}
-      {/* <WorkoutList workoutLogsList={workoutLogsList} /> */}
-      {/* <RoutineList /> */}
-      {/* <MuscleGroupChart /> */}
-      {/* <AddButton handleClick={handleButtonClick} /> */}
-      {/* <ExerciseModal /> */}
-      {/* <DeleteButton handleClick={handleButtonClick} />
       <NavBar />
-      <EditButton handleClick={handleButtonClick} /> */}
-      <NavBar />
-      {/* <ExercisePage /> */}
-      <UserPage />
-      {/* <WorkoutList workoutLogsList={workoutLogsList} /> */}
-      {/* <Login /> */}
-      {/* <Register /> */}
-      {/* <RoutinePage /> */}
-      {/* <ExerciseDetailCard />	 */}
-      {/* <ExerciseDetailList /> */}
-      {/* <RoutineDetails /> */}
-      {/* <ExplorePage /> */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/routines" element={<RoutinePage />} />
+        <Route path="/routines/:id" element={<RoutineDetails />} />
+        <Route path="/users/:id" element={<UserPage />} />
+        <Route path="/explore" element={<ExplorePage />} />
+        <Route path="/exercises/:id" element={<ExercisePage />} />
+        <Route path="*" element={<NotFoundPage />} />
+     </Routes>
     </>
   )
 }

@@ -4,6 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -25,7 +26,20 @@ const NavBar = () => {
                 
                 <Box sx= {{ display: 'flex' }}>
                     <FitnessCenterIcon sx={{ display: { xs: 'none', sm: 'block' }, fontSize: '40px', mr: 1 }} />
-                    <Typography variant="h4" sx={{ display: { xs: 'none', sm: 'block' }, mr: 1 }}>
+                    <Typography 
+                        variant="h4" 
+                        sx={{ 
+                            display: { xs: 'none', sm: 'block' }, 
+                            mr: 1,
+                            color: 'white',
+                            // on hover, keep the color white
+                            '&:hover': {
+                                color: 'white'
+                            }
+                        }}
+                        component={ Link }
+                        to="/"
+                        >
                         Fitness Tracker
                     </Typography>
                 </Box>
@@ -52,21 +66,67 @@ const NavBar = () => {
                     onClose={handleMenuClose}
                 >
                     <MenuItem onClick={handleMenuClose}>Home</MenuItem>
-                    <MenuItem onClick={handleMenuClose}>Exercises</MenuItem>
+                    <MenuItem onClick={handleMenuClose}>Explore</MenuItem>
                     <MenuItem onClick={handleMenuClose}>Routines</MenuItem>
                 </Menu>
 
                 {/* Buttons for larger screens */}
 
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex'}, paddingLeft: '20px'}}>
-                    <Button color="inherit" sx={{fontSize: '16px'}}>Home</Button>
-                    <Button color="inherit" sx={{fontSize: '16px'}}>Exercises</Button>
-                    <Button color="inherit" sx={{fontSize: '16px'}}>Routines</Button>
+                    <Button 
+                        color="inherit" 
+                        sx={{
+                            fontSize: '16px',
+                            '&:hover': {
+                                fontWeight: 'bold',
+                                color: 'white',
+                            }
+                        }}
+                        component={ Link }
+                        to="/"
+                        >
+                            Home
+                    </Button>
+                    <Button 
+                        color="inherit" 
+                        sx={{
+                            fontSize: '16px',
+                            '&:hover': {
+                                fontWeight: 'bold',
+                                color: 'white'
+                            }
+                        }}
+                        component={ Link }
+                        to="/explore"
+                        >
+                            Explore
+                    </Button>
+                    <Button 
+                        color="inherit" 
+                        sx={{
+                            fontSize: '16px',
+                            '&:hover': {
+                                fontWeight: 'bold',
+                                color: 'white'
+                            }
+                        }}
+                        component={ Link }
+                        to="/routines"
+                        >
+                            Routines
+                    </Button>
                 </Box>
 
                 {/* Notification and User Avatar */}
 
-                <IconButton color="inherit">
+                <IconButton 
+                    color="inherit"
+                    sx={{
+                        '&:hover': {
+                            color: 'lightgray'
+                        }
+                    }}
+                    >
                     <Badge variant="dot" color="error">
                         <NotificationsIcon sx={{fontSize:'35px'}}/>
                     </Badge>
@@ -76,6 +136,13 @@ const NavBar = () => {
                     aria-label="account of current user"
                     aria-haspopup="true"
                     color="inherit"
+                    component = { Link }
+                    to="/users/1"
+                    sx={{
+                        '&:hover': {
+                            color: 'lightgray'
+                        }
+                    }}
                 >
                     <AccountCircle sx={{fontSize:'35px'}}/>
                 </IconButton>
