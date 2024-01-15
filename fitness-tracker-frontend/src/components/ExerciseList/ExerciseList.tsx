@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Box, FormControl, Container, Pagination, TextField, InputAdornment } from '@mui/material';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import SearchIcon from '@mui/icons-material/Search'; // Import Search icon
+import SearchIcon from '@mui/icons-material/Search';
 import ExerciseCard from '../ExerciseCard';
 import { exerciseList } from '../../constants';
 

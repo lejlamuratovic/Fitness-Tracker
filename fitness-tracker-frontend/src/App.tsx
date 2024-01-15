@@ -1,4 +1,6 @@
 import './App.css'
+import ExerciseDetailCard from './components/ExerciseDetailCard'
+import ExerciseDetailList from './components/ExerciseDetailList'
 import NavBar from './components/NavBar/NavBar'
 import ExercisePage from './pages/ExercisePage'
 
@@ -18,12 +20,14 @@ function App() {
       <NavBar />
       <EditButton handleClick={handleButtonClick} /> */}
       <NavBar />
-      <ExercisePage />
+      {/* <ExercisePage /> */}
       {/* <UserPage /> */}
       {/* <WorkoutList workoutLogsList={workoutLogsList} /> */}
       {/* <Login /> */}
       {/* <Register /> */}
       {/* <RoutinePage /> */}
+      {/* <ExerciseDetailCard />	 */}
+      <ExerciseDetailList />
     </>
   )
 }
