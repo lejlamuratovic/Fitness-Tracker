@@ -4,10 +4,11 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 import ExerciseCard from '../ExerciseCard';
-import { exerciseList } from '../../constants';
+import useExercises from '../../hooks/useExercise';
 
 const ExerciseList = () => {
-  const [exercises, setExercises] = useState(exerciseList);
+  const { data: exercises, isLoading, isError, error } = useExercises()
+
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,6 +23,8 @@ const ExerciseList = () => {
     setSearchQuery(event.target.value);
     setCurrentPage(1);
   };
+
+  if(exercises == null) { return null } 
 
   const filteredExercises = exercises.filter((exercise) => {
     return (
@@ -79,14 +82,31 @@ const ExerciseList = () => {
 
         </Container>
 
+        {
+          isLoading &&
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <p>Loading...</p>
+          </Box>
+        }
+
+        {
+          isError &&
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <p>Error fetching exercises</p>
+            <p>{error?.message}</p>
+          </Box>
+        }
+
         {/* exercise list */}
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'space-around' }}>
+        { !isLoading &&
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'space-around' }}>
           {paginatedExercises.map((exercise, index) => (
             <Box key={index} sx={{ width: { xs: '100%', sm: '48%', md: '30%', lg: '22%' } }}>
               <ExerciseCard exercise={exercise} />
             </Box>
           ))}
         </Box>
+        }
 
         {/* pagination */}
         {pageCount > 1 && (
