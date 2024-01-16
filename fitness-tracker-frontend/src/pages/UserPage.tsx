@@ -1,5 +1,5 @@
 import { Container, Box, Paper, Divider } from '@mui/material';
-import { user, workoutLogsList } from '../constants';
+import { workoutLogsList } from '../constants';
 import UserInfo from '../components/UserInfo';
 import MuscleGroupChart from '../components/MuscleGroupChart';
 import WorkoutWeightGraph from '../components/WorkoutWeightGraph';
@@ -10,7 +10,7 @@ const UserPage = () => {
         <>
             <Container sx={{ marginTop: '40px', display: 'block', margin: '0 auto' }}>
                 <Box sx={{ pt: 10 }}>
-                    <UserInfo user={user} />
+                    <UserInfo />
                 </Box> 
                 <Divider sx={{ width: '80%', display: 'block', ml: 'auto', mr: 'auto', mt: 3, mb: 3, backgroundColor: 'gray' }} />
                 <Box sx={{ 

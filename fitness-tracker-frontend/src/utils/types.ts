@@ -24,10 +24,12 @@ export type Routine = {
 
 export type User = {
     id: string, 
+    userType: string,
     firstName: string, 
     lastName: string,
     email: string,
-    password: string
+    password: string,
+    creationDate: string
 }
 
 export type WorkoutLog = {
