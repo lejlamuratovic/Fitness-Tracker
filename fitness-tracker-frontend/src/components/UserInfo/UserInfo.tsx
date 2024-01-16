@@ -13,6 +13,8 @@ import { useParams } from 'react-router-dom';
 import { userId } from '../../constants';
 import Loading from '../Loading';
 import ErrorAlert from '../ErrorAlert/ErrorAlert';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/authSlice';
 
 type Props = {
   user: User;
@@ -20,6 +22,7 @@ type Props = {
 
 const UserInfo = () => {
   const { data: user, isLoading, isError, error } = useUser(userId);
+  const dispatch = useDispatch();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [userData, setUserData] = useState(user);
@@ -73,7 +76,12 @@ const UserInfo = () => {
                     backgroundColor: '#72A1BF' }}>
             Edit personal information
           </Button>
-          <Button size="medium" variant="text" sx={{ marginTop: '20px', color: 'text.secondary', backgroundColor: 'none' }}>
+          <Button 
+            size="medium" 
+            variant="text" 
+            sx={{ marginTop: '20px', color: 'text.secondary', backgroundColor: 'none' }}
+            onClick={() => dispatch(logout())}
+            >
             <InputAdornment position="start">
                 <LogoutIcon sx={{  color: 'text.secondary',}}/>
             </InputAdornment>

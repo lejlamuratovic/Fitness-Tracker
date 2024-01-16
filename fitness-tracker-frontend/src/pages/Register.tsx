@@ -77,6 +77,19 @@ const Register = () => {
 
     return (
         <Paper elevation={3} sx={{ maxWidth: "360px", padding: 3, mx: "auto", mt: 10 }}>
+            {
+                error &&
+                <div className="alert alert-danger" role="alert">
+                    <h4 className="alert-heading">
+                        Unable to render data!
+                    </h4>
+                    <p>{error}</p>
+                    <hr />
+                    <p className="mb-0">
+                        Something went wrong, please try again.
+                    </p>
+                </div>
+            }
             <Box
                 sx={{
                     display: 'flex',
@@ -169,7 +182,7 @@ const Register = () => {
                         sx={{ mt: 3, mb: 2, backgroundColor: '#72A1BF' }}
                         disabled={loading}
                     >
-                        { loading ? 'Submitting...' : 'Sign Up' }
+                        { loading ? 'Submitting...' : 'Register' }
                     </Button>
                     <Grid container justifyContent="space-between">
                         <Grid item>
