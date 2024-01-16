@@ -1,4 +1,4 @@
-import appAxios from "./AppAxios";
+import appAxios from "./appAxios";
 import { Exercise } from "../utils/types";
 
 // get all exercises

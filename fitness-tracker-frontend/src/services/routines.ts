@@ -1,4 +1,4 @@
-import appAxios from "./AppAxios";
+import appAxios from "./appAxios";
 import { Routine } from "../utils/types";
 
 // get routine by user id

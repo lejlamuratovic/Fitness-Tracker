@@ -1,4 +1,4 @@
-import appAxios from "./AppAxios";
+import appAxios from "./appAxios";
 import { User } from "../utils/types";
 
  // get exercise by id 
