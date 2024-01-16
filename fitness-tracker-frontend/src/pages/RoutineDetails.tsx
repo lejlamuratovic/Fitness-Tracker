@@ -8,82 +8,59 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { useParams } from 'react-router-dom';
-import RoutineService from '../services/routines';
 import useUpdateRoutine from "../hooks/useUpdateRoutine";
+import { useRoutine } from '../hooks';
 
 const RoutineDetails = () => {
-  const { id } = useParams();
-  const [routine, setRoutine] = useState<Routine>();
-  const [isLoading, setLoading] = useState(true);
-  const [isError, setError] = useState(false);
-  const [isChanged, setIsChanged] = useState(false);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // today's date in yyyy-mm-dd format
+    const { id } = useParams();
 
-  const updateRoutine = useUpdateRoutine();
+    const validId = id ?? ''; // empty string if id undefined, bc ts null checks
+    const { data, isLoading, isError, error } = useRoutine(validId);
 
-  useEffect(() => {
-    if (id) {
-      setLoading(true);
-      RoutineService.getRoutineById(id)
-        .then((data: any) => {
-          setRoutine(data);
-        })
-        .catch((error: any) => {
-          setError(true);
-          console.error('Error fetching routine:', error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  }, [id]);
-  
-  const handleExerciseDetailsChange = (updatedList: ExerciseDetail[]) => {
-    if (routine) {
-        setRoutine({ ...routine, exercises: updatedList });
+    const [routine, setRoutine] = useState<Routine | null>(null);
+    const [isChanged, setIsChanged] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+
+    const updateRoutine = useUpdateRoutine();
+
+    useEffect(() => {
+        if (data) setRoutine(data);
+    }, [data]);
+    
+    const handleExerciseDetailsChange = (updatedList: ExerciseDetail[]) => {
+      setRoutine(routine => routine ? { ...routine, exercises: updatedList } : null);
+      setIsChanged(true);
+    };
+
+    const handleRoutineChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRoutine(routine => routine ? { ...routine, name: event.target.value } : null);
         setIsChanged(true);
-    }
-  };
+    };
 
-  const handleRoutineChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (routine) {
-          setRoutine({ ...routine, name: event.target.value });
-          setIsChanged(true);
-      }
-  };
-
-  const handleSaveChanges = () => {
-      if (routine && id) {
-          updateRoutine.mutate({ id, data: routine }, {
-              onSuccess: () => {
-                  console.log('Routine updated successfully');
-              },
-              onError: (error: any) => {
-                  console.error('Error updating routine:', error);
-              }
-          });
-      }
-      setIsChanged(false);
-  };
+    const handleSaveChanges = () => {
+        if (routine && id) {
+            updateRoutine.mutate({ id, data: routine }, {
+                onSuccess: () => console.log('Routine updated successfully'),
+                onError: (error: any) => console.error('Error updating routine:', error)
+            });
+        }
+        setIsChanged(false);
+    };  
   
-    // todo: mark routine as completed in database
     const handleCompleteRoutine = () => {
-        setOpenDialog(true);
+      console.log('Routine completion logic not implemented');
+      setOpenDialog(true);
     };
   
-    const handleCloseDialog = () => {
-        setOpenDialog(false);
-    };
-  
+    const handleCloseDialog = () => setOpenDialog(false);
+
     const handleConfirmCompletion = () => {
         console.log('Routine completed on:', selectedDate);
         setOpenDialog(false);
     };
-  
-    const handleDateChange = (event: any) => {
-        setSelectedDate(event.target.value);
-    };
+
+    const handleDateChange = (event: any) => setSelectedDate(event.target.value);
   
     return (
       <>
@@ -103,6 +80,7 @@ const RoutineDetails = () => {
             isError &&
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
               <p>Error fetching routine details</p>
+              <p> {error?.message} </p>
             </Box>
           }
 
