@@ -17,6 +17,7 @@ function App() {
         <Route path="/users/:id" element={<UserPage />} />
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="/exercises/:id" element={<ExercisePage />} />
+        <Route path="/routines/:id" element={<RoutineDetails />} />
         <Route path="*" element={<NotFoundPage />} />
      </Routes>
     </>

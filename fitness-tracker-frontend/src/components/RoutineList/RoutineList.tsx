@@ -1,13 +1,15 @@
 import RoutineCard from "../RoutineCard";
-import { Container, Grid, Pagination, TextField, InputAdornment, FormControl, Select, MenuItem } from '@mui/material';
+import { Container, Grid, Pagination, TextField, InputAdornment, FormControl, Select, MenuItem, Box } from '@mui/material';
 import { useState } from 'react';
-import { routineList } from "../../constants";
 import SearchIcon from '@mui/icons-material/Search';
+import { useRoutines } from "../../hooks";
+import { userId } from '../../constants'
 
 type Props = {}
 
-const RoutineList = (props: Props) => {
-  const [routines, setRoutines] = useState(routineList);
+const RoutineList = () => {
+  const { data: routines, isLoading, isError, error } = useRoutines(userId);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [sortCriteria, setSortCriteria] = useState('name'); // 'name' or 'date'
   const [page, setPage] = useState(1);
@@ -23,14 +25,16 @@ const RoutineList = (props: Props) => {
     setPage(1);
   };
 
+  if(routines == null) { return null } 
+
   const filteredRoutines = routines
     .filter(routine => routine.name.toLowerCase().includes(searchQuery.toLowerCase()))
     .sort((a, b) => {
       if (sortCriteria === 'name') {
         return a.name.localeCompare(b.name);
       } else {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
+        const dateA = new Date(a.creationDate);
+        const dateB = new Date(b.creationDate);
         return dateA.getTime() - dateB.getTime();
       }
     });
@@ -93,14 +97,32 @@ const RoutineList = (props: Props) => {
 
       </Container>    
 
-      {/* routines list */}
-      <Grid container spacing={2}>
-        {paginatedRoutines.map((routine, i) => (
-          <Grid item key={i} xs={12} sm={10} md={4} lg={4}>
-            <RoutineCard routine={routine} />
-          </Grid>
-        ))}
-      </Grid>
+      {
+        isLoading &&
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+          <p>Loading...</p>
+        </Box>
+      }
+
+      {
+        isError &&
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+          <p>Error fetching exercises</p>
+          <p>{error?.message}</p>
+        </Box>
+      }
+
+
+      { /* routines list */}
+      { !isLoading &&
+        <Grid container spacing={2}>
+          {paginatedRoutines.map((routine, i) => (
+            <Grid item key={i} xs={12} sm={10} md={4} lg={4}>
+              <RoutineCard routine={routine} />
+            </Grid>
+          ))}
+        </Grid>
+      }
 
       {/* pagination */}
       <Pagination 

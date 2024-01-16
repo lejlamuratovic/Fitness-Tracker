@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 import { Routine } from '../../utils/types'
 
@@ -14,7 +15,7 @@ type Props = {
 
 const RoutineCard = ({ routine }: Props) => {
     const displayedExercises = routine.exercises.map((exercise) => exercise.exerciseName).join(', ');
-    
+
     return (
         <Card sx={{ minWidth: 275, padding: 2, position: 'relative' }}>
           <IconButton sx={{ position: 'absolute', top: 0, right: 0 }}>
@@ -29,7 +30,19 @@ const RoutineCard = ({ routine }: Props) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="medium" variant="contained" sx={{ margin: 'auto', backgroundColor: '#72A1BF' }}>
+            <Button 
+              size="medium" 
+              variant="contained" 
+              sx={{ 
+                margin: 'auto', 
+                backgroundColor: '#72A1BF',
+                '&:hover': {
+                  color: 'white'
+                }
+              }}
+              component={Link}
+              to={`/routines/${routine.id}`}
+              >
               Open Details
             </Button>
           </CardActions>

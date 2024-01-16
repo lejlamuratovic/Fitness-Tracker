@@ -19,16 +19,7 @@ const RoutinePage = () => {
                 pt: '100px'
             }
             }}>
-            <Typography 
-                variant='h5' 
-                color='text.secondary' 
-                sx={{ 
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.15em', 
-                    fontWeight: 'bold', 
-                    textShadow: '1px 1px 1px lightgray', 
-                    marginBottom: '20px'
-                }}>
+            <Typography variant="h4" color="text.secondary" sx={{ fontWeight: 'bold', letterSpacing: '2px' }}>
                 Your Routines
             </Typography>
             <Box sx={{ mt: 3 }}>

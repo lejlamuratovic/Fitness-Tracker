@@ -8,7 +8,7 @@ interface ApiError {
 }  
 
 const useExercises = () => {
-   return useQuery<Exercise[], ApiError>('books',
+   return useQuery<Exercise[], ApiError>('exercises',
        () => ExerciseService.getExercises(),
        { refetchOnWindowFocus: false }
    );

@@ -18,7 +18,8 @@ export type Routine = {
     id: string, 
     name: string, 
     exercises: ExerciseDetail[],
-    date: string
+    creationDate: string,
+    userId: string
 }
 
 export type User = {

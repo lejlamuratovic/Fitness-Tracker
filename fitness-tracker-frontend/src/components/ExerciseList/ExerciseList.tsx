@@ -4,7 +4,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 import ExerciseCard from '../ExerciseCard';
-import useExercises from '../../hooks/useExercise';
+import useExercises from '../../hooks/useExercises';
 
 const ExerciseList = () => {
   const { data: exercises, isLoading, isError, error } = useExercises()

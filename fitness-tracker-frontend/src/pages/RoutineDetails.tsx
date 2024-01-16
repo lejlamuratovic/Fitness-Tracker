@@ -1,72 +1,71 @@
 import { Box, Container, TextField, Typography } from '@mui/material'
 import ExerciseDetailList from '../components/ExerciseDetailList';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
-import { ExerciseDetail } from '../utils/types';
+import { useState, useEffect } from 'react';
+import { ExerciseDetail, Routine } from '../utils/types';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-
-// routine json 
-const initialRoutine = 
-{
-    "id": "routine_1",
-    "name": "Upper Body Workout",
-    "date": "2024-01-14",
-    "exercises": [
-      {
-        "id": "routine_ex_1",
-        "exerciseName": "Bicep Curl",
-        "weight": 20,
-        "sets": 4,
-        "reps": 10
-      },
-      {
-        "id": "routine_ex_2",
-        "exerciseName": "Tricep Dip",
-        "weight": 0,
-        "sets": 3,
-        "reps": 12
-      },
-      {
-        "id": "routine_ex_3",
-        "exerciseName": "Bicep Curl",
-        "weight": 20,
-        "sets": 4,
-        "reps": 10
-      },
-      {
-        "id": "routine_ex_4",
-        "exerciseName": "Lat Pulldown",
-        "weight": 0,
-        "sets": 3,
-        "reps": 12
-      }
-    ]
-}
+import { useParams } from 'react-router-dom';
+import RoutineService from '../services/routines';
+import useUpdateRoutine from "../hooks/useUpdateRoutine";
 
 const RoutineDetails = () => {
-    const [routine, setRoutine] = useState(initialRoutine);
-    const [isChanged, setIsChanged] = useState(false);
-    const [openDialog, setOpenDialog] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // today's date in yyyy-mm-dd format
+  const { id } = useParams();
+  const [routine, setRoutine] = useState<Routine>();
+  const [isLoading, setLoading] = useState(true);
+  const [isError, setError] = useState(false);
+  const [isChanged, setIsChanged] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // today's date in yyyy-mm-dd format
+
+  const updateRoutine = useUpdateRoutine();
+
+  useEffect(() => {
+    if (id) {
+      setLoading(true);
+      RoutineService.getRoutineById(id)
+        .then((data: any) => {
+          setRoutine(data);
+        })
+        .catch((error: any) => {
+          setError(true);
+          console.error('Error fetching routine:', error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [id]);
   
-    const handleExerciseDetailsChange = (updatedList: ExerciseDetail[]) => {
+  const handleExerciseDetailsChange = (updatedList: ExerciseDetail[]) => {
+    if (routine) {
         setRoutine({ ...routine, exercises: updatedList });
         setIsChanged(true);
-    };
+    }
+  };
 
-    const handleRoutineChange = (event: any) => {
-        setRoutine({ ...routine, name: event.target.value });
-        setIsChanged(true);
-    };
-  
-    // todo: update exercise details in database
-    const handleSaveChanges = () => {
-        console.log('Routine saved: ', routine);
-        setIsChanged(false);
-    };
+  const handleRoutineChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (routine) {
+          setRoutine({ ...routine, name: event.target.value });
+          setIsChanged(true);
+      }
+  };
+
+  const handleSaveChanges = () => {
+      if (routine && id) {
+          updateRoutine.mutate({ id, data: routine }, {
+              onSuccess: () => {
+                  console.log('Routine updated successfully');
+              },
+              onError: (error: any) => {
+                  console.error('Error updating routine:', error);
+              }
+          });
+      }
+      setIsChanged(false);
+  };
   
     // todo: mark routine as completed in database
     const handleCompleteRoutine = () => {
@@ -93,32 +92,51 @@ const RoutineDetails = () => {
             Workout Plan
           </Typography>
 
-          {/* name of routine */}
-          <Box>
-            <Typography variant="body1" color="text.secondary" sx={{ mt: 2, fontSize: '25px' }}>
-              Name
-            </Typography>
-            <TextField
-              type="text"
-              value={routine.name}
-              onChange={handleRoutineChange}
-              variant="outlined"
-              size="medium"
-              InputProps={{ style: { color: 'text.secondary' } }}
-              sx={{ minWidth: '300px', backgroundColor: 'white' }}
-            />
-          </Box>
+          {
+            isLoading &&
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+              <p>Loading...</p>
+            </Box>
+          }
 
-          {/* exercises */}
-          <Box>
-            <Typography variant="body1" color="text.secondary" sx={{ mt: 2, fontSize: '25px' }}>
-              Exercises
-            </Typography>
-            <ExerciseDetailList 
-                exerciseDetailList={routine.exercises} 
-                onExerciseDetailsChange={handleExerciseDetailsChange}
-            />
+          {
+            isError &&
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+              <p>Error fetching routine details</p>
+            </Box>
+          }
+
+          {/* name of routine */}
+          { 
+            routine &&
+            <Box>
+              <Box>
+                <Typography variant="body1" color="text.secondary" sx={{ mt: 2, fontSize: '25px' }}>
+                  Name
+                </Typography>
+                <TextField
+                  type="text"
+                  value={routine.name}
+                  onChange={handleRoutineChange}
+                  variant="outlined"
+                  size="medium"
+                  InputProps={{ style: { color: 'text.secondary' } }}
+                  sx={{ minWidth: '300px', backgroundColor: 'white' }}
+                />
+              </Box>
+
+              {/* exercises */}
+              <Box>
+                <Typography variant="body1" color="text.secondary" sx={{ mt: 2, fontSize: '25px' }}>
+                  Exercises
+                </Typography>
+                <ExerciseDetailList 
+                    exerciseDetailList={routine.exercises} 
+                    onExerciseDetailsChange={handleExerciseDetailsChange}
+                />
+              </Box>
           </Box>
+          }
 
           {/* handle changes or complete the routine */}
           <Box sx={{ 
