@@ -8,8 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { useParams } from 'react-router-dom';
-import useUpdateRoutine from "../hooks/useUpdateRoutine";
-import { useRoutine } from '../hooks';
+import { useRoutine, useUpdateRoutine } from '../hooks';
 
 const RoutineDetails = () => {
     const { id } = useParams();

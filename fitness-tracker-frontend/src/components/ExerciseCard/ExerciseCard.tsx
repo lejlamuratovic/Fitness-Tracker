@@ -8,12 +8,14 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { Exercise } from "../../utils/types";
 import AddToRoutineDialog from '../AddToRoutineDialog';
+import { Link } from 'react-router-dom';
 
 type Props = {
   exercise: Exercise;
 };
 
 const ExerciseCard = ({ exercise }: Props) => {
+
     const [openDialog, setOpenDialog] = useState(false);
 
     const handleOpenDialog = () => {
@@ -44,7 +46,19 @@ const ExerciseCard = ({ exercise }: Props) => {
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'space-between'}}>
               <Button size="small" onClick={handleOpenDialog}>Add to Routine</Button>
-              <Button size="small">See More</Button>
+              <Button 
+                size="small"
+                component={Link}
+                to={`/exercises/${exercise.id}`}
+                sx = {{
+                    '&:hover': {
+                        color: 'white'
+                    }
+                }}
+                >
+
+                    See More
+                </Button>
           </CardActions>
           <AddToRoutineDialog
               open={openDialog}
