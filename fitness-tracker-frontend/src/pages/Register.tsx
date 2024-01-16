@@ -10,12 +10,19 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../store';
+import { useSelector } from 'react-redux';
+import { registerUser } from "../store/authSlice";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export type RegisterFormData = {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
+    // userType: string;
 }
 
 const schema = yup
@@ -33,9 +40,13 @@ const schema = yup
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>({
         resolver: yupResolver(schema)
-     })
-     
+    })
 
+    const { loading, userToken, error, success } = useSelector(
+        (state: RootState) => state.auth
+    )
+    const dispatch = useDispatch<AppDispatch>()
+     
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => {
@@ -47,9 +58,22 @@ const Register = () => {
     };
 
     const onSubmit = (data: RegisterFormData) => {
-        console.log(data)
+        const userData = {
+            ...data,
+            userType: "MEMBER" // setting default user type to MEMBER
+        };
+        dispatch(registerUser(userData));
     }
-    
+
+    const navigate = useNavigate()
+        useEffect(() => {
+            // redirect user to login page if registration was successful
+            if (success) navigate('/login')
+
+            // redirect authenticated user to home screen
+            if (userToken) navigate('/')
+        }, [navigate, userToken, success])
+            
 
     return (
         <Paper elevation={3} sx={{ maxWidth: "360px", padding: 3, mx: "auto", mt: 10 }}>
@@ -63,6 +87,21 @@ const Register = () => {
                 <Typography variant="h5">
                     Sign Up
                 </Typography>
+
+                {
+                    error &&
+                    <div className="alert alert-danger" role="alert">
+                        <h4 className="alert-heading">
+                            Unable to render data!
+                        </h4>
+                        <p>{error}</p>
+                        <hr />
+                        <p className="mb-0">
+                            Something went wrong, please try again.
+                        </p>
+                    </div>
+                }
+
                 <Box component="form" 
                     sx={{ mt: "5px", width: '100%' }} 
                     onSubmit={handleSubmit(onSubmit)}
@@ -128,8 +167,9 @@ const Register = () => {
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2, backgroundColor: '#72A1BF' }}
+                        disabled={loading}
                     >
-                        Sign Up
+                        { loading ? 'Submitting...' : 'Sign Up' }
                     </Button>
                     <Grid container justifyContent="space-between">
                         <Grid item>

@@ -7,6 +7,12 @@ import { Grid, Paper } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../store';
+import { useSelector } from 'react-redux';
+import { login } from "../store/authSlice";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export type LoginFormData = {
     email: string;
@@ -24,9 +30,21 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
         resolver: yupResolver(schema)
     })
-
+    
+    const { loading, userToken, error } = useSelector((state: RootState) => state.auth)
+    
+    const dispatch = useDispatch<AppDispatch>()
+    
+    const navigate = useNavigate()
+    
+    useEffect(() => {
+        if (userToken) {
+          navigate('/')
+        }
+    }, [navigate, userToken])
+    
     const onSubmit = (data: LoginFormData) => {
-        console.log(data)
+        dispatch(login(data))
     }
 
     return (
