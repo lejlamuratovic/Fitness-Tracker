@@ -4,6 +4,8 @@ import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { useRoutines } from "../../hooks";
 import { userId } from '../../constants'
+import Loading from '../Loading';
+import ErrorAlert from '../ErrorAlert';
 
 type Props = {}
 
@@ -99,17 +101,12 @@ const RoutineList = () => {
 
       {
         isLoading &&
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-          <p>Loading...</p>
-        </Box>
+        <Loading />
       }
 
       {
         isError &&
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-          <p>Error fetching exercises</p>
-          <p>{error?.message}</p>
-        </Box>
+        <ErrorAlert message={error?.message} />
       }
 
 

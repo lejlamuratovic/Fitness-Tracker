@@ -11,6 +11,8 @@ import EditInfoModal from '../EditInfoModal';
 import useUser from '../../hooks/useUser';
 import { useParams } from 'react-router-dom';
 import { userId } from '../../constants';
+import Loading from '../Loading';
+import ErrorAlert from '../ErrorAlert/ErrorAlert';
 
 type Props = {
   user: User;
@@ -35,17 +37,12 @@ const UserInfo = () => {
     
     {
       isLoading &&
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-      <p>Loading...</p>
-      </Box>
+      <Loading />
     }
 
     {
       isError &&
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-        <p>Error fetching user details</p>
-        <p> {error?.message} </p>
-      </Box>
+      <ErrorAlert message={error?.message} />
     }
 
     { 

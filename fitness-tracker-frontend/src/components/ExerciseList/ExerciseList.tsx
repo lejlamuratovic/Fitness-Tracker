@@ -5,6 +5,8 @@ import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 import ExerciseCard from '../ExerciseCard';
 import useExercises from '../../hooks/useExercises';
+import Loading from '../Loading';
+import ErrorAlert from '../ErrorAlert';
 
 const ExerciseList = () => {
   const { data: exercises, isLoading, isError, error } = useExercises()
@@ -84,17 +86,12 @@ const ExerciseList = () => {
 
         {
           isLoading &&
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-            <p>Loading...</p>
-          </Box>
+          <Loading />
         }
 
         {
           isError &&
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-            <p>Error fetching exercises</p>
-            <p>{error?.message}</p>
-          </Box>
+          <ErrorAlert message={error?.message} />
         }
 
         {/* exercise list */}

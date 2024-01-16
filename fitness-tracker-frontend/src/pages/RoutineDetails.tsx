@@ -9,6 +9,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { useParams } from 'react-router-dom';
 import { useRoutine, useUpdateRoutine } from '../hooks';
+import Loading from '../components/Loading';
+import ErrorAlert from '../components/ErrorAlert';
 
 const RoutineDetails = () => {
     const { id } = useParams();
@@ -70,17 +72,12 @@ const RoutineDetails = () => {
 
           {
             isLoading &&
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-              <p>Loading...</p>
-            </Box>
+            <Loading />
           }
 
           {
             isError &&
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-              <p>Error fetching routine details</p>
-              <p> {error?.message} </p>
-            </Box>
+            <ErrorAlert message={error?.message} />
           }
 
           {/* name of routine */}
