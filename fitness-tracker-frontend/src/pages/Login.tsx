@@ -4,8 +4,31 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { Grid, Paper } from '@mui/material';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+
+export type LoginFormData = {
+    email: string;
+    password: string;
+  }
+  
+  const schema = yup
+    .object({
+      email: yup.string().email().required("Email is required"),
+      password: yup.string().required("Password is required")
+    })
+    .required()
 
 const Login = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
+        resolver: yupResolver(schema)
+    })
+
+    const onSubmit = (data: LoginFormData) => {
+        console.log(data)
+    }
+
     return (
         <Paper elevation={3} sx={{ maxWidth: "360px", padding: 3, mx: "auto" }}>
             <Box
@@ -18,26 +41,28 @@ const Login = () => {
                 <Typography variant="h5">
                     Sign in
                 </Typography>
-                <Box component="form" sx={{ mt: "5px", width: '100%' }}>
+                <Box component="form" sx={{ mt: "5px", width: '100%' }} onSubmit={handleSubmit(onSubmit)}>
                     <TextField
                         margin="normal"
-                        required
                         fullWidth
                         id="email"
                         label="Email Address"
-                        name="email"
                         autoComplete="email"
                         autoFocus
+                        {...register("email")}
+                        error={!!errors.email}
+                        helperText={errors.email ? errors.email.message : ""}
                     />
                     <TextField
                         margin="normal"
-                        required
                         fullWidth
-                        name="password"
                         label="Password"
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        {...register("password")}
+                        error={!!errors.password}
+                        helperText={errors.password ? errors.password.message : ""}
                     />
                     <Button
                         type="submit"
