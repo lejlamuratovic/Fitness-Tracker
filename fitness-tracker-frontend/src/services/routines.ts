@@ -1,5 +1,5 @@
 import appAxios from "./appAxios";
-import { Routine } from "../utils/types";
+import { ExerciseDetail, Routine } from "../utils/types";
 
 // get routine by user id
 const getRoutines = async (userId: string): Promise<Routine[]> => {
@@ -34,5 +34,18 @@ const updateRoutine = async (routineId: string, routine: Routine): Promise<Routi
         throw error;
     }
 };
+
+// add exercise to existing routine
+const addExerciseToRoutine = async (id: string, exercise: ExerciseDetail): Promise<Routine> => {
+    try {
+        const response = await appAxios.post(`/routines/${id}/exercises`, exercise);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
  
- export default { getRoutines, getRoutineById, updateRoutine };
+export default { getRoutines, getRoutineById, updateRoutine, addExerciseToRoutine };

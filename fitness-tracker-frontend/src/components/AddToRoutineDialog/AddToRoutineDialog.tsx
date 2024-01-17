@@ -1,21 +1,44 @@
 import { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { routineList } from '../../constants';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { useAddExerciseToRoutine, useRoutines } from '../../hooks';
+import Loading from '../Loading';
+import ErrorAlert from '../ErrorAlert';
 
 type Props = {
     open: boolean;
     onClose: () => void;
     exerciseName: string;
+    exerciseId: string;
 };
 
-const AddToRoutineDialog = ({ open, onClose, exerciseName }: Props) => {
+const AddToRoutineDialog = ({ open, onClose, exerciseName, exerciseId }: Props) => {
+    const userId = useSelector((state: RootState) => state.auth.userId);
+
+    if(!userId) {
+        return null;
+    }
+
+    const { data: routines, isLoading, isError, error } = useRoutines(userId);
+    const addToRoutine = useAddExerciseToRoutine();
+
     const [weight, setWeight] = useState(0);
     const [sets, setSets] = useState(0);
     const [reps, setReps] = useState(0);
     const [selectedRoutine, setSelectedRoutine] = useState('');
 
-    const handleSubmit = () => {
-        console.log({ exerciseName, weight, sets, reps, selectedRoutine });
+    const handleSubmit = async () => {
+        // new exercise details to be added to routine
+        const exerciseDetail = {
+            id: exerciseId,
+            exerciseName: exerciseName,
+            weight: weight,
+            sets: sets,
+            reps: reps
+        };
+
+        addToRoutine.mutate({ id: selectedRoutine, exercise: exerciseDetail });
         onClose();
     };
 
@@ -32,16 +55,29 @@ const AddToRoutineDialog = ({ open, onClose, exerciseName }: Props) => {
                 {/* select from available routines */}
                 <FormControl fullWidth margin="dense">
                     <InputLabel id="routine-select-label">Select Routine</InputLabel>
+
+                    { 
+                    isLoading &&
+                    <Loading />
+                    }
+
+                    {
+                    isError &&
+                    <ErrorAlert message={error?.message} />
+                    }
+
+                    { routines && 
                     <Select
                         labelId="routine-select-label"
                         value={selectedRoutine}
                         label="Select Routine"
                         onChange={(e) => setSelectedRoutine(e.target.value)}
-                    >
-                        {routineList.map((routine) => (
+                    >   
+                        {routines.map((routine) => (
                             <MenuItem key={routine.id} value={routine.id}>{routine.name}</MenuItem>
                         ))}
                     </Select>
+                    }
                 </FormControl>
 
             </DialogContent>

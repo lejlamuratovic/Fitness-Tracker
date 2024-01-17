@@ -3,13 +3,20 @@ import { Container, Grid, Pagination, TextField, InputAdornment, FormControl, Se
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { useRoutines } from "../../hooks";
-import { userId } from '../../constants'
 import Loading from '../Loading';
 import ErrorAlert from '../ErrorAlert';
+import { useSelector } from "react-redux";
+import { RootState } from '../../store';
 
 type Props = {}
 
 const RoutineList = () => {
+  const userId = useSelector((state: RootState) => state.auth.userId);
+
+  if(!userId) {
+    return null;
+  }
+
   const { data: routines, isLoading, isError, error } = useRoutines(userId);
 
   const [searchQuery, setSearchQuery] = useState('');

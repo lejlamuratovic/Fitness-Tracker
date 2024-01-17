@@ -61,10 +61,11 @@ const ExerciseCard = ({ exercise }: Props) => {
                 </Button>
           </CardActions>
           <AddToRoutineDialog
-              open={openDialog}
-              onClose={handleCloseDialog}
-              exerciseName={exercise.name}
-          />
+            open={openDialog}
+            onClose={handleCloseDialog}
+            exerciseName={exercise.name}
+            exerciseId={exercise.id}
+        />
       </Card>
   );
 
