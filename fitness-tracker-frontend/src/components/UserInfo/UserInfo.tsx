@@ -15,12 +15,20 @@ import Loading from '../Loading';
 import ErrorAlert from '../ErrorAlert/ErrorAlert';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../store/authSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 type Props = {
   user: User;
 };
 
 const UserInfo = () => {
+  const userId = useSelector((state: RootState) => state.auth.userId);
+
+  if(!userId) {
+    return null;
+  }
+  
   const { data: user, isLoading, isError, error } = useUser(userId);
   const dispatch = useDispatch();
 

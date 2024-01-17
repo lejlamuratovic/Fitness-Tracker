@@ -2,20 +2,27 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import appAxios from '../services/appAxios'
 import { RegisterFormData } from '../pages/Register'
 import { LoginFormData } from '../pages/Login'
+import { decodeToken } from '../utils/jwtDecode'
 
-// initialize userToken from local storage
-const userToken = localStorage.getItem('userToken')
-   ? localStorage.getItem('userToken')
-   : null
+// helper function to decode token
+const getUserIdFromToken = (token: string): string | null => { // returns userId or null
+   const decodedToken = decodeToken(token);
+   return decodedToken ? decodedToken.userId : null;
+};
 
+// initialize userToken and userId from local storage
+const userToken = localStorage.getItem('userToken') ?? null;
+const userId = userToken ? getUserIdFromToken(userToken) : null;
 
 const initialState = {
    loading: false,
-   userInfo: null, // for user the object
+   userInfo: null, // for user object
+   userId: userId as string | null, // for storing the userId
    userToken, // for storing the JWT
    error: null,
    success: false, // for monitoring the registration process.
 }
+
 
 export const registerUser = createAsyncThunk(
    'auth/register',
@@ -90,6 +97,7 @@ const authSlice = createSlice({
          state.loading = false
          state.userInfo = action.payload
          state.userToken = action.payload.jwt
+         state.userId = getUserIdFromToken(action.payload.jwt); // get userId from token
       })
       builder.addCase(login.rejected, (state, action: any) => {
          state.loading = false

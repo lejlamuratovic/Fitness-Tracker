@@ -1,4 +1,4 @@
-import { Container, Box, Paper, Divider } from '@mui/material';
+import { Container, Box, Divider } from '@mui/material';
 import { workoutLogsList } from '../constants';
 import UserInfo from '../components/UserInfo';
 import MuscleGroupChart from '../components/MuscleGroupChart';
