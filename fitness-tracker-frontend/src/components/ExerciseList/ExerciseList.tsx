@@ -39,7 +39,7 @@ const ExerciseList = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedExercises = filteredExercises.slice(startIndex, startIndex + itemsPerPage);
 
-  const handlePageChange = (event: any, value: number) => {
+  const handlePageChange = (_event: any, value: number) => {
     setCurrentPage(value);
   };
 
