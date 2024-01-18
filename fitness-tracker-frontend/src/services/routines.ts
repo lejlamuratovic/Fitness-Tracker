@@ -73,6 +73,17 @@ const markRoutineCompleted = async (id: string, dateCompleted: string): Promise<
     }
 };
 
+// delete routine 
+const deleteRoutine = async (id: string): Promise<Routine> => {
+    try {
+        const response = await appAxios.delete(`/routines/${id}`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
 
  
 export default { 
@@ -81,5 +92,6 @@ export default {
     updateRoutine, 
     addExerciseToRoutine, 
     createRoutine,
-    markRoutineCompleted
+    markRoutineCompleted,
+    deleteRoutine
 };

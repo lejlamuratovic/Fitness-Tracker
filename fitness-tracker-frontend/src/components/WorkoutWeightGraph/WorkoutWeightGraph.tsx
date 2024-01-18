@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 
 const formatDateForDisplay = (isoDate: string) => {
-  return isoDate.split('T')[0]; // Splitting at 'T' and taking the date part
+  return isoDate.split('T')[0]; // removing the time portion of the date string
 };
 
 const WorkoutWeightGraph = () => {
