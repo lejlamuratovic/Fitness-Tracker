@@ -11,6 +11,17 @@ import { User } from "../utils/types";
             return data;
         });
 }
+
+// update user 
+const updateUser = async (id: string, user: User): Promise<User> => {
+    return appAxios.put(`/users/${id}`, user).then(
+        (response) => {
+            const data = response.data;
+            console.log(data);
+ 
+            return data;
+        });
+}
  
  
- export default { getUserById };
+ export default { getUserById, updateUser };

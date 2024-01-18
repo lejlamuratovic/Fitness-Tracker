@@ -1,4 +1,3 @@
-import { User } from '../../utils/types';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -6,7 +5,7 @@ import UserAvatar from '../UserAvatar';
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EditInfoModal from '../EditInfoModal';
 import useUser from '../../hooks/useUser';
 import Loading from '../Loading';
@@ -36,6 +35,13 @@ const UserInfo = () => {
   const handleModalClose = () => {
     setModalOpen(false);
   };
+
+  // update the user data when the user changes
+  useEffect(() => {
+    if (user) {
+      setUserData(user);
+    }
+  }, [user]);
 
   return (
   <Container maxWidth="sm" sx={{ backgroundColor: 'primary' }}>
@@ -93,13 +99,14 @@ const UserInfo = () => {
       </Box>
     }
 
-
-    {/* <EditInfoModal
-        open={modalOpen}
-        handleClose={handleModalClose}
-        user={userData}
-        setUser={setUserData}
-    /> */}
+      {user && userData &&
+        <EditInfoModal
+          open={modalOpen}
+          handleClose={handleModalClose}
+          user={userData}
+          setUser={setUserData}
+        />
+      }
 
   </Container>
   );

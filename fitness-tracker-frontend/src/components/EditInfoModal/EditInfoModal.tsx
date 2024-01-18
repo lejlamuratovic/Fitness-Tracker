@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { User } from '../../utils/types';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import useUpdateUser from '../../hooks/useUpdateUser';
 
 interface EditInfoModalProps {
   open: boolean;
   handleClose: () => void;
   user: User;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
+  setUser: any;
 }
 
 const style = {
@@ -28,20 +25,20 @@ const style = {
   p: 4,
 };
 
-const EditInfoModal= ({ open, handleClose, user, setUser }: EditInfoModalProps) => {
+const EditInfoModal = ({ open, handleClose, user, setUser }: EditInfoModalProps) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [showNewPassword, setShowNewPassword] = useState(false);
+
+  const updateUserMutation = useUpdateUser(); // Use the useUpdateUser hook
 
   const handleSave = () => {
-    setUser({ ...user, firstName, lastName });
-    handleClose();
-  };
-
-  const handleClickShowNewPassword = () => {
-    setShowNewPassword(!showNewPassword);
+    const updatedUser = { ...user, firstName, lastName };
+    updateUserMutation.mutate({ id: user.id, user: updatedUser }, {
+      onSuccess: () => {
+        setUser(updatedUser);
+        handleClose();
+      }
+    });
   };
 
   return (
@@ -64,35 +61,7 @@ const EditInfoModal= ({ open, handleClose, user, setUser }: EditInfoModalProps) 
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
-        <TextField
-          margin="dense"
-          fullWidth
-          label="Old Password"
-          type="password"
-          value={oldPassword}
-          onChange={(e) => setOldPassword(e.target.value)}
-        />
-        <TextField
-          margin="dense"
-          fullWidth
-          label="New Password"
-          type={showNewPassword ? 'text' : 'password'}
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowNewPassword}
-                  edge="end"
-                >
-                  {showNewPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
+
         <Button
           variant="contained"
           sx={{ float: 'right', mt: 2 }}
