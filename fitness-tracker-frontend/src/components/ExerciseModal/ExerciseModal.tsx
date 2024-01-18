@@ -1,17 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal, Box, TextField, Button, Select, MenuItem, InputLabel, FormControl, Typography, Container } from '@mui/material';
 import AddButton from '../AddButton';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
-// enum for muscle groups field
-const MuscleGroups = {
-    CHEST: 'Chest',
-    BACK: 'Back',
-    LEGS: 'Legs',
-    ARMS: 'Arms',
-    SHOULDERS: 'Shoulders',
-    ABS: 'Abs'
-};
+import { MuscleGroups } from '../../utils/enums';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import useAddExercise from '../../hooks/useAddExercise';
 
 const modalStyle = {
     position: 'absolute',
@@ -24,103 +19,134 @@ const modalStyle = {
     p: 4
 };
 
+export type ExerciseFormData = {
+    name: string;
+    muscleGroup: string;
+    description: string;
+}
+
+const schema = yup.object().shape({
+    name: yup.string().required('Exercise name is required'),
+    muscleGroup: yup.string().required('Muscle group is required'),
+    description: yup.string().required('Description is required'),
+});
+
 const ExerciseModal = () => {
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<ExerciseFormData>({
+        resolver: yupResolver(schema)
+    })
+
     const [open, setOpen] = useState(false);
-    const [exerciseData, setExerciseData] = useState({
-        name: '',
-        muscleGroup: '',
-        description: '',
-        image: null
-    });
+    const [muscleGroup, setMuscleGroup] = useState('');
+    const [selectedFile, setSelectedFile] = useState(''); // to display the name of the file when uploaded
+    const addExercise = useAddExercise();
 
     // to handle opening and closing of the modal
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    // to handle value changes in inputs
-    const handleChange = (event: any) => {
-        const { name, value, files } = event.target;
-        setExerciseData({
-        ...exerciseData,
-        [name]: name === 'image' ? files[0] : value
-        });
+    useEffect(() => {
+        register('muscleGroup'); // because the select component needs to be mounted before registering
+    }, [register]);
+
+
+    const handleMuscleGroupChange = (event: any) => {
+        setMuscleGroup(event.target.value as string);
+        setValue('muscleGroup', event.target.value as string); // update the value in the form
     };
 
-    // to handle form submission
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-        console.log(exerciseData);
+    const handleFileChange = (event: any) => {
+        const selectedFile = event.target.files[0]; // get the file from the event
+        if (selectedFile) {
+            setSelectedFile(selectedFile.name);
+            setFile(selectedFile); // sert the file in the local state
+        }
+    };
+    
+    const [file, setFile] = useState(null); // new state for the file
+
+    const onSubmit = (data: ExerciseFormData) => {
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('muscleGroup', data.muscleGroup);
+        formData.append('description', data.description);
+
+        if (file) {
+            formData.append('file', file); // append the file from the local state
+        }
+    
+        // Debugging
+        for (let [key, value] of formData.entries()) { 
+            console.log(key, value);
+        }
+    
+        addExercise.mutate(formData);
         handleClose();
     };
+    
 
-  return (
-  <Container maxWidth="xs">
-    <AddButton handleClick={handleOpen} sx={{ fontSize: '55px' }}></AddButton>
-    <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="exercise-modal-title"
-    >
-    <Box sx={modalStyle} component="form" onSubmit={handleSubmit}>
-        <Typography variant="h5" color="text.secondary" textAlign="center"> Add new exercise </Typography>
-        <TextField
-        name="name"
-        label="Exercise Name"
-        value={exerciseData.name}
-        onChange={handleChange}
-        id="exerciseName"
-        fullWidth
-        margin="normal"
-        />
-        <FormControl fullWidth margin="normal">
-            <InputLabel>Muscle Group</InputLabel>
-            <Select
-              name="muscleGroup"
-              value={exerciseData.muscleGroup}
-              label="Muscle Group"
-              onChange={handleChange}
+    return (
+        <Container maxWidth="xs">
+            <AddButton handleClick={handleOpen} sx={{ fontSize: '55px' }}></AddButton>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="exercise-modal-title"
             >
-                {Object.values(MuscleGroups).map((group) => (
-                    <MenuItem key={group} value={group}>
-                        {group}
-                    </MenuItem>
-                ))}
-            </Select>
-        </FormControl>
+                <Box sx={modalStyle} component="form" onSubmit={handleSubmit(onSubmit)}>
+                    <Typography variant="h5" color="text.secondary" textAlign="center"> Add new exercise </Typography>
+                    <TextField
+                        label="Exercise Name"
+                        fullWidth
+                        margin="normal"
+                        {...register("name")}
+                        error={!!errors.name}
+                        helperText={errors.name ? errors.name.message : ""}
+                    />
+                    <FormControl fullWidth margin="normal">
+                        <InputLabel>Muscle Group</InputLabel>
+                        <Select
+                            label="Muscle Group"
+                            value={muscleGroup}
+                            onChange={handleMuscleGroupChange}
+                            error={!!errors.muscleGroup}
+                        >
+                            {Object.values(MuscleGroups).map((group) => (
+                                <MenuItem key={group} value={group}>
+                                    {group}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                        {errors.muscleGroup && <p>{errors.muscleGroup.message}</p>}
+                    </FormControl>
+                    <TextField
+                        label="Description"
+                        fullWidth
+                        margin="normal"
+                        multiline
+                        {...register("description")}
+                        error={!!errors.description}
+                        helperText={errors.description ? errors.description.message : ""}
+                    />
+                    <Button component="label" style={{ marginTop: '10px', color: '#72A1BF' }} variant="outlined" startIcon={<CloudUploadIcon />}>
+                        Upload file
+                        <input
+                            type="file"
+                            style={{ opacity: 0, position: 'absolute', zIndex: -1, overflow: 'hidden' }}
+                            accept="image/*"
+                            name="file"
+                            onChange={handleFileChange}
+                        />
+                    </Button>
+                    { selectedFile && <Typography sx={{ color: 'text.secondary' }}>{selectedFile}</Typography>} {/* display the name of the file when uploaded */}
 
-        <TextField
-            name="description"
-            label="Description"
-            value={exerciseData.description}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            id="exerciseDescription"
-            multiline
-        />
-        <Button component="label" style={{ marginTop: '10px', color: '#72A1BF' }} variant="outlined" startIcon={<CloudUploadIcon />}>
-        Upload file
-        <input
-            type="file"
-            name="image"
-            onChange={handleChange}
-            style={{ 
-            opacity: 0,
-            position: 'absolute',
-            zIndex: -1,
-            overflow: 'hidden'
-            }}
-            accept="image/*"
-        />
-        </Button>
-
-        <Button type="submit" size="large" style={{ marginTop: '30px', backgroundColor: '#72A1BF' }} fullWidth variant="contained">
-            Submit
-        </Button>
-    </Box>
-    </Modal>
-    </Container>
-  );
+                    <Button type="submit" size="large" style={{ marginTop: '30px', backgroundColor: '#72A1BF' }} fullWidth variant="contained">
+                        Submit
+                    </Button>
+                </Box>
+            </Modal>
+        </Container>
+    );
 }
 
 export default ExerciseModal;

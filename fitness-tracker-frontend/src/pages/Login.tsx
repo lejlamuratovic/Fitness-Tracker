@@ -17,9 +17,9 @@ import { useNavigate } from 'react-router-dom';
 export type LoginFormData = {
     email: string;
     password: string;
-  }
+}
   
-  const schema = yup
+const schema = yup
     .object({
       email: yup.string().email().required("Email is required"),
       password: yup.string().required("Password is required")

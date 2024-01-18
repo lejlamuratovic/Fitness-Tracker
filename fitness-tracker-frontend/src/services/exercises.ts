@@ -22,6 +22,13 @@ const getExercises = async (): Promise<Exercise[]> => {
             return data;
         });
 }
- 
- 
- export default { getExercises, getExerciseById };
+
+const addExercise = async (formData: FormData): Promise<Exercise> => {
+    return appAxios.post('/exercise/', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }).then(response => response.data);
+};
+
+export default { getExercises, getExerciseById, addExercise };

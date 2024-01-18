@@ -4,12 +4,24 @@ import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
 import { useParams } from 'react-router-dom'
 import { useExercise } from '../hooks';
 import { Link } from 'react-router-dom';
+import AddToRoutineDialog from '../components/AddToRoutineDialog';
+import { useState } from 'react';
 
 const ExercisePage = () => {
   const { id } = useParams();
   
   const validId = id ?? ''; // empty string if id undefined, bc ts null checks
   const { data: exercise, isLoading, isError, error } = useExercise(validId);
+
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDialog = () => {
+      setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+      setOpenDialog(false);
+  }
 
 
   return (
@@ -81,7 +93,14 @@ const ExercisePage = () => {
                         </InputAdornment>
                         Back
                     </Button>
-                    <Button variant="contained" size="medium" sx = {{ backgroundColor:"#72A1BF" }}>Add to Routine</Button>
+                    <Button 
+                      variant="contained" 
+                      size="medium" 
+                      sx = {{ backgroundColor:"#72A1BF" }}
+                      onClick={handleOpenDialog}
+                      >
+                        Add to Routine
+                      </Button>
                 </Box>
               </Grid>
 
@@ -102,6 +121,16 @@ const ExercisePage = () => {
           </Paper>
         </Container>
     }
+
+        { 
+        exercise && 
+        <AddToRoutineDialog
+            open={openDialog}
+            onClose={handleCloseDialog}
+            exerciseName={exercise.name}
+            exerciseId={exercise.id}
+        />
+        }
     </>
   );
 }
