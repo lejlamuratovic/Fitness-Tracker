@@ -47,5 +47,16 @@ const addExerciseToRoutine = async (id: string, exercise: ExerciseDetail): Promi
     }
 }
 
+// create routine
+const createRoutine = async (routine: Routine): Promise<Routine> => {
+    return appAxios.post(`/routines/`, routine).then(
+        (response) => {
+            const data = response.data;
+            console.log(data);
  
-export default { getRoutines, getRoutineById, updateRoutine, addExerciseToRoutine };
+            return data;
+        });
+}
+
+ 
+export default { getRoutines, getRoutineById, updateRoutine, addExerciseToRoutine, createRoutine };

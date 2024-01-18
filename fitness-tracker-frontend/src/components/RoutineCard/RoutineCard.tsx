@@ -14,10 +14,10 @@ type Props = {
 }
 
 const RoutineCard = ({ routine }: Props) => {
-    const displayedExercises = routine.exercises.map((exercise) => exercise.exerciseName).join(', ');
+    const displayedExercises = routine.exercises?.map((exercise) => exercise.exerciseName).join(', ');
 
     return (
-        <Card sx={{ minWidth: 275, padding: 2, position: 'relative' }}>
+        <Card sx={{ minWidth: 275, minHeight: 140, padding: 2, position: 'relative' }}>
           <IconButton sx={{ position: 'absolute', top: 0, right: 0 }}>
             <MoreVertIcon />
           </IconButton>
@@ -26,7 +26,7 @@ const RoutineCard = ({ routine }: Props) => {
               {routine.name}
             </Typography>
             <Typography variant="body2" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {displayedExercises}
+              {routine.exercises?.length === 0 ? 'No exercises added yet' : displayedExercises}
             </Typography>
           </CardContent>
           <CardActions>

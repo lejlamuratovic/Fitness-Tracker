@@ -105,7 +105,7 @@ const RoutineDetails = () => {
                   Exercises
                 </Typography>
                 <ExerciseDetailList 
-                    exerciseDetailList={routine.exercises} 
+                    exerciseDetailList={routine.exercises ?? []} 
                     onExerciseDetailsChange={handleExerciseDetailsChange}
                 />
               </Box>

@@ -1,5 +1,5 @@
 import RoutineCard from "../RoutineCard";
-import { Container, Grid, Pagination, TextField, InputAdornment, FormControl, Select, MenuItem, Box } from '@mui/material';
+import { Container, Grid, Pagination, TextField, InputAdornment, FormControl, Select, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { useRoutines } from "../../hooks";
@@ -8,7 +8,6 @@ import ErrorAlert from '../ErrorAlert';
 import { useSelector } from "react-redux";
 import { RootState } from '../../store';
 
-type Props = {}
 
 const RoutineList = () => {
   const userId = useSelector((state: RootState) => state.auth.userId);
@@ -44,7 +43,7 @@ const RoutineList = () => {
       } else {
         const dateA = new Date(a.creationDate);
         const dateB = new Date(b.creationDate);
-        return dateA.getTime() - dateB.getTime();
+        return dateB.getTime() - dateA.getTime();
       }
     });
 
@@ -52,7 +51,7 @@ const RoutineList = () => {
   const startIndex = (page - 1) * itemsPerPage;
   const paginatedRoutines = filteredRoutines.slice(startIndex, startIndex + itemsPerPage);
 
-  const handlePageChange = (event: any, newPage: number) => {
+  const handlePageChange = (_event: any, newPage: number) => {
     setPage(newPage);
   };
 
