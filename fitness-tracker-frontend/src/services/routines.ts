@@ -58,5 +58,28 @@ const createRoutine = async (routine: Routine): Promise<Routine> => {
         });
 }
 
+// mark routqine as completed
+const markRoutineCompleted = async (id: string, dateCompleted: string): Promise<Routine> => {
+    const date = new Date(dateCompleted);
+    const formattedDate = date.toISOString(); // in the format yyyy-MM-dd'T'HH:mm:ss.SSSZ that the backend expects
+
+    try {
+        const response = await appAxios.put(`/routines/${id}/complete`, { dateCompleted: formattedDate });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+
  
-export default { getRoutines, getRoutineById, updateRoutine, addExerciseToRoutine, createRoutine };
+export default { 
+    getRoutines, 
+    getRoutineById, 
+    updateRoutine, 
+    addExerciseToRoutine, 
+    createRoutine,
+    markRoutineCompleted
+};
