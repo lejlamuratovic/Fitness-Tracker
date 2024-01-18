@@ -34,7 +34,7 @@ export type User = {
 
 export type WorkoutLog = {
     id: string, 
-    date: string, 
+    dateCompleted: string, 
     exercises: ExerciseDetail[],
     userId: string
 }

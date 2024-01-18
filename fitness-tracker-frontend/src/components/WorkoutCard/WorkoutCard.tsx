@@ -2,42 +2,80 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { Card, Divider } from '@mui/material';
 import UserAvatar from '../UserAvatar';
-import { WorkoutLog, User } from '../../utils/types';
+import { WorkoutLog } from '../../utils/types';
 import { useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import useUser from '../../hooks/useUser';
+import Loading from '../Loading';
+import ErrorAlert from '../ErrorAlert';
 
 type Props = {
-    user: User;
+    userId: string;
     workoutLog: WorkoutLog;
 }
 
-const WorkoutCard = ({ user, workoutLog }: Props) => {
+const WorkoutCard = ({ userId, workoutLog }: Props) => {
+    const { data: user, isLoading, isError, error } = useUser(userId);
+
     const [openModal, setOpenModal] = useState(false);
 
     const handleOpen = () => setOpenModal(true);
     const handleClose = () => setOpenModal(false);
 
+    const parseDate = (dateString: string) => {
+        // parse the date
+        const parsedDate = new Date(dateString);
+
+        // check if the date is valid
+        if (isNaN(parsedDate.getTime())) {
+            console.error("Invalid date string: ", dateString);
+            return null;
+        }
+
+        return parsedDate;
+    };
 
     const getDayOfWeek = (dateString: string) => {
+        const date = parseDate(dateString);
+        if (!date) return 'Invalid Date';
+
         const options: Intl.DateTimeFormatOptions = { weekday: 'long' };
-        const [year, month, day] = dateString.split('.').map(Number);
-        const date = new Date(year, month - 1, day); // 0-indexed month
         return date.toLocaleDateString(undefined, options);
     };
+
+    const formatDate = (dateString: string) => {
+        const date = parseDate(dateString);
+        if (!date) return 'Invalid Date';
+
+        const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString(undefined, options);
+    };
+
+    console.log("Workout Log: ", workoutLog);
 
     return (
         <Card sx={{ margin:'5px', padding: 2, maxWidth: "sm", minWidth: "300px"}}>
 
             <Container sx={{ display: 'flex', alignItems: 'center' }}>
 
-            <UserAvatar firstName={user.firstName} lastName={user.lastName} />
+            { 
+                isLoading &&
+                <Loading />
+            }
+
+            { 
+                isError &&
+                <ErrorAlert message={error?.message} />
+            }
+
+            {user && <UserAvatar firstName={user.firstName} lastName={user.lastName} />}
                 <Container sx={{ textAlign: 'left' }}>
                     <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                        {user.firstName}
+                        {user?.firstName ?? ''}
                     </Typography>
                     <Typography variant="body2" sx={{}}>
-                        {getDayOfWeek(workoutLog.date)}, {workoutLog.date}
+                        {getDayOfWeek(workoutLog.dateCompleted)}, {formatDate(workoutLog.dateCompleted)}
                     </Typography>
                 </Container>
             </Container>

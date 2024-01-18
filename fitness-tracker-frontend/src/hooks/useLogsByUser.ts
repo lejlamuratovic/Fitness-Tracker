@@ -8,11 +8,11 @@ interface ApiError {
 }  
 
 // get all logs per user id 
-const useLogs = (userId: string) => {
+const useLogsByUser = (userId: string) => {
     return useQuery<WorkoutLog[], ApiError>(['workout logs', userId],
         () => WorkoutLogsService.getLogsByUserId(userId),
         { refetchOnWindowFocus: false }
     );
 }
 
-export default useLogs;
+export default useLogsByUser;

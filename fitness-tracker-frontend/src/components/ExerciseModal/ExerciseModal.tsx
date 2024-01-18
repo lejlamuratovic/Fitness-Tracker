@@ -39,6 +39,7 @@ const ExerciseModal = () => {
     const [open, setOpen] = useState(false);
     const [muscleGroup, setMuscleGroup] = useState('');
     const [selectedFile, setSelectedFile] = useState(''); // to display the name of the file when uploaded
+    
     const addExercise = useAddExercise();
 
     // to handle opening and closing of the modal

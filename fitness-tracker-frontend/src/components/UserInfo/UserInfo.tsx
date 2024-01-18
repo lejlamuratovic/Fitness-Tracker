@@ -16,10 +16,6 @@ import { logout } from '../../store/authSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 
-type Props = {
-  user: User;
-};
-
 const UserInfo = () => {
   const userId = useSelector((state: RootState) => state.auth.userId);
 

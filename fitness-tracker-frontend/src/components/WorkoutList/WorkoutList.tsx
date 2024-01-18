@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Grid, Pagination, TextField, Typography } from '@mui/material';
 import WorkoutCard from '../WorkoutCard';
-import { WorkoutLog } from '../../utils/types';
-import { user } from '../../constants';
+import useLogsByUser from '../../hooks/useLogsByUser';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import Loading from '../Loading';
+import ErrorAlert from '../ErrorAlert';
 
-type Props = {
-  workoutLogsList: WorkoutLog[];
-};
+const WorkoutList = () => {
+  const userId = useSelector((state: RootState) => state.auth.userId);
 
-const WorkoutList = ({ workoutLogsList }: Props) => {
+  if(!userId) {
+    return null;
+  }
+  
+  const { data: workoutLogsList, isLoading, isError, error } = useLogsByUser(userId);
+
   const itemsPerPage = 6;
   const [page, setPage] = useState(1);
   const [startDate, setStartDate] = useState('');
@@ -16,28 +23,38 @@ const WorkoutList = ({ workoutLogsList }: Props) => {
   const [filteredWorkoutLogs, setFilteredWorkoutLogs] = useState(workoutLogsList);
 
   useEffect(() => {
-    const filteredLogs = workoutLogsList.filter(log => {
-      const logDate = new Date(log.date);
-      const start = startDate ? new Date(startDate) : new Date('1970-01-01');
-      const end = endDate ? new Date(endDate) : new Date('2999-12-31');
-      return logDate >= start && logDate <= end;
-    });
+    if (!workoutLogsList) {
+      return;
+    }
+  
+    let filteredLogs = workoutLogsList;
+  
+    if (startDate || endDate) {
+      filteredLogs = workoutLogsList.filter(log => {
+        const logDate = new Date(log.dateCompleted);
+        const start = startDate ? new Date(startDate) : new Date('1970-01-01');
+        const end = endDate ? new Date(endDate) : new Date('2999-12-31');
+        return logDate >= start && logDate <= end;
+      });
+    }
+  
     setFilteredWorkoutLogs(filteredLogs);
-    setPage(1); // to reset to first page after filtering
+    setPage(1); // reset to the first page after filtering
   }, [startDate, endDate, workoutLogsList]);
 
-  const handleChangePage = (event: React.ChangeEvent<unknown>, newPage: number) => {
+  const handleChangePage = (newPage: number) => {
     setPage(newPage);
   };
 
   const indexOfLastItem = page * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredWorkoutLogs.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredWorkoutLogs?.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <Container>
 
       <Typography variant='h5' color='text.secondary' sx={{ marginBottom: 2 }}>Workout History</Typography>
+
       {/* to filter workouts by date */}
       <TextField
         label="Start Date"
@@ -56,20 +73,36 @@ const WorkoutList = ({ workoutLogsList }: Props) => {
         sx={{ m: 2 }}
       />
 
+      {
+        isLoading && 
+        <Loading />
+      }
+
+      { 
+        isError &&
+        <ErrorAlert message={error.message} />
+      }
+
       {/* workout list */}
-      <Grid container spacing={2}>
-        {currentItems.map((workoutLog, i) => (
-          <Grid item xs={12} sm={4} key={i}>
-            <WorkoutCard user={user} workoutLog={workoutLog} />
+      {
+        workoutLogsList && currentItems && currentItems.length > 0 ? (
+          <Grid container spacing={2}>
+            {currentItems.map((workoutLog, i) => (
+              <Grid item xs={12} sm={4} key={i}>
+                <WorkoutCard userId={userId} workoutLog={workoutLog} />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
+        ) : (
+          <Typography>No workouts found for the selected dates.</Typography>
+        )
+      }
 
       {/* pagination */}
       <Pagination
-        count={Math.ceil(filteredWorkoutLogs.length / itemsPerPage)}
+        count={Math.ceil((filteredWorkoutLogs?.length ?? 0) / itemsPerPage)}
         page={page}
-        onChange={handleChangePage}
+        onChange={(_, newPage) => handleChangePage(newPage)}
         style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}
       />
     </Container>

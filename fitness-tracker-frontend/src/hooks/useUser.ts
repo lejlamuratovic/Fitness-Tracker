@@ -7,7 +7,7 @@ interface ApiError {
     message: string;
 }  
 
-// get routine details by id
+// get user details by id
 const useUser = (id: string) => {
     return useQuery<User, ApiError>(['user', id],
         () => UsersService.getUserById(id),

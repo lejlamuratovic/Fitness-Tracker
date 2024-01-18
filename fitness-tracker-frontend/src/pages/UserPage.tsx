@@ -1,5 +1,4 @@
 import { Container, Box, Divider } from '@mui/material';
-import { workoutLogsList } from '../constants';
 import UserInfo from '../components/UserInfo';
 import MuscleGroupChart from '../components/MuscleGroupChart';
 import WorkoutWeightGraph from '../components/WorkoutWeightGraph';
@@ -27,7 +26,7 @@ const UserPage = () => {
                 </Box>
                 <Divider sx={{ width: '80%', display: 'block', ml: 'auto', mr: 'auto', mt: 3, mb: 3, backgroundColor: 'gray' }} />
                 <Box sx={{  }}>
-                    <WorkoutList workoutLogsList={workoutLogsList} />
+                    <WorkoutList />
                 </Box>
             </Container> 
         </>
