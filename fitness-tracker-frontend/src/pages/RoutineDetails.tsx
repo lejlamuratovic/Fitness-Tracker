@@ -22,6 +22,7 @@ const RoutineDetails = () => {
     const [isChanged, setIsChanged] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+    const [deletedExercises, setDeletedExercises] = useState<string[]>([]);
 
     const updateRoutine = useUpdateRoutine();
 
@@ -40,14 +41,23 @@ const RoutineDetails = () => {
     };
 
     const handleSaveChanges = () => {
-        if (routine && id) {
-            updateRoutine.mutate({ id, data: routine }, {
-                onSuccess: () => console.log('Routine updated successfully'),
-                onError: (error: any) => console.error('Error updating routine:', error)
-            });
-        }
-        setIsChanged(false);
-    };  
+      if (routine && id && routine.exercises) {
+          const updatedExercises = routine.exercises.filter(exercise => 
+              !deletedExercises.includes(exercise.detailId)
+          );
+  
+          const updatedRoutine = { ...routine, exercises: updatedExercises };
+  
+          updateRoutine.mutate({ id, data: updatedRoutine }, {
+              onSuccess: () => {
+                  console.log('Routine updated successfully');
+                  setDeletedExercises([]); // Reset the deleted exercises list
+              },
+              onError: (error: any) => console.error('Error updating routine:', error)
+          });
+      }
+      setIsChanged(false);
+  };  
   
     const handleCompleteRoutine = () => {
       console.log('Routine completion logic not implemented');
@@ -62,6 +72,11 @@ const RoutineDetails = () => {
     };
 
     const handleDateChange = (event: any) => setSelectedDate(event.target.value);
+  
+    const handleDeleteExercise = (exerciseDetailId: string) => {
+      setDeletedExercises(prev => [...prev, exerciseDetailId]);
+      setIsChanged(true);
+  };
   
     return (
       <>
@@ -105,8 +120,9 @@ const RoutineDetails = () => {
                   Exercises
                 </Typography>
                 <ExerciseDetailList 
-                    exerciseDetailList={routine.exercises ?? []} 
-                    onExerciseDetailsChange={handleExerciseDetailsChange}
+                  exerciseDetailList={routine.exercises ?? []} 
+                  onExerciseDetailsChange={handleExerciseDetailsChange}
+                  onDeleteExercise={handleDeleteExercise}
                 />
               </Box>
           </Box>

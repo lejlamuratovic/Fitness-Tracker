@@ -94,7 +94,7 @@ const WorkoutList = () => {
             ))}
           </Grid>
         ) : (
-          <Typography>No workouts found for the selected dates.</Typography>
+          <Typography color="text.secondary" variant="body1" sx = {{ fontSize: '20px' }}>No workouts found for the selected dates.</Typography>
         )
       }
 
