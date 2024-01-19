@@ -40,7 +40,6 @@ const ExerciseCard = ({ exercise }: Props) => {
     };
 
     const handleConfirmDelete = () => {
-        console.log("Confirmed delete for exercise:", exercise.id);
         handleCloseDeleteDialog();
     };
 
@@ -65,7 +64,7 @@ const ExerciseCard = ({ exercise }: Props) => {
           <CardActions sx={{ display: 'flex', justifyContent: 'space-between'}}>
                 {
                     userType === 'ADMIN' ? (
-                        <Button size="small" onClick={handleOpenDeleteDialog}>Delete Routine</Button>
+                        <Button size="small" onClick={handleOpenDeleteDialog}>Delete Exercise</Button>
                     ) : (
                         <Button size="small" onClick={handleOpenAddDialog}>Add to Routine</Button>
                         )
@@ -94,6 +93,7 @@ const ExerciseCard = ({ exercise }: Props) => {
                 onClose={handleCloseDeleteDialog}
                 onConfirm={handleConfirmDelete}
                 exerciseName={exercise.name}
+                exerciseId={exercise.id}
             />
       </Card>
   );

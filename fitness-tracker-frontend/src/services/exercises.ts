@@ -31,4 +31,15 @@ const addExercise = async (formData: FormData): Promise<Exercise> => {
     }).then(response => response.data);
 };
 
-export default { getExercises, getExerciseById, addExercise };
+// delete exercise by id
+const deleteExercise = async (id: string): Promise<Exercise> => {
+    return appAxios.delete(`/exercise/${id}`).then(
+        (response) => {
+            const data = response.data;
+            console.log(data);
+ 
+            return data;
+        });
+}
+
+export default { getExercises, getExerciseById, addExercise, deleteExercise };

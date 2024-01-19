@@ -1,13 +1,22 @@
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
+import useDeleteExercise from '../../hooks/useDeleteExercise';
 
 type Props = {
     open: boolean;
     onClose: () => void;
     onConfirm: () => void;
     exerciseName: string;
+    exerciseId: string;
 };
 
-const DeleteExerciseDialog = ({ open, onClose, onConfirm, exerciseName }: Props) => {
+const DeleteExerciseDialog = ({ open, onClose, onConfirm, exerciseName, exerciseId }: Props) => {
+    const deleteExercise = useDeleteExercise();
+
+    const handleConfirm = () => {
+        deleteExercise.mutate({ id: exerciseId });
+        onConfirm();
+    };
+
     return (
         <Dialog
             open={open}
@@ -25,7 +34,7 @@ const DeleteExerciseDialog = ({ open, onClose, onConfirm, exerciseName }: Props)
                 <Button onClick={onClose} color="primary">
                     Cancel
                 </Button>
-                <Button onClick={onConfirm} color="primary" autoFocus>
+                <Button onClick={handleConfirm} color="primary" autoFocus>
                     Confirm
                 </Button>
             </DialogActions>
