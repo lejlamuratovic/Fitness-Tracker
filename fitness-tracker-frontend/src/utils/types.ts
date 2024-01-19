@@ -7,7 +7,7 @@ export type Exercise = {
 }
 
 export type ExerciseDetail = {
-    detailId: string,
+    detailId?: string,
     exerciseId?: string,
     exerciseName: string, 
     weight: number,

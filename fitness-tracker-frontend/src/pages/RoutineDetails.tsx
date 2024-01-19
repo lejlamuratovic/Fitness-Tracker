@@ -45,7 +45,7 @@ const RoutineDetails = () => {
     const handleSaveChanges = () => {
       if (routine && id && routine.exercises) {
           const updatedExercises = routine.exercises.filter(exercise => 
-              !deletedExercises.includes(exercise.detailId)
+            !deletedExercises.includes(exercise.detailId ?? '')
           );
   
           const updatedRoutine = { ...routine, exercises: updatedExercises };

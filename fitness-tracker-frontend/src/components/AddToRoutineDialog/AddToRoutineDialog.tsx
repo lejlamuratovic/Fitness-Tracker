@@ -5,6 +5,7 @@ import { RootState } from '../../store';
 import { useAddExerciseToRoutine, useRoutines } from '../../hooks';
 import Loading from '../Loading';
 import ErrorAlert from '../ErrorAlert';
+import { ExerciseDetail } from '../../utils/types';
 
 type Props = {
     open: boolean;
@@ -30,8 +31,8 @@ const AddToRoutineDialog = ({ open, onClose, exerciseName, exerciseId }: Props) 
 
     const handleSubmit = async () => {
         // new exercise details to be added to routine
-        const exerciseDetail = {
-            id: exerciseId,
+        let exerciseDetail: ExerciseDetail = {
+            exerciseId: exerciseId,
             exerciseName: exerciseName,
             weight: weight,
             sets: sets,

@@ -2,8 +2,6 @@ import { IconButton, SxProps } from "@mui/material";
 import { MouseEvent } from "react";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-type Props = {}
-
 type AddButtonProps = {
   color?: "inherit" | "primary" | "secondary" | "action" | "error" | "disabled" | "success";
   size?: "small" | "medium" | "large";

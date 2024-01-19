@@ -25,6 +25,8 @@ const ExerciseDetailCard = ({ exerciseDetail, onDetailChange, onDeleteExercise  
   const handleDelete = (_event: any) => {
     console.log(`Delete exercise: ${exerciseDetail.detailId}`);
     setIsDeleted(true);
+    
+    if (!exerciseDetail.detailId) return;
     onDeleteExercise(exerciseDetail.detailId);
   };
 
