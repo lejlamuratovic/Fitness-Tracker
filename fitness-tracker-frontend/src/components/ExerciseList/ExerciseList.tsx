@@ -7,6 +7,7 @@ import ExerciseCard from '../ExerciseCard';
 import useExercises from '../../hooks/useExercises';
 import Loading from '../Loading';
 import ErrorAlert from '../ErrorAlert';
+import { MuscleGroups } from '../../utils/enums';
 
 const ExerciseList = () => {
   const { data: exercises, isLoading, isError, error } = useExercises()
@@ -43,6 +44,13 @@ const ExerciseList = () => {
     setCurrentPage(value);
   };
 
+  // list of menu items from the enum
+  const muscleGroupMenuItems = Object.values(MuscleGroups).map((muscleGroup) => (
+    <MenuItem key={muscleGroup} value={muscleGroup}>
+      {muscleGroup}
+    </MenuItem>
+  ));
+
   return (
     <>
       <Box sx={{ width: '100%', position: 'relative' }}>
@@ -58,10 +66,7 @@ const ExerciseList = () => {
               inputProps={{ 'aria-label': 'Without label' }}
             >
               <MenuItem value="">All</MenuItem>
-              <MenuItem value="LATS">Lats</MenuItem>
-              <MenuItem value="BICEPS">Biceps</MenuItem>
-              <MenuItem value="TRICEPS">Triceps</MenuItem>
-              <MenuItem value="LEGS">Legs</MenuItem>
+              {muscleGroupMenuItems}
             </Select>
           </FormControl>
 

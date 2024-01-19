@@ -64,14 +64,19 @@ const markRoutineCompleted = async (id: string, dateCompleted: string): Promise<
     const formattedDate = date.toISOString(); // in the format yyyy-MM-dd'T'HH:mm:ss.SSSZ that the backend expects
 
     try {
-        const response = await appAxios.put(`/routines/${id}/complete`, { dateCompleted: formattedDate });
+        const response = await appAxios.post(`/routines/${id}/complete`, JSON.stringify(formattedDate), { // stringify the date because backend expects a string
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
         console.log(response.data);
         return response.data;
-    } catch (error) {
-        console.error(error);
+    } catch (error: any) {
+        console.log(error.response.data);
         throw error;
     }
 };
+
 
 // delete routine 
 const deleteRoutine = async (id: string): Promise<Routine> => {

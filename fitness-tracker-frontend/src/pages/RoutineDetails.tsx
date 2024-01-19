@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import { useRoutine, useUpdateRoutine } from '../hooks';
 import Loading from '../components/Loading';
 import ErrorAlert from '../components/ErrorAlert';
+import useMarkRoutineDone from '../hooks/useMarkRoutineDone';
 
 const RoutineDetails = () => {
     const { id } = useParams();
@@ -21,10 +22,11 @@ const RoutineDetails = () => {
     const [routine, setRoutine] = useState<Routine | null>(null);
     const [isChanged, setIsChanged] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+    const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
     const [deletedExercises, setDeletedExercises] = useState<string[]>([]);
 
     const updateRoutine = useUpdateRoutine();
+    const markDone = useMarkRoutineDone();
 
     useEffect(() => {
         if (data) setRoutine(data);
@@ -51,7 +53,7 @@ const RoutineDetails = () => {
           updateRoutine.mutate({ id, data: updatedRoutine }, {
               onSuccess: () => {
                   console.log('Routine updated successfully');
-                  setDeletedExercises([]); // Reset the deleted exercises list
+                  setDeletedExercises([]); // reset deleted exercises
               },
               onError: (error: any) => console.error('Error updating routine:', error)
           });
@@ -60,18 +62,29 @@ const RoutineDetails = () => {
   };  
   
     const handleCompleteRoutine = () => {
-      console.log('Routine completion logic not implemented');
       setOpenDialog(true);
     };
   
     const handleCloseDialog = () => setOpenDialog(false);
 
     const handleConfirmCompletion = () => {
-        console.log('Routine completed on:', selectedDate);
-        setOpenDialog(false);
+      const formattedDate = new Date(selectedDate).toISOString();
+      
+      if (!id) return;
+      markDone.mutate({id: id, dateCompleted: formattedDate });
+      setOpenDialog(false);
     };
 
-    const handleDateChange = (event: any) => setSelectedDate(event.target.value);
+    const handleDateChange = (event: any) => {
+      // Keep the time constant and change only the date
+      const newDateTime = new Date(selectedDate);
+      const newSelectedDate = new Date(event.target.value + 'T00:00:00');
+  
+      newDateTime.setFullYear(newSelectedDate.getFullYear(), newSelectedDate.getMonth(), newSelectedDate.getDate());
+      setSelectedDate(newDateTime.toISOString());
+  };
+
+  
   
     const handleDeleteExercise = (exerciseDetailId: string) => {
       setDeletedExercises(prev => [...prev, exerciseDetailId]);
@@ -165,15 +178,15 @@ const RoutineDetails = () => {
         <Dialog open={openDialog} onClose={handleCloseDialog}>
           <DialogTitle sx={{mb: 1, minWidth: '300px'}}>Complete Routine</DialogTitle>
           <DialogContent>
-            <TextField
+          <TextField
               label="Completion Date"
               type="date"
-              value={selectedDate}
+              value={selectedDate.split('T')[0]} // extract only the date part for this field
               onChange={handleDateChange}
               InputLabelProps={{ shrink: true }}
               margin="dense"
               fullWidth
-            />
+          />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseDialog}>Cancel</Button>
