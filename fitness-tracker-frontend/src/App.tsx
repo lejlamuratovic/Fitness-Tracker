@@ -1,14 +1,18 @@
-import './App.css'
-import NavBar from './components/NavBar/NavBar'
-import { Routes, Route } from 'react-router-dom'
-import { HomePage, LoginPage, RegisterPage, RoutineDetails, RoutinePage, UserPage, ExplorePage, ExercisePage, NotFoundPage } from './pages'
-import ProtectedRoute from './utils/ProtectedRoutes'
+import './App.css';
+import NavBar from './components/NavBar/NavBar';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { HomePage, LoginPage, RegisterPage, RoutineDetails, RoutinePage, UserPage, ExplorePage, ExercisePage, NotFoundPage } from './pages';
+import ProtectedRoute from './utils/ProtectedRoutes';
 
 function App() {
+  const location = useLocation();
+
+  // check login or register page
+  const hideNavBar = location.pathname === '/login' || location.pathname === '/register';
 
   return (
     <>
-      <NavBar />
+      {!hideNavBar && <NavBar />} {/*hide navbar on login and register page*/}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -22,9 +26,9 @@ function App() {
         </Route>
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="*" element={<NotFoundPage />} />
-     </Routes>
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
