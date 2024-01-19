@@ -1,5 +1,6 @@
 package ba.edu.ibu.fitnesstracker.core.service;
 
+import ba.edu.ibu.fitnesstracker.core.model.enums.UserType;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.impl.lang.Function;
@@ -33,9 +34,10 @@ public class JwtService {
         return claimsResolvers.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails, String userId) {
+    public String generateToken(UserDetails userDetails, String userId, UserType userType) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId); // adding the user ID to the claims
+        claims.put("userType", userType);
         return generateToken(claims, userDetails);
     }
 
