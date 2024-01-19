@@ -1,4 +1,3 @@
-
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -50,8 +49,17 @@ const ExerciseCard = ({ exercise }: Props) => {
               image={exercise.imageUrl}
               title={exercise.name}
           />
-          <CardContent>
-              <Typography gutterBottom variant='subtitle1' component="div" color="text.secondary" sx={{ fontWeight: 'bold', fontSize: '18px' }}>
+          <CardContent sx={{ height: '80px' }}>
+              <Typography gutterBottom 
+                variant='subtitle1' 
+                component="div" 
+                color="text.secondary" 
+                sx={{ 
+                    fontWeight: 'bold', 
+                    fontSize: '18px',
+                    lineHeight: '1',
+                    mb: 2
+                     }}>
                   {exercise.name}
               </Typography>
               <Typography variant="body2" color="text.primary">
@@ -97,7 +105,6 @@ const ExerciseCard = ({ exercise }: Props) => {
             />
       </Card>
   );
-
 }
 
-export default ExerciseCard
+export default ExerciseCard;

@@ -86,9 +86,9 @@ const WorkoutList = () => {
       {/* workout list */}
       {
         workoutLogsList && currentItems && currentItems.length > 0 ? (
-          <Grid container spacing={2}>
+          <Grid container spacing={4} style={{ display: 'flex', flexWrap: 'wrap' }}>
             {currentItems.map((workoutLog, i) => (
-              <Grid item xs={12} sm={4} key={i}>
+              <Grid item xs={12} sm={6} md={3} lg={4} key={i}>
                 <WorkoutCard userId={userId} workoutLog={workoutLog} />
               </Grid>
             ))}

@@ -59,7 +59,7 @@ const RoutineDetails = () => {
           });
       }
       setIsChanged(false);
-  };  
+    };  
   
     const handleCompleteRoutine = () => {
       setOpenDialog(true);
@@ -76,24 +76,30 @@ const RoutineDetails = () => {
     };
 
     const handleDateChange = (event: any) => {
-      // Keep the time constant and change only the date
+      // keep the time constant and change only the date
       const newDateTime = new Date(selectedDate);
       const newSelectedDate = new Date(event.target.value + 'T00:00:00');
   
       newDateTime.setFullYear(newSelectedDate.getFullYear(), newSelectedDate.getMonth(), newSelectedDate.getDate());
       setSelectedDate(newDateTime.toISOString());
-  };
+    };
 
-  
-  
+    
+
     const handleDeleteExercise = (exerciseDetailId: string) => {
       setDeletedExercises(prev => [...prev, exerciseDetailId]);
       setIsChanged(true);
-  };
+    };
   
     return (
       <>
-        <Container sx={{ mt: 12, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <Container sx={{ 
+          mt: 12, 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          }}>
           <Typography variant="h4" color="text.secondary" sx={{ fontWeight: 'bold', letterSpacing: '2px' }}>
             Workout Plan
           </Typography>

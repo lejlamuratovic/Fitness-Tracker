@@ -1,6 +1,8 @@
 import { Button, Container, Typography } from '@mui/material'
 import Background from '../assets/background.jpeg'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
 
 
 const backgroundStyle = {
@@ -17,6 +19,8 @@ const backgroundStyle = {
 }
 
 const HomePage = () => {
+  const userToken = useSelector((state: RootState) => state.auth.userToken);
+
   return (
     <Container maxWidth="xl" sx={ backgroundStyle }>
       <Typography 
@@ -39,6 +43,8 @@ const HomePage = () => {
           textShadow: '1px 1px 1px black'}}>
             Track your fitness goals
       </Typography>
+
+      {/* if token exists, redirect to explore, if not redirect to register */}
       <Button 
         variant="contained" 
         color="primary" 
@@ -55,7 +61,7 @@ const HomePage = () => {
           } 
         }}
         component={ Link }
-        to="/register"
+        to={userToken ? "/explore" : "/register"}
         >
           Get Started
         </Button>

@@ -41,8 +41,8 @@ const WorkoutWeightGraph = () => {
 
   return (
     <Box sx={{ padding: 2 }}>
-      <Typography variant='h5' color='text.secondary' sx={{ marginBottom: 2 }}>Total Weight Lifted</Typography>
-      <ResponsiveContainer width="100%" aspect={8.0/6.0}>
+      <Typography variant='h5' color='text.secondary' sx={{ mb: 2, textAlign: 'center' }}>Total Weight Lifted</Typography>
+      <ResponsiveContainer width="100%" aspect={6.0/4.0}>
         <BarChart
           data={data}
           margin={{

@@ -76,11 +76,6 @@ const ExerciseModal = () => {
             formData.append('file', file); // append the file from the local state
         }
     
-        // Debugging
-        for (let [key, value] of formData.entries()) { 
-            console.log(key, value);
-        }
-    
         addExercise.mutate(formData);
         handleClose();
     };
@@ -137,6 +132,7 @@ const ExerciseModal = () => {
                             accept="image/*"
                             name="file"
                             onChange={handleFileChange}
+                            required
                         />
                     </Button>
                     { selectedFile && <Typography sx={{ color: 'text.secondary' }}>{selectedFile}</Typography>} {/* display the name of the file when uploaded */}

@@ -56,7 +56,7 @@ const RoutineList = () => {
   };
 
   return (
-    <Container>
+    <Container sx={{ minHeight: 'calc(100vh - 200px)' }}>
 
       <Container sx={{ 
         display: 'flex', 

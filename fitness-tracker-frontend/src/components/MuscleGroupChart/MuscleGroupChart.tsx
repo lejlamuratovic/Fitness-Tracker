@@ -54,8 +54,8 @@ const MuscleGroupChart = () => {
 
   return (
     <Box sx={{ p: 2, mb: 2}}>
-      <Typography variant='h5' color='text.secondary' sx={{ mb: 1 }}>Muscle Group Distribution</Typography>
-      <ResponsiveContainer width="100%" height="100%" aspect={12.0/16.0}>
+      <Typography variant='h5' color='text.secondary' sx={{ mb: 2, textAlign: 'center' }}>Muscle Group Distribution</Typography>
+      <ResponsiveContainer width="100%" height="100%" aspect={10.0/11.0}>
         <PieChart>
           <Pie
             data={data}
@@ -66,7 +66,7 @@ const MuscleGroupChart = () => {
             fill="#8884d8"
             paddingAngle={0}
             dataKey="value"
-            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+            labelLine={false}
           >
             {data.map((_entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

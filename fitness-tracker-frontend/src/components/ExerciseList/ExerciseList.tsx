@@ -53,7 +53,7 @@ const ExerciseList = () => {
 
   return (
     <>
-      <Box sx={{ width: '100%', position: 'relative' }}>
+      <Box sx={{ width: '100%', position: 'relative', minHeight: 'calc(100vh - 100px)' }}>
 
         <Container sx={{ p: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
 
