@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/exercise")
-//@SecurityRequirement(name = "JWT Security")
+@SecurityRequirement(name = "JWT Security")
 public class ExerciseController {
 
     private final ExerciseService exerciseService;
@@ -30,7 +30,7 @@ public class ExerciseController {
         return ResponseEntity.ok(exerciseService.getExercises());
     }
 
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(method = RequestMethod.POST, path = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ExerciseDTO> register(
             @RequestParam("name") String name,
@@ -52,7 +52,7 @@ public class ExerciseController {
         }
     }
 
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ExerciseDTO> updateExercise(@PathVariable String id,
                                                       @RequestParam("name") String name,
@@ -73,13 +73,13 @@ public class ExerciseController {
         }
     }
 
-    //@PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public ResponseEntity<ExerciseDTO> getExerciseById(@PathVariable String id) {
         return ResponseEntity.ok(exerciseService.getExerciseById(id));
     }
 
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
     public ResponseEntity<Void> deleteExercise(@PathVariable String id) {
         exerciseService.deleteExercise(id);
@@ -87,14 +87,14 @@ public class ExerciseController {
     }
 
     // to search for exercises by muscle group
-    //@PreAuthorize("hasAnyAuthority('ADMIN', 'MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MEMBER')")
     @RequestMapping(method = RequestMethod.GET, path = "/muscleGroup")
     public ResponseEntity<List<ExerciseDTO>> findByMuscleGroup(@RequestParam ExerciseGroup muscleGroup) {
         return ResponseEntity.ok(exerciseService.findByMuscleGroup(muscleGroup));
     }
 
     // to search for exercise name - helper for later
-    //@PreAuthorize("hasAnyAuthority('ADMIN', 'MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MEMBER')")
     @RequestMapping(method = RequestMethod.GET, path = "/{exerciseId}/exerciseName")
     public ResponseEntity<String> findExerciseNameById(@PathVariable String exerciseId) {
         return ResponseEntity.ok(exerciseService.findExerciseNameById(exerciseId));

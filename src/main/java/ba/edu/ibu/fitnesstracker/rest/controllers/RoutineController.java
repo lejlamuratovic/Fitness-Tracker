@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/routines")
-// @SecurityRequirement(name = "JWT Security")
+@SecurityRequirement(name = "JWT Security")
 public class RoutineController {
 
     private final RoutineService routineService;
@@ -26,31 +26,31 @@ public class RoutineController {
         this.routineService = routineService;
     }
 
-    // @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public ResponseEntity<List<RoutineDTO>> getRoutines() {
         return ResponseEntity.ok(routineService.getRoutines());
     }
 
-    // @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.POST, path = "/")
     public ResponseEntity<RoutineDTO> addRoutine(@RequestBody RoutineRequestDTO routine) {
         return ResponseEntity.ok(routineService.addRoutine(routine));
     }
 
-    // @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public ResponseEntity<RoutineDTO> getRoutineById(@PathVariable String id) {
         return ResponseEntity.ok(routineService.getRoutineById(id));
     }
 
-    // @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
     public ResponseEntity<RoutineDTO> updateRoutine(@PathVariable String id, @RequestBody RoutineRequestDTO routine) {
         return ResponseEntity.ok(routineService.updateRoutine(id, routine));
     }
 
-    // @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
     public ResponseEntity<Void> deleteRoutine(@PathVariable String id) {
         routineService.deleteRoutine(id);
@@ -58,7 +58,7 @@ public class RoutineController {
     }
 
     // to transfer array of exercises from routine to workout log
-    // @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/complete")
     public ResponseEntity<WorkoutLogDTO> markRoutineAsDone(@PathVariable String id,
             @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX") @RequestBody Date dateCompleted) {
@@ -66,7 +66,7 @@ public class RoutineController {
     }
 
     // to append a certain exercise to a given routine
-    // @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/exercises")
     public ResponseEntity<RoutineDTO> addExerciseToRoutine(@PathVariable String id,
             @RequestBody Routine.ExerciseDetail exerciseDetail) {
@@ -74,14 +74,14 @@ public class RoutineController {
     }
 
     // to get a list of routines per user
-    // @PreAuthorize("hasAuthority('MEMBER')")
+    @PreAuthorize("hasAuthority('MEMBER')")
     @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}")
     public ResponseEntity<List<RoutineDTO>> getRoutinesByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(routineService.getRoutinesByUserId(userId));
     }
 
     // to update specific exercise detail inside a routine
-    // @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.PUT, path = "/{routineId}/exercises/{exerciseDetailId}")
     public ResponseEntity<RoutineDTO> updateExerciseInRoutine(@PathVariable String routineId,
             @PathVariable String exerciseDetailId, @RequestBody Routine.ExerciseDetail updatedExerciseDetail) {
@@ -90,7 +90,7 @@ public class RoutineController {
     }
 
     // to delete a specific exercise detail inside a routine
-    // @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.DELETE, path = "/{routineId}/exercises/{exerciseDetailId}")
     public ResponseEntity<RoutineDTO> deleteExerciseInRoutine(@PathVariable String routineId,
             @PathVariable String exerciseDetailId) {
@@ -98,7 +98,7 @@ public class RoutineController {
     }
 
     // to list all exercises per routine
-    // @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @RequestMapping(method = RequestMethod.GET, path = "/{routineId}/exercises")
     public ResponseEntity<List<Routine.ExerciseDetail>> getExercisesInRoutine(@PathVariable String routineId) {
         return ResponseEntity.ok(routineService.getExercisesInRoutine(routineId));
