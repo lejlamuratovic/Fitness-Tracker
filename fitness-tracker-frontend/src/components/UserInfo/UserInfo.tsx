@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../../store/authSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { Link } from 'react-router-dom';
 
 const UserInfo = () => {
   const userId = useSelector((state: RootState) => state.auth.userId);
@@ -87,8 +88,22 @@ const UserInfo = () => {
           <Button 
             size="medium" 
             variant="text" 
-            sx={{ marginTop: '20px', color: 'text.secondary', backgroundColor: 'none' }}
+            sx={{ 
+              marginTop: '20px', 
+              color: 'text.secondary', 
+              backgroundColor: 'none', 
+              maxWidth: '300px', 
+              display: 'flex',
+              ml: 'auto',
+              mr: 'auto',
+              '&:hover': {
+                backgroundColor: 'none',
+                color: 'text.primary'
+              }
+            }}
             onClick={() => dispatch(logout())}
+            component={ Link }
+            to="/"
             >
             <InputAdornment position="start">
                 <LogoutIcon sx={{  color: 'text.secondary',}}/>

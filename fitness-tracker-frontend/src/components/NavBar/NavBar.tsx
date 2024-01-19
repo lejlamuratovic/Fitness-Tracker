@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Badge, Box, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
@@ -15,10 +15,6 @@ const NavBar = () => {
     const userToken = useSelector((state: RootState) => state.auth.userToken);
 
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        console.log(userType);
-    }, [userType]);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
@@ -154,7 +150,10 @@ const NavBar = () => {
                         <Button 
                             color="inherit" 
                             onClick={() => dispatch(logout())}
-                            sx={{ fontSize: '16px', '&:hover': { fontWeight: 'bold', color: 'white' } }}>
+                            sx={{ fontSize: '16px', '&:hover': { fontWeight: 'bold', color: 'white' } }}
+                            component={ Link }
+                            to="/"
+                            >
                             Logout
                         </Button>
                     )

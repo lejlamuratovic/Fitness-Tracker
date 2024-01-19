@@ -82,6 +82,8 @@ const authSlice = createSlice({
          state.loading = false
          state.userInfo = null
          state.userToken = null
+         state.userId = null // reset userId
+         state.userType = null // reset userType
          state.error = null
       }
    },

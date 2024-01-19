@@ -9,22 +9,40 @@ import { useState } from 'react';
 import { Exercise } from "../../utils/types";
 import AddToRoutineDialog from '../AddToRoutineDialog';
 import { Link } from 'react-router-dom';
+import { RootState } from '../../store';
+import { useSelector } from 'react-redux';
+import DeleteExerciseDialog from '../DeleteExerciseDialog';
 
 type Props = {
   exercise: Exercise;
 };
 
 const ExerciseCard = ({ exercise }: Props) => {
+    const userType = useSelector((state: RootState) => state.auth.userType);
 
-    const [openDialog, setOpenDialog] = useState(false);
+    const [openAddDialog, setOpenAddDialog] = useState(false);
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-    const handleOpenDialog = () => {
-        setOpenDialog(true);
+    const handleOpenAddDialog = () => {
+        setOpenAddDialog(true);
     };
 
-    const handleCloseDialog = () => {
-        setOpenDialog(false);
-    }
+    const handleCloseAddDialog = () => {
+        setOpenAddDialog(false);
+    };
+
+    const handleOpenDeleteDialog = () => {
+        setOpenDeleteDialog(true);
+    };
+
+    const handleCloseDeleteDialog = () => {
+        setOpenDeleteDialog(false);
+    };
+
+    const handleConfirmDelete = () => {
+        console.log("Confirmed delete for exercise:", exercise.id);
+        handleCloseDeleteDialog();
+    };
 
   return (
       <Card sx={{ maxWidth: 250, minWidth: 250, display: 'block', margin: 'auto', mt: 3 }}>
@@ -45,7 +63,13 @@ const ExerciseCard = ({ exercise }: Props) => {
               </Typography>
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'space-between'}}>
-              <Button size="small" onClick={handleOpenDialog}>Add to Routine</Button>
+                {
+                    userType === 'ADMIN' ? (
+                        <Button size="small" onClick={handleOpenDeleteDialog}>Delete Routine</Button>
+                    ) : (
+                        <Button size="small" onClick={handleOpenAddDialog}>Add to Routine</Button>
+                        )
+                }
               <Button 
                 size="small"
                 component={Link}
@@ -56,16 +80,21 @@ const ExerciseCard = ({ exercise }: Props) => {
                     }
                 }}
                 >
-
                     See More
                 </Button>
           </CardActions>
-          <AddToRoutineDialog
-            open={openDialog}
-            onClose={handleCloseDialog}
-            exerciseName={exercise.name}
-            exerciseId={exercise.id}
-        />
+            <AddToRoutineDialog
+                open={openAddDialog}
+                onClose={handleCloseAddDialog}
+                exerciseName={exercise.name}
+                exerciseId={exercise.id}
+            />
+            <DeleteExerciseDialog
+                open={openDeleteDialog}
+                onClose={handleCloseDeleteDialog}
+                onConfirm={handleConfirmDelete}
+                exerciseName={exercise.name}
+            />
       </Card>
   );
 
