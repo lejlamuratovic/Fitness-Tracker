@@ -76,19 +76,12 @@ const Register = () => {
             
 
     return (
-        <Paper elevation={3} sx={{ maxWidth: "360px", padding: 3, mx: "auto", mt: 10 }}>
+        <Paper elevation={3} sx={{ maxWidth: "360px", padding: 3, mx: "auto" }}>
             {
                 error &&
-                <div className="alert alert-danger" role="alert">
-                    <h4 className="alert-heading">
-                        Unable to render data!
-                    </h4>
-                    <p>{error}</p>
-                    <hr />
-                    <p className="mb-0">
-                        Something went wrong, please try again.
-                    </p>
-                </div>
+                <Typography color='red' variant='body1' align='center' gutterBottom sx={{ mb: 2 }}>
+                    {error}
+                </Typography>
             }
             <Box
                 sx={{
@@ -100,20 +93,6 @@ const Register = () => {
                 <Typography variant="h5">
                     Sign Up
                 </Typography>
-
-                {
-                    error &&
-                    <div className="alert alert-danger" role="alert">
-                        <h4 className="alert-heading">
-                            Unable to render data!
-                        </h4>
-                        <p>{error}</p>
-                        <hr />
-                        <p className="mb-0">
-                            Something went wrong, please try again.
-                        </p>
-                    </div>
-                }
 
                 <Box component="form" 
                     sx={{ mt: "5px", width: '100%' }} 
