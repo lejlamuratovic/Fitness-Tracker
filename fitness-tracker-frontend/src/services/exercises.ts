@@ -23,12 +23,29 @@ const getExercises = async (): Promise<Exercise[]> => {
         });
 }
 
+// add exercise
 const addExercise = async (formData: FormData): Promise<Exercise> => {
     return appAxios.post('/exercise/', formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
     }).then(response => response.data);
+};
+
+// update exercise
+const updateExercise = async (id: string, formData: FormData): Promise<Exercise> => {
+    let response;
+    try {
+        response = await appAxios.put(`/exercise/${id}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    } catch (error: any) {
+        console.log(error.response.data)
+    }
+
+    return response?.data;
 };
 
 // delete exercise by id
@@ -42,4 +59,10 @@ const deleteExercise = async (id: string): Promise<Exercise> => {
         });
 }
 
-export default { getExercises, getExerciseById, addExercise, deleteExercise };
+export default { 
+    getExercises, 
+    getExerciseById, 
+    addExercise, 
+    deleteExercise,
+    updateExercise
+};
