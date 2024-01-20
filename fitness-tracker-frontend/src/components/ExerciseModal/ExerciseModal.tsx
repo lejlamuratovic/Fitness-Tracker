@@ -23,12 +23,29 @@ export type ExerciseFormData = {
     name: string;
     muscleGroup: string;
     description: string;
+    file: any;
 }
+
+const FILE_SIZE = 100 * 1024; // 100KB
+const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 
 const schema = yup.object().shape({
     name: yup.string().required('Exercise name is required'),
     muscleGroup: yup.string().required('Muscle group is required'),
     description: yup.string().required('Description is required'),
+    file: yup
+        .mixed()
+        .test(
+            "fileSize",
+            "File too large",
+            value => value && (value as File).size <= FILE_SIZE
+        )
+        .test(
+            "fileFormat",
+            "Unsupported Format",
+            value => value && SUPPORTED_FORMATS.includes((value as File).type)
+        )
+        .required("Image is required")
 });
 
 const ExerciseModal = () => {
@@ -56,11 +73,18 @@ const ExerciseModal = () => {
         setValue('muscleGroup', event.target.value as string); // update the value in the form
     };
 
+    useEffect(() => {
+        // to register the file input and muscle group select
+        register('muscleGroup');
+        register('file');
+    }, [register]);
+    
     const handleFileChange = (event: any) => {
-        const selectedFile = event.target.files[0]; // get the file from the event
+        const selectedFile = event.target.files[0];
         if (selectedFile) {
             setSelectedFile(selectedFile.name);
-            setFile(selectedFile); // sert the file in the local state
+            setFile(selectedFile); // set the file in the local state
+            setValue('file', selectedFile); // update the form value
         }
     };
     
@@ -113,7 +137,9 @@ const ExerciseModal = () => {
                                 </MenuItem>
                             ))}
                         </Select>
-                        {errors.muscleGroup && <p>{errors.muscleGroup.message}</p>}
+                        <Typography sx={{ color: '#d43333', fontSize: '12px', pl: 1.5, pt: 0.5 }}>
+                            {errors.muscleGroup && typeof errors.muscleGroup.message === 'string' ? errors.muscleGroup.message : " "}
+                        </Typography>
                     </FormControl>
                     <TextField
                         label="Description"
@@ -124,7 +150,12 @@ const ExerciseModal = () => {
                         error={!!errors.description}
                         helperText={errors.description ? errors.description.message : ""}
                     />
-                    <Button component="label" style={{ marginTop: '10px', color: '#72A1BF' }} variant="outlined" startIcon={<CloudUploadIcon />}>
+                    <Button 
+                        component="label" 
+                        style={{ marginTop: '10px', color: '#72A1BF' }} 
+                        variant="outlined" 
+                        startIcon={<CloudUploadIcon />}
+                        >
                         Upload file
                         <input
                             type="file"
@@ -132,9 +163,13 @@ const ExerciseModal = () => {
                             accept="image/*"
                             name="file"
                             onChange={handleFileChange}
-                            required
                         />
                     </Button>
+
+                    <Typography sx={{ color: '#d43333', fontSize: '12px', pl: 1.5, pt: 0.5 }}>
+                        {errors.file && typeof errors.file.message === 'string' ? errors.file.message : " "}
+                    </Typography>
+
                     { selectedFile && <Typography sx={{ color: 'text.secondary' }}>{selectedFile}</Typography>} {/* display the name of the file when uploaded */}
 
                     <Button type="submit" size="large" style={{ marginTop: '30px', backgroundColor: '#72A1BF' }} fullWidth variant="contained">
