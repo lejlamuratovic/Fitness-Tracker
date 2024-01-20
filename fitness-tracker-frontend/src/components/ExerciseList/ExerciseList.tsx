@@ -58,6 +58,17 @@ const ExerciseList = () => {
         <Container sx={{ p: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
 
           {/* muscle group filter */}
+          <Box sx={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            width: '100%', 
+            // mobile screens query
+            '@media (max-width: 461px)': {
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 2
+            }
+            }}>
           <FormControl size='small' sx={{ width: 150, backgroundColor: 'white' }}>
             <Select
               value={selectedMuscleGroup}
@@ -86,6 +97,7 @@ const ExerciseList = () => {
               ),
             }}
           />
+          </Box>
 
         </Container>
 

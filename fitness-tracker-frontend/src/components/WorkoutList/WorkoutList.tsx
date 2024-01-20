@@ -26,11 +26,17 @@ const WorkoutList = () => {
     if (!workoutLogsList) {
       return;
     }
-  
-    let filteredLogs = workoutLogsList;
+
+    // convert date strings to timestamps for comparison
+    const sortedWorkoutLogs = [...workoutLogsList].sort((a, b) => {
+      // sort by date completed in descending order
+      return new Date(b.dateCompleted).getTime() - new Date(a.dateCompleted).getTime();
+    });
+
+    let filteredLogs = sortedWorkoutLogs;
   
     if (startDate || endDate) {
-      filteredLogs = workoutLogsList.filter(log => {
+      filteredLogs = sortedWorkoutLogs.filter(log => {
         const logDate = new Date(log.dateCompleted);
         const start = startDate ? new Date(startDate) : new Date('1970-01-01');
         const end = endDate ? new Date(endDate) : new Date('2999-12-31');
