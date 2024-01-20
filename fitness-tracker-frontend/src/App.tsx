@@ -3,6 +3,7 @@ import NavBar from './components/NavBar/NavBar';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { HomePage, LoginPage, RegisterPage, RoutineDetails, RoutinePage, UserPage, ExplorePage, ExercisePage, NotFoundPage } from './pages';
 import ProtectedRoute from './utils/ProtectedRoutes';
+import Notifications from './components/Notifications/Notifications';
 
 function App() {
   const location = useLocation();
@@ -13,6 +14,7 @@ function App() {
   return (
     <>
       {!hideNavBar && <NavBar />} {/*hide navbar on login and register page*/}
+      {!hideNavBar && <Notifications />} 
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />

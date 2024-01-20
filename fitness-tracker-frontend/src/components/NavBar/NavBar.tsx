@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Badge, Box, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Box, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -126,25 +125,16 @@ const NavBar = () => {
 
                 { userToken ? (
                     userType === 'MEMBER' ? (
-                        <Box>
-                            <IconButton 
-                                color="inherit"
-                                sx={{ '&:hover': { color: 'lightgray' } }}>
-                                <Badge variant="dot" color="error">
-                                    <NotificationsIcon sx={{ fontSize: '35px' }}/>
-                                </Badge>
-                            </IconButton>
-                            <IconButton
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-haspopup="true"
-                                color="inherit"
-                                component={Link}
-                                to="/users/1"
-                                sx={{ '&:hover': { color: 'lightgray' } }}>
-                                <AccountCircle sx={{ fontSize: '35px' }}/>
-                            </IconButton>
-                        </Box>
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-haspopup="true"
+                            color="inherit"
+                            component={Link}
+                            to="/users/1"
+                            sx={{ '&:hover': { color: 'lightgray' } }}>
+                            <AccountCircle sx={{ fontSize: '35px' }}/>
+                        </IconButton>
                     ) : (
                         // render logout button for admin
                         <Button 
