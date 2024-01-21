@@ -15,9 +15,10 @@ import EditExerciseModal from '../EditExerciseModal';
 
 type Props = {
   exercise: Exercise;
+    onSuccess: () => void;
 };
 
-const ExerciseCard = ({ exercise }: Props) => {
+const ExerciseCard = ({ exercise, onSuccess }: Props) => {
     const userType = useSelector((state: RootState) => state.auth.userType);
 
     const [openAddDialog, setOpenAddDialog] = useState(false);
@@ -111,6 +112,7 @@ const ExerciseCard = ({ exercise }: Props) => {
                     onClose={handleCloseAddDialog}
                     exerciseName={exercise.name}
                     exerciseId={exercise.id}
+                    onSuccess={onSuccess}
                 />
                 <DeleteExerciseDialog
                     open={openDeleteDialog}

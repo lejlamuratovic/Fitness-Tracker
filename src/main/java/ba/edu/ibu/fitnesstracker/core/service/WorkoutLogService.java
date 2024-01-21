@@ -1,7 +1,6 @@
 package ba.edu.ibu.fitnesstracker.core.service;
 
 import ba.edu.ibu.fitnesstracker.core.exceptions.repository.ResourceNotFoundException;
-import ba.edu.ibu.fitnesstracker.core.model.Routine;
 import ba.edu.ibu.fitnesstracker.core.repository.WorkoutLogRepository;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogRequestDTO;

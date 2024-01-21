@@ -7,9 +7,7 @@ import Typography from '@mui/material/Typography';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { Routine } from '../../utils/types';
-import { useUpdateRoutine } from '../../hooks';
 import useDeleteRoutine from '../../hooks/useDeleteRoutine';
 
 type Props = {

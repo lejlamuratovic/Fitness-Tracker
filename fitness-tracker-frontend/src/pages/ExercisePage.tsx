@@ -6,6 +6,7 @@ import { useExercise } from '../hooks';
 import { Link } from 'react-router-dom';
 import AddToRoutineDialog from '../components/AddToRoutineDialog';
 import { useState } from 'react';
+import SuccessAlert from '../components/SuccessAlert';
 
 const ExercisePage = () => {
   const { id } = useParams();
@@ -14,6 +15,11 @@ const ExercisePage = () => {
   const { data: exercise, isLoading, isError, error } = useExercise(validId);
 
   const [openDialog, setOpenDialog] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
+
+  const handleSuccess = () => {
+    setSuccessMessage(true);
+  };
 
   const handleOpenDialog = () => {
       setOpenDialog(true);
@@ -26,6 +32,12 @@ const ExercisePage = () => {
 
   return (
     <>
+
+    { 
+      successMessage && 
+      <SuccessAlert message="Exercise added to routine successfully"/>
+    }
+    
     {
       isLoading &&
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
@@ -129,6 +141,7 @@ const ExercisePage = () => {
             onClose={handleCloseDialog}
             exerciseName={exercise.name}
             exerciseId={exercise.id}
+            onSuccess={handleSuccess}
         />
         }
     </>

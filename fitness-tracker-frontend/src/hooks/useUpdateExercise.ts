@@ -1,15 +1,11 @@
 import { useMutation, useQueryClient } from "react-query";
 import { ExerciseService } from "../services";
 import { Exercise } from "../utils/types";
-
-
-interface ApiError {
-    message: string;
-}  
+import { AxiosError } from "axios";
 
 const useUpdateExercise = () => {
     const queryClient = useQueryClient();
-    return useMutation<Exercise, ApiError, { id: string; formData: FormData }>(
+    return useMutation<Exercise, AxiosError, { id: string; formData: FormData }>(
         ({ id, formData }) => ExerciseService.updateExercise(id, formData),
         {
             onSuccess: () => {

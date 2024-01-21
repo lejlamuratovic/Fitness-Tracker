@@ -1,15 +1,11 @@
 import { useQuery } from "react-query";
 import { ExerciseService } from "../services";
 import { Exercise } from "../utils/types";
-
-// because ts couldn't infer the type of the error
-interface ApiError {
-    message: string;
-}  
+import { AxiosError } from "axios";
 
 // get exercise details by id
 const useExercise = (id: string) => {
-    return useQuery<Exercise, ApiError>(['exercise', id],
+    return useQuery<Exercise, AxiosError>(['exercise', id],
         () => ExerciseService.getExerciseById(id),
         { refetchOnWindowFocus: false }
     );

@@ -12,9 +12,10 @@ type Props = {
     onClose: () => void;
     exerciseName: string;
     exerciseId: string;
+    onSuccess: () => void;
 };
 
-const AddToRoutineDialog = ({ open, onClose, exerciseName, exerciseId }: Props) => {
+const AddToRoutineDialog = ({ open, onClose, exerciseName, exerciseId, onSuccess }: Props) => {
     const userId = useSelector((state: RootState) => state.auth.userId);
 
     if(!userId) {
@@ -39,7 +40,11 @@ const AddToRoutineDialog = ({ open, onClose, exerciseName, exerciseId }: Props) 
             reps: reps
         };
 
-        addToRoutine.mutate({ id: selectedRoutine, exercise: exerciseDetail });
+        addToRoutine.mutate({ id: selectedRoutine, exercise: exerciseDetail }, 
+            { onSuccess: () => {
+                onSuccess();
+            }
+        });
         onClose();
     };
 

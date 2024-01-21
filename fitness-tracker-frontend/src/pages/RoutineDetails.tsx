@@ -12,6 +12,7 @@ import { useRoutine, useUpdateRoutine } from '../hooks';
 import Loading from '../components/Loading';
 import ErrorAlert from '../components/ErrorAlert';
 import useMarkRoutineDone from '../hooks/useMarkRoutineDone';
+import SuccessAlert from '../components/SuccessAlert';
 
 const RoutineDetails = () => {
     const { id } = useParams();
@@ -24,6 +25,7 @@ const RoutineDetails = () => {
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
     const [deletedExercises, setDeletedExercises] = useState<string[]>([]);
+    const [successMessage, setSuccessMessage] = useState(false);
 
     const updateRoutine = useUpdateRoutine();
     const markDone = useMarkRoutineDone();
@@ -42,6 +44,10 @@ const RoutineDetails = () => {
         setIsChanged(true);
     };
 
+    const handleSuccess = () => {
+      setSuccessMessage(true);
+    }
+
     const handleSaveChanges = () => {
       if (routine && id && routine.exercises) {
           const updatedExercises = routine.exercises.filter(exercise => 
@@ -50,13 +56,7 @@ const RoutineDetails = () => {
   
           const updatedRoutine = { ...routine, exercises: updatedExercises };
   
-          updateRoutine.mutate({ id, data: updatedRoutine }, {
-              onSuccess: () => {
-                  console.log('Routine updated successfully');
-                  setDeletedExercises([]); // reset deleted exercises
-              },
-              onError: (error: any) => console.error('Error updating routine:', error)
-          });
+          updateRoutine.mutate({ id, data: updatedRoutine });
       }
       setIsChanged(false);
     };  
@@ -71,7 +71,13 @@ const RoutineDetails = () => {
       const formattedDate = new Date(selectedDate).toISOString();
       
       if (!id) return;
-      markDone.mutate({id: id, dateCompleted: formattedDate });
+      markDone.mutate({id: id, dateCompleted: formattedDate }, 
+        { 
+          onSuccess: () => {
+            handleSuccess();
+          }
+        }
+      );
       setOpenDialog(false);
     };
 
@@ -103,6 +109,11 @@ const RoutineDetails = () => {
           <Typography variant="h4" color="text.secondary" sx={{ fontWeight: 'bold', letterSpacing: '2px' }}>
             Workout Plan
           </Typography>
+
+          { 
+            successMessage &&
+            <SuccessAlert message="Successfully marked as completed" />
+          }
 
           {
             isLoading &&

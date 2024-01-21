@@ -1,14 +1,11 @@
+import { AxiosError } from "axios";
 import { ExerciseService } from "../services";
 import { Exercise } from "../utils/types";
 import { useMutation, useQueryClient } from "react-query";
 
-interface ApiError {
-    message: string;
-}  
-
 const useDeleteExercise = () => {
     const queryClient = useQueryClient();
-    return useMutation<Exercise, ApiError, { id: string }>(
+    return useMutation<Exercise, AxiosError, { id: string }>(
         ({ id }) => ExerciseService.deleteExercise(id),
         {
             onSuccess: () => {

@@ -1,20 +1,15 @@
 package ba.edu.ibu.fitnesstracker.rest.controllers;
 
 import ba.edu.ibu.fitnesstracker.core.service.WorkoutLogService;
-import ba.edu.ibu.fitnesstracker.rest.dto.RoutineDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.WorkoutLogRequestDTO;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("api/workoutlogs")

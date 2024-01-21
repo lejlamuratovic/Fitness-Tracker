@@ -8,6 +8,7 @@ import useExercises from '../../hooks/useExercises';
 import Loading from '../Loading';
 import ErrorAlert from '../ErrorAlert';
 import { MuscleGroups } from '../../utils/enums';
+import SuccessAlert from '../SuccessAlert';
 
 const ExerciseList = () => {
   const { data: exercises, isLoading, isError, error } = useExercises()
@@ -16,6 +17,12 @@ const ExerciseList = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
+
+  const [successMessage, setSuccessMessage] = useState(false);
+
+  const handleSuccess = () => {
+    setSuccessMessage(true);
+  };
 
   const handleMuscleGroupChange = (event: any) => {
     setSelectedMuscleGroup(event.target.value);
@@ -54,6 +61,10 @@ const ExerciseList = () => {
   return (
     <>
       <Box sx={{ width: '100%', position: 'relative', minHeight: 'calc(100vh - 100px)' }}>
+        {
+          successMessage &&
+          <SuccessAlert message="Exercise added to routine!" />
+        }
 
         <Container sx={{ p: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
 
@@ -116,7 +127,7 @@ const ExerciseList = () => {
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'space-around' }}>
           {paginatedExercises.map((exercise, index) => (
             <Box key={index} sx={{ width: { xs: '100%', sm: '48%', md: '30%', lg: '22%' } }}>
-              <ExerciseCard exercise={exercise} />
+              <ExerciseCard exercise={exercise} onSuccess={handleSuccess} />
             </Box>
           ))}
         </Box>

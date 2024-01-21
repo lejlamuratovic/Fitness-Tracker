@@ -15,6 +15,7 @@ import { logout } from '../../store/authSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { Link } from 'react-router-dom';
+import SuccessAlert from '../SuccessAlert';
 
 const UserInfo = () => {
   const userId = useSelector((state: RootState) => state.auth.userId);
@@ -28,6 +29,7 @@ const UserInfo = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [userData, setUserData] = useState(user);
+  const [successMessage, setSuccessMessage] = useState(false);
 
   const handleModalOpen = () => {
     setModalOpen(true);
@@ -44,8 +46,17 @@ const UserInfo = () => {
     }
   }, [user]);
 
+  const handleSuccess = () => {
+    setSuccessMessage(true);
+  }
+
   return (
   <Container maxWidth="sm" sx={{ backgroundColor: 'primary' }}>
+    
+    { 
+      successMessage &&
+      <SuccessAlert message="Your information has been updated!" />
+    }
     
     {
       isLoading &&
@@ -120,6 +131,7 @@ const UserInfo = () => {
           handleClose={handleModalClose}
           user={userData}
           setUser={setUserData}
+          onSuccess={handleSuccess}
         />
       }
 

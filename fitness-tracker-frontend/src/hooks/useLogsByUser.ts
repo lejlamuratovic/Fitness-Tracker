@@ -1,15 +1,11 @@
 import { useQuery } from "react-query";
 import { WorkoutLogsService } from "../services";
 import { WorkoutLog } from "../utils/types";
-
-// because ts couldn't infer the type of the error
-interface ApiError {
-    message: string;
-}  
+import { AxiosError } from "axios";
 
 // get all logs per user id 
 const useLogsByUser = (userId: string) => {
-    return useQuery<WorkoutLog[], ApiError>(['workout logs', userId],
+    return useQuery<WorkoutLog[], AxiosError>(['workout logs', userId],
         () => WorkoutLogsService.getLogsByUserId(userId),
         { refetchOnWindowFocus: false }
     );

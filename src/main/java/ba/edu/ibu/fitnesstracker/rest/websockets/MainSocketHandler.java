@@ -11,7 +11,6 @@ import org.springframework.web.socket.*;
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -35,7 +34,8 @@ public class MainSocketHandler implements WebSocketHandler {
         }
 
         sessions.put(user.getId(), session);
-        System.out.println("Session created for the user " + user.getId() + " where the session id is " + session.getId());
+        System.out.println(
+                "Session created for the user " + user.getId() + " where the session id is " + session.getId());
     }
 
     @Override
@@ -93,27 +93,32 @@ public class MainSocketHandler implements WebSocketHandler {
         }
     }
 
-    /* private User getUser(WebSocketSession session) throws IOException {
-        List<String> headers = session.getHandshakeHeaders().getOrEmpty("authorization");
-
-        if (headers.isEmpty()) {
-            System.out.println("Authorization header missing in session ID: " + session.getId()); // Debugging
-            session.close();
-            return null;
-        }
-
-        String jwt = headers.get(0).substring(7);
-        String userEmail = jwtService.extractUserName(jwt);
-
-        UserDetails userDetails = userService.userDetailsService().loadUserByUsername(userEmail);
-        if (userDetails == null) {
-            System.out.println("User details not found for JWT: " + jwt); // Debugging
-            session.close();
-            return null;
-        }
-
-        return (User) userDetails;
-    } */
+    /*
+     * private User getUser(WebSocketSession session) throws IOException {
+     * List<String> headers =
+     * session.getHandshakeHeaders().getOrEmpty("authorization");
+     * 
+     * if (headers.isEmpty()) {
+     * System.out.println("Authorization header missing in session ID: " +
+     * session.getId()); // Debugging
+     * session.close();
+     * return null;
+     * }
+     * 
+     * String jwt = headers.get(0).substring(7);
+     * String userEmail = jwtService.extractUserName(jwt);
+     * 
+     * UserDetails userDetails =
+     * userService.userDetailsService().loadUserByUsername(userEmail);
+     * if (userDetails == null) {
+     * System.out.println("User details not found for JWT: " + jwt); // Debugging
+     * session.close();
+     * return null;
+     * }
+     * 
+     * return (User) userDetails;
+     * }
+     */
 
     private User getUser(WebSocketSession session) throws IOException {
         URI uri = session.getUri();
