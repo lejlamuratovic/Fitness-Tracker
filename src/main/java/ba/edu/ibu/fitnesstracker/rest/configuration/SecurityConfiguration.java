@@ -1,6 +1,5 @@
 package ba.edu.ibu.fitnesstracker.rest.configuration;
 
-
 import ba.edu.ibu.fitnesstracker.core.service.UserService;
 import ba.edu.ibu.fitnesstracker.rest.filters.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
@@ -22,17 +21,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final UserService userService;
 
-    public SecurityConfiguration(JwtAuthenticationFilter jwtAuthenticationFilter, UserService userService) {
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-        this.userService = userService;
-    }
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private UserService userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
