@@ -70,9 +70,9 @@ const NavBar = () => {
                     open={isMenuOpen}
                     onClose={handleMenuClose}
                 >
-                    <MenuItem onClick={handleMenuClose}>Home</MenuItem>
-                    <MenuItem onClick={handleMenuClose}>Explore</MenuItem>
-                    { userType === 'MEMBER' && <MenuItem onClick={handleMenuClose}>Routines</MenuItem> }
+                    <MenuItem onClick={handleMenuClose} component={Link} to="/">Home</MenuItem>
+                    <MenuItem onClick={handleMenuClose} component={Link} to="/explore">Explore</MenuItem>
+                    { userType === 'MEMBER' && <MenuItem onClick={handleMenuClose} component={Link} to="/routines">Routines</MenuItem> }
                 </Menu>
 
                 {/* Buttons for larger screens */}

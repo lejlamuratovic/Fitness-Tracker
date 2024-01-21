@@ -12,7 +12,7 @@ const useUpdateRoutine = () => {
         ({ id, data }) => RoutineService.updateRoutine(id, data),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries('routines');
+                queryClient.invalidateQueries('routine');
             },
         }
     );

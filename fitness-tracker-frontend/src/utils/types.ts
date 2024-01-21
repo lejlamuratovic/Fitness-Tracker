@@ -39,3 +39,8 @@ export type WorkoutLog = {
     exercises: ExerciseDetail[],
     userId: string
 }
+
+export type Password = {
+    oldPassword: string,
+    newPassword: string
+}

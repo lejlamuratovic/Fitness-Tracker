@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import useUpdateUser from '../../hooks/useUpdateUser';
+import useUpdateUserPassword from '../../hooks/useUpdateUserPassword';
 
 interface EditInfoModalProps {
   open: boolean;
@@ -28,18 +29,34 @@ const style = {
 const EditInfoModal = ({ open, handleClose, user, setUser }: EditInfoModalProps) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [showPasswordFields, setShowPasswordFields] = useState(false);
 
-  const updateUserMutation = useUpdateUser(); // Use the useUpdateUser hook
+  const updateUserMutation = useUpdateUser();
+  const updateUserPassword = useUpdateUserPassword();
 
   const handleSave = () => {
     const updatedUser = { ...user, firstName, lastName };
-    updateUserMutation.mutate({ id: user.id, user: updatedUser }, {
-      onSuccess: () => {
-        setUser(updatedUser);
-        handleClose();
-      }
-    });
+  
+    const updateUserInfo = () => {
+      updateUserMutation.mutate({ id: user.id, user: updatedUser }, {
+        onSuccess: () => {
+          setUser(updatedUser);
+          handleClose();
+        }
+      });
+    };
+  
+    // if the user is changing their password, update the password first, then update the rest of the user info
+    if (oldPassword && newPassword) {
+      const password = { newPassword, oldPassword };
+      updateUserPassword.mutate({ id: user.id, password: password });
+    } else {
+      updateUserInfo();
+    }
   };
+  
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -61,6 +78,35 @@ const EditInfoModal = ({ open, handleClose, user, setUser }: EditInfoModalProps)
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
+
+        <Typography
+          variant="body2"
+          sx={{ cursor: 'pointer', color: '#72A1BF', mt: 2, textTransform: 'uppercase' }}
+          onClick={() => setShowPasswordFields(!showPasswordFields)}
+        >
+          Change Password
+        </Typography>
+
+        {showPasswordFields && (
+          <>
+            <TextField
+              margin="dense"
+              fullWidth
+              label="Old Password"
+              type="password"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+            />
+            <TextField
+              margin="dense"
+              fullWidth
+              label="New Password"
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+          </>
+        )}
 
         <Button
           variant="contained"

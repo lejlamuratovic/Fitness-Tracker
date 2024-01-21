@@ -1,6 +1,8 @@
 package ba.edu.ibu.fitnesstracker.rest.controllers;
 
+import ba.edu.ibu.fitnesstracker.core.service.AuthService;
 import ba.edu.ibu.fitnesstracker.core.service.UserService;
+import ba.edu.ibu.fitnesstracker.rest.dto.PasswordRequestDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.UserDTO;
 import ba.edu.ibu.fitnesstracker.rest.dto.UserRequestDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -17,9 +19,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final AuthService authService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthService authService) {
         this.userService = userService;
+        this.authService = authService;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -53,8 +57,20 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @RequestMapping(method = RequestMethod.GET, path = "/send-email")
     public String sendEmailToAllUsers(@RequestParam String message) {
         return userService.sendEmailToAllUsers(message);
+    }
+
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/password/{id}")
+    public ResponseEntity<String> updatePassword(@PathVariable String id, @RequestBody PasswordRequestDTO passwordUpdateRequest) {
+        try {
+            authService.updateUserPassword(id, passwordUpdateRequest);
+            return new ResponseEntity<>("Password updated successfully", HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -3,10 +3,7 @@ package ba.edu.ibu.fitnesstracker.core.service;
 import ba.edu.ibu.fitnesstracker.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.fitnesstracker.core.model.User;
 import ba.edu.ibu.fitnesstracker.core.repository.UserRepository;
-import ba.edu.ibu.fitnesstracker.rest.dto.LoginDTO;
-import ba.edu.ibu.fitnesstracker.rest.dto.LoginRequestDTO;
-import ba.edu.ibu.fitnesstracker.rest.dto.UserDTO;
-import ba.edu.ibu.fitnesstracker.rest.dto.UserRequestDTO;
+import ba.edu.ibu.fitnesstracker.rest.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,5 +51,23 @@ public class AuthService {
         String jwt = jwtService.generateToken(user, user.getId(), user.getUserType()); // passing the user ID and usertype
 
         return new LoginDTO(jwt);
+    }
+
+    public boolean updateUserPassword(String id, PasswordRequestDTO request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+            throw new IllegalStateException("Old password does not match");
+        }
+
+        if (passwordEncoder.matches(request.getNewPassword(), user.getPassword())) {
+            throw new IllegalStateException("New password cannot be the same as the old password");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+
+        return true;
     }
 }
