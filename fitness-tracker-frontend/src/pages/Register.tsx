@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -7,20 +7,82 @@ import Link from '@mui/material/Link';
 import { Grid, Paper, IconButton, InputAdornment } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../store';
+import { useSelector } from 'react-redux';
+import { registerUser } from "../store/authSlice";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const RegisterForm = () => {
+export type RegisterFormData = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    // userType: string;
+}
+
+const schema = yup
+   .object({
+       firstName: yup.string().required("First name is required"),
+       lastName: yup.string().required("Last name is required"),
+       email: yup.string().email().required("Email is required"),
+       password: yup
+      .string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters")
+   })
+   .required()
+
+const Register = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>({
+        resolver: yupResolver(schema)
+    })
+
+    const { loading, userToken, error, success } = useSelector(
+        (state: RootState) => state.auth
+    )
+    const dispatch = useDispatch<AppDispatch>()
+     
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleMouseDownPassword = (event) => {
+    const handleMouseDownPassword = (event: any) => {
         event.preventDefault();
     };
 
+    const onSubmit = (data: RegisterFormData) => {
+        const userData = {
+            ...data,
+            userType: "MEMBER" // setting default user type to MEMBER
+        };
+        dispatch(registerUser(userData));
+    }
+
+    const navigate = useNavigate()
+        useEffect(() => {
+            // redirect user to login page if registration was successful
+            if (success) navigate('/login')
+
+            // redirect authenticated user to home screen
+            if (userToken) navigate('/')
+        }, [navigate, userToken, success])
+            
+
     return (
         <Paper elevation={3} sx={{ maxWidth: "360px", padding: 3, mx: "auto" }}>
+            {
+                error &&
+                <Typography color='red' variant='body1' align='center' gutterBottom sx={{ mb: 2 }}>
+                    {error}
+                </Typography>
+            }
             <Box
                 sx={{
                     display: 'flex',
@@ -31,44 +93,52 @@ const RegisterForm = () => {
                 <Typography variant="h5">
                     Sign Up
                 </Typography>
-                <Box component="form" sx={{ mt: "5px", width: '100%' }}>
+
+                <Box component="form" 
+                    sx={{ mt: "5px", width: '100%' }} 
+                    onSubmit={handleSubmit(onSubmit)}
+                >
                     <TextField
                         margin="normal"
-                        required
                         fullWidth
                         id="firstName"
                         label="First Name"
-                        name="firstName"
                         autoComplete="given-name"
+                        {...register("firstName")}
                         autoFocus
+                        error={!!errors.firstName}
+                        helperText={errors.firstName ? errors.firstName.message : ""}
                     />
                     <TextField
                         margin="normal"
-                        required
                         fullWidth
                         id="lastName"
                         label="Last Name"
-                        name="lastName"
                         autoComplete="family-name"
+                        {...register("lastName")}
+                        error={!!errors.lastName}
+                        helperText={errors.lastName ? errors.lastName.message : ""}
                     />
                     <TextField
                         margin="normal"
-                        required
                         fullWidth
                         id="email"
                         label="Email Address"
-                        name="email"
                         autoComplete="email"
+                        {...register("email")}
+                        error={!!errors.email}
+                        helperText={errors.email ? errors.email.message : ""}
                     />
                     <TextField
                         margin="normal"
-                        required
                         fullWidth
                         id="password"
                         label="Password"
-                        name="password"
                         type={showPassword ? "text" : "password"}
                         autoComplete="new-password"
+                        {...register("password")}
+                        error={!!errors.password}
+                        helperText={errors.password ? errors.password.message : ""}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -88,13 +158,14 @@ const RegisterForm = () => {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={{ mt: 3, mb: 2, backgroundColor: '#72A1BF' }}
+                        disabled={loading}
                     >
-                        Sign Up
+                        { loading ? 'Submitting...' : 'Register' }
                     </Button>
                     <Grid container justifyContent="space-between">
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link variant="body2" href="/login">
                                 Already have an account? Login
                             </Link>
                         </Grid>
@@ -105,4 +176,4 @@ const RegisterForm = () => {
     );
 }
 
-export default RegisterForm;
+export default Register;
