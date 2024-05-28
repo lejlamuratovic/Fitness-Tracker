@@ -1,5 +1,6 @@
 package ba.edu.ibu.fitnesstracker.core.repository;
 
+import ba.edu.ibu.fitnesstracker.core.model.Routine;
 import ba.edu.ibu.fitnesstracker.core.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -7,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
+<<<<<<< Updated upstream
 public class UserRepository {
 
     private final List<User> users;
@@ -25,4 +27,9 @@ public class UserRepository {
     public User findById(int id) {
         return users.stream().filter(user -> user.getId() == id).findFirst().orElse(null);
     }
+=======
+public interface UserRepository extends MongoRepository<User, String> {
+    Optional<User> findByEmail(String email);
+
+>>>>>>> Stashed changes
 }
